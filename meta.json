@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Surf Excel",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Surf_excel.jpg",
+    "alt": "Surf Excel"
+  },
+  {
+    "name": "Garam Masala",
+    "price": 5,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Garam_masala.jpg",
+    "alt": "Garam Masala"
+  },
+  {
+    "name": "Meat Masala",
+    "price": 5,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Meat_masala.jpg",
+    "alt": "Meat Masala"
+  },
+  {
+    "name": "Vasmol",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Vasmol_33_kali_mehendi.jpg",
+    "alt": "vasmol 33"
+  },
+  {
+    "name": "Arrowroot",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Arrowroot.jpg",
+    "alt": "Arrowroot"
+  },
+  {
+    "name": "Mariegold",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Mariegold.jpg",
+    "alt": "Mariegold"
+  },
+  {
+    "name": "Salt",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Salt.jpg",
+    "alt": "Salt"
+  },
+  {
+    "name": "TATA Salt",
+    "price": 30,
+    "unit": "kg",
+    "type": "packed",
+    "image": "Images/TATA_Salt.jpg",
+    "alt": "TATA Salt"
+  },
+  {
+    "name": "Amul Spray",
+    "price": 10,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Amul_Spray.jpg",
+    "alt": "Amul Spray"
+  },
+  {
+    "name": "Candle",
+    "price": 5,
+    "unit": "packet",
+    "type": "packed",
+    "image": "Images/Candle.jpg",
+    "alt": "Candle"
+  }
+]
