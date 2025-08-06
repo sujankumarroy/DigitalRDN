@@ -20,16 +20,14 @@
     "android.permission.ACCESS_NETWORK_STATE"
   ],
   "icons": [
-    "https://raw.githubusercontent.com/SKR0411/RongpurDailyNeeds/main/assets/ic_icon_round.png",
-    "https://raw.githubusercontent.com/SKR0411/RongpurDailyNeeds/main/assets/ic_icon.png"
+    "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/ic_icon_round.png",
+    "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/ic_icon.png"
   ],
   "screenshots": [
-    "https://raw.githubusercontent.com/SKR0411/RongpurDailyNeeds/main/assets/home_screen.jpg",
-    "https://raw.githubusercontent.com/SKR0411/RongpurDailyNeeds/main/assets/product_screen.jpg",
-    "https://raw.githubusercontent.com/SKR0411/RongpurDailyNeeds/main/assets/cart_screen.jpg"
+    "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/home_screen.jpg"
   ],
   "apk": {
-    "url": "https://github.com/SKR0411/RongpurDailyNeeds/releases/download/v1.0/rdn.apk",
+    "url": "https://github.com/SKR0411/RDN2025/releases/download/v1.0/rdn.apk",
     "size": "3.2 MB",
     "minSdk": 16,
     "targetSdk": 30
