@@ -8,7 +8,7 @@
   },
   {
     "name": "Garam Masala",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/haram_masala.jpg",
+    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/garam_masala.jpg",
     "price": 5,
     "unit": "packet",
     "type": "packaged"
@@ -99,7 +99,7 @@
   },
   {
     "name": "Exo Soap",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/rxo_soap.jpg",
+    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/exo_soap.jpg",
     "price": 5,
     "unit": "piece",
     "type": "packaged"
