@@ -233,7 +233,7 @@
   {
     "name": "Potato (Alu)",
     "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/potato.jpg",
-    "price": 150,
+    "price": 35,
     "unit": "kg",
     "type": "loose"
   },
@@ -289,7 +289,7 @@
   {
     "name": "Chaipatti",
     "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chaipatti.jpg",
-    "price": 300,
+    "price": 250,
     "unit": "kg",
     "type": "loose"
   },
@@ -324,7 +324,7 @@
   {
     "name": "Chilli Powder",
     "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chilli_powder.jpg",
-    "price": 300,
+    "price": 250,
     "unit": "kg",
     "type": "loose"
   },
