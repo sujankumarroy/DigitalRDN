@@ -7,6 +7,13 @@
     "type": "packaged"
   },
   {
+    "name": "Surf Excel",
+    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/Surf_excel.jpg",
+    "price": 10,
+    "unit": "packet",
+    "type": "packaged"
+  },
+  {
     "name": "Garam Masala",
     "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/Garam_masala.jpg",
     "price": 5,
