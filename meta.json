@@ -27,7 +27,7 @@
     "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/home_screen.jpg"
   ],
   "apk": {
-    "url": "https://github.com/SKR0411/RDN2025/releases/download/v1.0/rdn.apk",
+    "url": "https://github.com/SKR0411/RDN2025/releases/download/v1.0/rdn2025.apk",
     "size": "3.2 MB",
     "minSdk": 16,
     "targetSdk": 30
