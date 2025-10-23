@@ -1,3 +1,48 @@
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyAGyAfLysP8z_CZmNcpAyiarS00Kaw3Kzs",
+  authDomain: "first-portfolio-project-c6586.firebaseapp.com",
+  databaseURL: "https://first-portfolio-project-c6586-default-rtdb.firebaseio.com",
+  projectId: "first-portfolio-project-c6586",
+  storageBucket: "first-portfolio-project-c6586.firebasestorage.app",
+  messagingSenderId: "1025895322934",
+  appId: "1:1025895322934:web:be8a41ba687bce470a8f97"
+};
+let loader = document.getElementById("loader");
+
+// Init Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Load products
+function loadProducts() {
+  db.ref("products").once("value", snapshot => {
+    const data = snapshot.val();
+    const container = document.getElementById("products");
+    container.innerHTML = "";
+
+    if (!data) return;
+		loader.style.display = "none";
+		
+    for (let id in data) {
+      const item = data[id];
+      const pcont = document.createElement("div");
+      pcont.className = "product";
+      pcont.id = id;
+      pcont.innerHTML = `
+        <img src="${item.imgUrl}" alt="${item.name}">
+        <div class="product-details">
+          <h3>${item.name}</h3>
+          <p>Price: ₹${item.price}/${item.unit}</p>
+          <input type="${item.type}" min="1" value="1" class="quantity-input"/>
+        </div>
+        <button class="book-button" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">Add</button>
+      `;
+      container.appendChild(pcont);
+    }
+  });
+}
+
 function openPopup() {
   let total = document.getElementById("amountDisplay").textContent
   if (total >= 10) {
@@ -44,9 +89,9 @@ function toggleProduct(button, name, price, type) {
   const quantityInput = button.parentNode.querySelector("input");
   let quantity = parseFloat(quantityInput.value) || 1;
   
-  if (type === "packed") {
+  if (type === "packaged") {
     quantity = parseInt(quantity);
-  } else if (type === "measurable") {
+  } else if (type === "loose") {
     quantity = parseFloat(quantity).toFixed(3);
   }
   
@@ -56,7 +101,7 @@ function toggleProduct(button, name, price, type) {
   if (index !== -1) {
     buyList.splice(index, 1);
     button.classList.remove("added");
-    button.textContent = "Buy Now";
+    button.textContent = "Add";
   } else {
     buyList.push({ name, price, quantity });
     button.classList.add("added");
@@ -139,3 +184,4 @@ function shareWhatsAppList() {
 }
 
 window.onload = updateBuyListDisplay;
+loadProducts();
