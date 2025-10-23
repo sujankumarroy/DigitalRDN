@@ -6,7 +6,7 @@
 
 ## 🌐 Live Preview
 
-🔗 **Website:** [Rongpur Daily Needs (RDN)](https://skr0411.github.io/RDN2025/)
+🔗 **Website:** [Rongpur Daily Needs (RDN)](https://rdn2015.netlify.app/)
 
 ---
 
