@@ -27,21 +27,6 @@
 
 ---
 
-## 🏗️ Project Structure
-
-RDN2025/
-  │
-  ├── assets/ 
-  │   ├── logo.jpg                # Store logo 
-  │   ├── q060474773.jpg          # UPI QR code 
-  │ 
-  ├── index.html                  # Main webpage 
-  ├── style.css                   # Styling for layout and UI
-  ├── script.js                   # Main functionality and Firebase logic
-  └── README.md                   # Project documentation
-
----
-
 ## 🛠️ Technologies Used
 
 - **HTML5** – Structure  
@@ -66,9 +51,7 @@ RDN2025/
 ## 📩 Developer Information
 
 **👨‍💻 Developer:** [Sujan Roy](https://www.facebook.com/sujanroy0411)  
-**📧 Email:** [sujanroy63836@gmail.com](mailto:sujanroy63836@gmail.com)  
-**📞 Phone:** [+91-6002318534](tel:+916002318534)  
-**💬 WhatsApp:** [Chat Now](https://wa.me/916002318534)
+**📧 Email:** [sujanroy63836@gmail.com](mailto:sujanroy63836@gmail.com)
 
 ---
 
@@ -76,8 +59,7 @@ RDN2025/
 
 **Rongpur Daily Needs**  
 📍 Rongpur Part VI, Hailakandi 788163, Assam  
-📧 [ranjan78412@gmail.com](mailto:ranjan78412@gmail.com)  
-📞 +91-6003375755  
+📧 [ranjan78412@gmail.com](mailto:ranjan78412@gmail.com) 
 🕒 Mon–Sat: 6 AM – 9 PM  
 
 ---
