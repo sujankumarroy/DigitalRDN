@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin of RDN (Rongpur Daily Needs)</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- <meta http-equiv="refresh" content="2"/> -->
+    <title>Admin of RDN (Rongpur Daily Needs)</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="loginBox">
-    <h1>Rongpur Daily Needs</h1>
-    <h2>Admin Login</h2>
-    <input type="password" id="passwordInput" placeholder="Enter Password">
-    <button onclick="checkPassword()">Login</button>
-  </div>
-  
-  <div id="adminContent">
-  	
-  	<!-- Your RDNAdmin HTML here -->
-    <div id="addDialogue">
-      <div class="product-form">
-        <span class="close" onclick="closePopup()">&times;</span>
-        <h2 id="dialogueTitle">Enter Product</h2>
-        <input id="pname" placeholder="Product name"><br><br>
-        <input id="pprice" type="number" placeholder="Price"><br><br>
-        <input id="punit" placeholder="Unit"><br><br>
-        <input id="ptype" placeholder="Type"><br><br>
-        <input id="pimgurl" type="url" placeholder="Image URL"><br><br>
-        <button id="psave" onclick="save(this)">Save Product</button>
-      </div>
+    <div style="display: none"  class="loginBox">
+        <div id="loginBox">
+            <h1>Rongpur Daily Needs</h1>
+            <h2>Admin Login</h2>
+            <input type="password" id="passwordInput" placeholder="Enter Password">
+            <buttononclick="checkPassword()">Login</button>
+        </div>
     </div>
     
-    <div class="product-list-header">
-      <h2>Products List</h2>
-      <button onclick="openPopup(this)">➕ Add</button>
+    <div id="adminContent">
+        
+        <div id="addDialogue">
+            <div class="product-form">
+                <span id="close-popup" class="close">&times;</span>
+                <h2 id="dialogueTitle">Enter Product</h2>
+                <div id="p-img">
+	                <img id="pimg" src="https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/demo.jpg">
+                </div>
+                <input id="pname" placeholder="Product name"><br><br>
+                <input id="pprice" type="number" placeholder="Price"><br><br>
+                <input id="punit" placeholder="Unit"><br><br>
+                <input id="ptype" placeholder="Type"><br><br>
+                <input id="pstock" type="number" placeholder="Stock Quantity"><br><br>
+				<input id="pminstock" type="number" placeholder="Min Stock"><br><br>
+                <button id="psave">Save Product</button>
+            </div>
+        </div>
+        
+        <!-- img input Popup -->
+	    <div id="edit-popup" class="popup-overlay" style="display: none">
+	        <div id="popup">
+	            <div>
+	                <img id="img-preview" src="assets/images/demo_pp.png" />
+	                <input style="display: none" type="file" id="input-image" accept="image/jpeg">
+	            </div>
+	            <div>
+	                <button class="edit-btn" id="cancel">Cancle</button>
+	                <button class="edit-btn" id="edit">Edit</button>
+	                <button class="edit-btn" id="save">Save</button>
+	            </div>
+	        </div>
+	    </div>
+	    
+        <div class="product-list-header">
+            <h2>Products List</h2>
+            <button onclick="openPopup(this)">➕ Add</button>
+        </div>
+        <div id="loader" class="popup-overlay" style="display: none">
+	        <div class="loader"></div>
+	    </div>
+        <!-- Products -->
+        <div id="products"></div>
+        
+        <!-- Loader -->
+        <div id="loader" class="loader"></div>
     </div>
-    
-    <!-- Products -->
-    <section id="products">
-    	<div id="loader" class="loader"></div>
-    </section>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
-  </div>
 </body>
 </html>
