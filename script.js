@@ -1,156 +1,338 @@
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyAGyAfLysP8z_CZmNcpAyiarS00Kaw3Kzs",
-  authDomain: "first-portfolio-project-c6586.firebaseapp.com",
-  databaseURL: "https://first-portfolio-project-c6586-default-rtdb.firebaseio.com",
-  projectId: "first-portfolio-project-c6586",
-  storageBucket: "first-portfolio-project-c6586.firebasestorage.app",
-  messagingSenderId: "1025895322934",
-  appId: "1:1025895322934:web:be8a41ba687bce470a8f97"
-};
+const SUPABASE_URL = "https://kcksejyyjfgpcdmgtzrc.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtja3Nlanl5amZncGNkbWd0enJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0OTQ3MTgsImV4cCI6MjA3OTA3MDcxOH0.SvZExIYgEJvj63CqLyTxyeLfLoXuhRsf4LHC6N4V_oQ";
 
-// Init Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-let currentId = null; // store current product ID for update
-let loader = document.getElementById("loader");
+const dialogue = document.getElementById("addDialogue");
+const dialogueTitle = document.getElementById("dialogueTitle");
+const psave = document.getElementById("psave");
+const loader = document.getElementById("loader");
+const productContainer = document.getElementById("products");
+const closePopup = document.getElementById("close-popup");
 
-// Save or Update product
-function save(btn) {
-  const name = document.getElementById("pname").value.trim();
-  const price = parseInt(document.getElementById("pprice").value.trim());
-  const unit = document.getElementById("punit").value.trim();
-  const type = document.getElementById("ptype").value.trim();
-  const imgUrl = document.getElementById("pimgurl").value.trim();
+const passwordInput = document.getElementById('passwordInput');
+const loginBox = document.getElementById('loginBox');
+const adminContent = document.getElementById('adminContent');
 
-  if (!name || isNaN(price) || !unit || !type || !imgUrl) {
-    alert("Please fill all fields correctly.");
-    return;
-  }
+const pimg = document.getElementById("pimg");
+const pname = document.getElementById("pname");
+const pprice = document.getElementById("pprice");
+const punit = document.getElementById("punit");
+const ptype = document.getElementById("ptype");
+const pstock = document.getElementById("pstock");
+const pminstock = document.getElementById("pminstock");
+const imgInput = document.getElementById("input-image");
 
-  if (btn.innerText === "Add") {
-    const newId = Date.now(); // unique ID
-    db.ref("products/" + newId).set({ name, price, unit, type, imgUrl })
-      .then(() => {
-        alert("Product added!");
-        closePopup();
-        loadProducts();
-      })
-      .catch(err => alert("Error: " + err.message));
-  } else if (btn.innerText === "Update" && currentId) {
-    db.ref("products/" + currentId).update({ name, price, unit, type, imgUrl })
-      .then(() => {
-        alert("Product updated!");
-        closePopup();
-        loadProducts();
-      })
-      .catch(err => alert("Error: " + err.message));
-  }
-}
+const editBtn = document.getElementById("edit");
+const saveBtn = document.getElementById("save");
+const cancleBtn = document.getElementById("cancel");
+const imgPreview = document.getElementById("img-preview");
+const editPopup = document.getElementById("edit-popup");
+
+let currentId = null;
+let currentData = null;
+
+pimg.addEventListener("click", () => {
+	editPopup.style.display = "flex";
+    imgPreview.src = pimg.src;
+});
+
+editBtn.addEventListener("click", () => {
+    imgInput.click()
+});
+
+imgInput.addEventListener("change", () => {
+    const file = imgInput.files[0];
+    if (!file) return;
+
+    imgPreview.src = URL.createObjectURL(file);
+    imgPreview.style.display = "";
+});
+
+saveBtn.addEventListener("click", () => {
+    uploadAvatar();
+});
+
+cancleBtn.addEventListener("click", () => {
+    editPopup.style.display = "none";
+});
+
+closePopup.addEventListener("click", () => {
+	dialogue.classList.remove("active");
+});
+
+psave.addEventListener("click", () => {
+	save(psave);
+});
 
 // Load products
-function loadProducts() {
-  db.ref("products").once("value", snapshot => {
-    const data = snapshot.val();
-    const container = document.getElementById("products");
-    container.innerHTML = "";
+async function loadProducts() {
+    const { data, error } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("is_active", true);
     
-    if (!data) return;
-    loader.style.display = "none";
-    for (let id in data) {
-      const item = data[id];
-      const pcont = document.createElement("div");
-      pcont.className = "product";
-      pcont.id = id;
-      pcont.innerHTML = `
-        <img src="${item.imgUrl}" alt="${item.name}">
-        <div class="product-details">
-          <h3>${item.name}</h3>
-          <p>Price: ₹${item.price}/${item.unit}</p>
-        </div>
-        <div>
-          <button class="book-button" onclick="openPopup(this)">Update</button>
-          <br>
-          <button class="book-button" onclick="deleteData('${id}')">Delete</button>
-        </div>
-      `;
-      container.appendChild(pcont);
+    if (error) {
+        console.log(error.message);
+        alert(error.message);
+        return;
     }
-  });
+    
+    if (!data) {
+        alert("No Product Found In The Database");
+        return;
+    }
+    
+    loader.style.display = "none";
+    console.log(data);
+    currentData = data;
+    productContainer.innerHTML = "";
+    
+    for (let i in data) {
+        const item = data[i];
+        const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
+        const pcont = document.createElement("div");
+        
+        pcont.className = "product";
+        pcont.id = i;
+        pcont.innerHTML = `
+            <img src="${root_path + item.file_name}" alt="${item.name}">
+            <div class="product-details">
+                <h3>${item.name}</h3>
+                <p>Price: ₹${item.price}/${item.unit}</p>
+            </div>
+            <div>
+                <button class="book-button" onclick="openPopup(this, ${i})">Update</button>
+                <br>
+                <button class="delete-btn book-button" onclick="deleteData('${item.id}')">Delete</button>
+            </div>
+        `;
+        productContainer.appendChild(pcont);
+    }
+}
+
+// Save or Update product
+async function save(btn) {
+    const name = pname.value.trim();
+    const price = parseInt(pprice.value.trim());
+    const unit = punit.value.trim();
+    const type = ptype.value.trim();
+	const stock_quantity = pstock.value.trim();
+    const min_stock = pminstock.value.trim();
+	
+	const pimgurl = pimg.src;
+	const pimgurlparts = pimgurl.split("?")[0].split("/");
+	const pimgname = pimgurlparts[pimgurlparts.length - 1];
+    
+    if (!name || isNaN(price) || !unit || !type || isNaN(stock_quantity) || isNaN(min_stock) || !pimgname) {
+        alert("Please fill all fields correctly.");
+        return;
+    }
+    
+    const product = {
+        name: name,
+        price: price,
+        unit: unit,
+        type: type,
+        file_name: pimgname,
+        stock_quantity: stock_quantity,
+        min_stock: min_stock
+    }
+    
+    if (btn.innerText === "Add") {
+    	const { error } = await supabaseClient
+            .from("products")
+            .insert(product);
+        
+        if (error) {
+            console.log(error.message);
+            alert(error.message);
+            return;
+        }
+        
+        alert("Product added!");
+        dialogue.classList.remove('active');
+        loadProducts();
+        
+    } else if (btn.innerText === "Update" && currentId) {
+		
+		const date = new Date();
+		const isoString = date.toISOString();
+		const updatedProduct = { ...product, updated_at: isoString };
+		// console.log(updatedProduct);
+		
+        const { error } = await supabaseClient
+            .from("products")
+            .update(updatedProduct)
+            .eq("id", currentId);
+        
+        if (error) {
+            console.log(error.message);
+            alert(error.message);
+            return;
+        }
+        
+        alert("Product updated!");
+        dialogue.classList.remove('active');
+        loadProducts();
+        
+    }
 }
 
 // Delete product
-function deleteData(id) {
-  if (confirm("Are you sure you want to delete this product?")) {
-    db.ref("products/" + id).remove()
-      .then(() => {
+async function deleteData(id) {
+    if (confirm("Delete This Product")) {
+        
+        const { error } = await supabaseClient
+			.from("products")
+			.update({ is_active: false })
+			.eq("id", id);
+        
+        if (error) {
+            console.log(eror.message);
+            alert(error.message);
+            return;
+        }
+        
         alert("Product deleted!");
         loadProducts();
-      })
-      .catch(err => alert("Error: " + err.message));
-  }
+    }
+}
+
+// upload product image
+async function uploadAvatar() {
+    const originalFile = imgInput.files[0];
+
+    if (!originalFile) {
+        alert("Select an image first");
+        return;
+    }
+    
+    if (!originalFile.type.startsWith("image/jpeg")) {
+        alert("Only jpg allowed");
+        return;
+    }
+    
+    if (originalFile.size > 5 * 1024 * 1024) {
+        alert("Image too large");
+        return;
+    }
+    
+    loader.style.display = "flex";
+    
+    const compressedFile = await compressWithCanvas(
+        originalFile,
+        0.7,   // quality
+        512    // max width/height
+    );
+    
+    const fileExt = "jpg" // compressedFile.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${fileName}`;
+    
+    const { error } = await supabaseClient.storage
+        .from("product_images")
+        .upload(filePath, compressedFile, {
+            cacheControl: "3600",
+            upsert: true
+        });
+
+    if (error) {
+        loader.style.display = "none";
+        console.error(error);
+        alert(error.message);
+        return;
+    }
+
+    const { data, error: e } = supabaseClient.storage
+        .from("product_images")
+        .getPublicUrl(filePath);
+
+    if (e) {
+        loader.style.display = "none";
+        console.error(error);
+        alert(error.message);
+        return;
+    }
+    
+    loader.style.display = "none";
+    editPopup.style.display = "none";
+    pimg.src = data.publicUrl + "?t=" + Date.now();
 }
 
 // Open popup
-function openPopup(btn) {
-  const dialogue = document.getElementById("addDialogue");
-  const dialogueTitle = document.getElementById("dialogueTitle");
-  const psave = document.getElementById("psave");
+function openPopup(btn, index) {
 
-  if (btn.innerText === "➕ Add") {
-    dialogueTitle.innerText = "Add Product";
-    psave.innerText = "Add";
-    currentId = null;
-    clearForm();
-  } else if (btn.innerText === "Update") {
-    const container = btn.closest(".product");
-    const id = container.id;
-    currentId = id;
+    if (btn.innerText === "➕ Add") {
+        dialogueTitle.innerText = "Add Product";
+        psave.innerText = "Add";
+        currentId = null;
+        
+		pname.value = "";
+		pprice.value = "";
+		punit.value = "";
+		ptype.value = "";
+		pstock.value = "";
+		pminstock.value = "";
+		
+    } else if (btn.innerText === "Update") {
+        const container = btn.closest(".product");
+        const item = currentData[index];
+		currentId = item.id;
+		
+        pname.value = item.name;
+        pprice.value = item.price;
+        punit.value = item.unit;
+        ptype.value = item.type;
+        pstock.value = item.stock_quantity;
+        pminstock.value = item.min_stock;
+		
+        dialogueTitle.innerText = "Update Product";
+        psave.innerText = "Update";
+    }
+	
+    dialogue.classList.add("active");
+}
 
-    // Fetch product from DB to fill form
-    db.ref("products/" + id).once("value", snapshot => {
-      const item = snapshot.val();
-      if (item) {
-        document.getElementById("pname").value = item.name;
-        document.getElementById("pprice").value = item.price;
-        document.getElementById("punit").value = item.unit;
-        document.getElementById("ptype").value = item.type;
-        document.getElementById("pimgurl").value = item.imgUrl;
-      }
+// compress image
+function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = e => {
+            img.src = e.target.result;
+        };
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const scale = Math.min(maxSize / img.width, maxSize / img.height, 1);
+
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(blob => {
+                resolve(new File([blob], file.name, { type: "image/jpeg" }));
+            }, "image/jpeg", quality);
+        };
+
+        reader.readAsDataURL(file);
     });
-
-    dialogueTitle.innerText = "Update Product";
-    psave.innerText = "Update";
-  }
-
-  dialogue.classList.add("active");
 }
 
-// Clear form fields
-function clearForm() {
-  document.getElementById("pname").value = "";
-  document.getElementById("pprice").value = "";
-  document.getElementById("punit").value = "";
-  document.getElementById("ptype").value = "";
-  document.getElementById("pimgurl").value = "";
-}
-
-// Close popup
-function closePopup() {
-  document.getElementById('addDialogue').classList.remove('active');
-}
-
-const password = "2025"; // Change this to your password
-          
+// Encreption
 function checkPassword() {
-  let input = document.getElementById("passwordInput").value;
-  if (input === password) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("adminContent").style.display = "block";
-  } else {
-    alert("Wrong password!");
-  }
+    const password = "2025";
+	
+	let input = passwordInput.value;
+    if (input === password) {
+        loginBox.style.display = "none";
+        adminContent.style.display = "";
+    } else {
+        alert("Wrong password!");
+    }
 }
 
 // Load products on page load
