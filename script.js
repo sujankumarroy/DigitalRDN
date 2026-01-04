@@ -6,7 +6,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const dialogue = document.getElementById("addDialogue");
 const dialogueTitle = document.getElementById("dialogueTitle");
 const psave = document.getElementById("psave");
-const loader = document.getElementById("loader");
+const ploader = document.getElementById("p-loader");
 const productContainer = document.getElementById("products");
 const closePopup = document.getElementById("close-popup");
 
@@ -28,9 +28,12 @@ const saveBtn = document.getElementById("save");
 const cancleBtn = document.getElementById("cancel");
 const imgPreview = document.getElementById("img-preview");
 const editPopup = document.getElementById("edit-popup");
+const loader = document.getElementById("loader");
 
 let currentId = null;
 let currentData = null;
+
+const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 pimg.addEventListener("click", () => {
 	editPopup.style.display = "flex";
@@ -83,14 +86,13 @@ async function loadProducts() {
         return;
     }
     
-    loader.style.display = "none";
+    ploader.style.display = "none";
     console.log(data);
     currentData = data;
     productContainer.innerHTML = "";
     
     for (let i in data) {
         const item = data[i];
-        const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
         const pcont = document.createElement("div");
         
         pcont.className = "product";
@@ -218,7 +220,7 @@ async function uploadAvatar() {
         return;
     }
     
-    loader.style.display = "flex";
+    ploader.style.display = "flex";
     
     const compressedFile = await compressWithCanvas(
         originalFile,
@@ -238,7 +240,7 @@ async function uploadAvatar() {
         });
 
     if (error) {
-        loader.style.display = "none";
+        ploader.style.display = "none";
         console.error(error);
         alert(error.message);
         return;
@@ -286,6 +288,7 @@ function openPopup(btn, index) {
         ptype.value = item.type;
         pstock.value = item.stock_quantity;
         pminstock.value = item.min_stock;
+		pimg.src = root_path + item.file_name;
 		
         dialogueTitle.innerText = "Update Product";
         psave.innerText = "Update";

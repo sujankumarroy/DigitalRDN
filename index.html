@@ -56,14 +56,18 @@
             <h2>Products List</h2>
             <button onclick="openPopup(this)">➕ Add</button>
         </div>
+        
+        <!-- Loader -->
         <div id="loader" class="popup-overlay" style="display: none">
 	        <div class="loader"></div>
 	    </div>
+	    
+        <!-- Loader -->
+        <div id="p-loader" class="loader"></div>
+        
         <!-- Products -->
         <div id="products"></div>
         
-        <!-- Loader -->
-        <div id="loader" class="loader"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
