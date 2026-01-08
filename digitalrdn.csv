@@ -1,0 +1,51 @@
+id,name,price,type,unit,file_name,is_active,created_at,updated_at,stock_quantity,min_stock
+1,Surf Excel,10,packaged,packet,surf-excel.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,15,3
+2,Garam Masala,5,packaged,packet,garam-masala.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,5
+3,Meat Masala,5,packaged,packet,meat-masala.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,18,5
+4,Vasmol,10,packaged,packet,vasmol-33-kali-mehendi.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,12,3
+5,Arrowroot,10,packaged,packet,arrowroot.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,10,2
+6,Mariegold,10,packaged,packet,mariegold.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,14,3
+7,Salt,10,packaged,packet,salt.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,25,5
+8,TATA Salt,30,packaged,kg,tata-salt.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,4
+9,Amul Spray,10,packaged,packet,amul-spray.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,16,4
+10,Candle,5,packaged,packet,candle.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,30,6
+11,Agarbatti,10,packaged,packet,agarbatti.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,22,5
+12,Agarbatti Mosquito,15,packaged,packet,agarbatti-mosquito.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,18,4
+13,Tiger Oil,35,packaged,bottle,tiger-oil.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,10,2
+14,Reel,10,packaged,piece,reel.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,40,8
+15,Exo Soap,5,packaged,piece,exo-soap.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,35,7
+16,Panch Phoran,10,packaged,packet,panch-phoran.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,12,3
+17,Jeera Powder,45,packaged,packet(50g),jeera-powder.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,10,2
+18,Haldi,15,packaged,packet,haldi.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,4
+19,Shampoo,1,packaged,packet,shampoo.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,60,10
+20,Sindoor,10,packaged,packet,sindoor.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,15,3
+21,Bidi,25,packaged,packet,bidi.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,5
+22,Soap,10,packaged,piece,soap.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,30,6
+23,Toothbrush,20,packaged,piece,toothbrush.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,18,4
+24,Toothbrush Small,15,packaged,piece,toothbrush-small.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,22,5
+25,Maaza,10,packaged,packet,maaza.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,25,5
+26,Pens,5,packaged,piece,pens.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,50,10
+27,Snacks,5,packaged,packet,snacks.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,35,7
+28,Sweets,1,packaged,piece,sweets.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,80,15
+29,Black Bindi,5,packaged,packet,black-bindi.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,4
+30,Earrings,20,packaged,packet,earrings.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,10,2
+31,Powder,10,packaged,kg,powder.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,8,2
+32,Onion,40,loose,kg,onion.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,100,20
+33,Garlic,150,loose,kg,garlic.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,40,10
+34,Potato (Alu),35,loose,kg,potato.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,120,25
+35,Nokul,300,loose,kg,nokul.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,15,5
+36,Dhuna,100,loose,kg,dhuna.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,20,5
+37,Sekor,50,loose,kg,sekor.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,30,6
+38,Chana,100,loose,kg,chana.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,35,8
+39,Motor,100,loose,kg,motor.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,28,6
+40,Moure,250,loose,kg,moure.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,12,3
+41,Chura,40,loose,kg,chura.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,50,10
+42,Chaipatti,300,loose,kg,chaipatti.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,18,4
+43,Suger,50,loose,kg,suger.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,60,12
+44,Masoor Daal,100,loose,kg,masoor.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,40,8
+45,Soyabean,150,loose,kg,soyabean.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,30,6
+46,Rice,70,loose,kg,rice.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,200,40
+47,Chilli Powder,250,loose,kg,chilli-powder.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,15,4
+48,Atta,40,loose,kg,atta.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,90,20
+49,Maida,40,loose,kg,maida.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,70,15
+50,Sada,250,loose,kg,sada.jpg,true,2026-01-03 10:00:00,2026-01-03 10:00:00,10,3

@@ -1,352 +1,352 @@
 [
-  {
-    "name": "Surf Excel",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/surf_excel.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Garam Masala",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/garam_masala.jpg",
-    "price": 5,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Meat Masala",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/meat_masala.jpg",
-    "price": 5,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Vasmol",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/vasmol_33_kali_mehendi.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Arrowroot",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/arrowroot.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Mariegold",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/mariegold.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Salt",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/salt.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "TATA Salt",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/tata_salt.jpg",
-    "price": 30,
-    "unit": "kg",
-    "type": "packaged"
-  },
-  {
-    "name": "Amul Spray",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/amul_spray.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Candle",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/candle.jpg",
-    "price": 5,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Agarbatti",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/agarbatti.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Agarbatti Mosquito",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/agarbatti_mosquito.jpg",
-    "price": 15,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Tiger Oil",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/tiger_oil.jpg",
-    "price": 35,
-    "unit": "bottle",
-    "type": "packaged"
-  },
-  {
-    "name": "Reel",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/reel.jpg",
-    "price": 10,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Exo Soap",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/exo_soap.jpg",
-    "price": 5,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Panch Phoran",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/panch_phoran.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Jeera Powder",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/jeera_powder.jpg",
-    "price": 45,
-    "unit": "packet(50g)",
-    "type": "packaged"
-  },
-  {
-    "name": "Haldi",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/haldi.jpg",
-    "price": 15,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Shampoo",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/shampoo.jpg",
-    "price": 1,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Sindoor",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sindoor.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Bidi",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/bidi.jpg",
-    "price": 25,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Soap",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/soap.jpg",
-    "price": 10,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Toothbrush",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/toothbrush.jpg",
-    "price": 20,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Toothbrush Small",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/toothbrush_small.jpg",
-    "price": 15,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Maaza",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/maaza.jpg",
-    "price": 10,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Pens",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/pens.jpg",
-    "price": 5,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Snacks",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/snacks.jpg",
-    "price": 5,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Sweets",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sweets.jpg",
-    "price": 1,
-    "unit": "piece",
-    "type": "packaged"
-  },
-  {
-    "name": "Black Bindi",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/black_bindi.jpg",
-    "price": 5,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Earrings",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/earrings.jpg",
-    "price": 20,
-    "unit": "packet",
-    "type": "packaged"
-  },
-  {
-    "name": "Powder",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/powder.jpg",
-    "price": 10,
-    "unit": "kg",
-    "type": "packaged"
-  },
-  {
-    "name": "Onion",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/onion.jpg",
-    "price": 40,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Garlic",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/garlic.jpg",
-    "price": 150,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Potato (Alu)",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/potato.jpg",
-    "price": 35,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Nokul",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/nokul.jpg",
-    "price": 300,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Dhuna",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/dhuna.jpg",
-    "price": 100,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Sekor",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sekor.jpg",
-    "price": 50,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Chana",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chana.jpg",
-    "price": 100,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Motor",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/motor.jpg",
-    "price": 100,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Moure",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/moure.jpg",
-    "price": 250,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Chura",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chura.jpg",
-    "price": 40,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Chaipatti",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chaipatti.jpg",
-    "price": 250,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Suger",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/suger.jpg",
-    "price": 50,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Masoor Daal",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/masoor.jpg",
-    "price": 100,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Soyabean",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/soyabean.jpg",
-    "price": 150,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Rice",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/rice.jpg",
-    "price": 70,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Chilli Powder",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chilli_powder.jpg",
-    "price": 250,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Atta",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/atta.jpg",
-    "price": 40,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Maida",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/maida.jpg",
-    "price": 40,
-    "unit": "kg",
-    "type": "loose"
-  },
-  {
-    "name": "Sada",
-    "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sada.jpg",
-    "price": 250,
-    "unit": "kg",
-    "type": "loose"
-  }
+    {
+        "name": "Surf Excel",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/surf_excel.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Garam Masala",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/garam_masala.jpg",
+        "price": 5,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Meat Masala",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/meat_masala.jpg",
+        "price": 5,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Vasmol",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/vasmol_33_kali_mehendi.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Arrowroot",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/arrowroot.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Mariegold",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/mariegold.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Salt",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/salt.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "TATA Salt",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/tata_salt.jpg",
+        "price": 30,
+        "unit": "kg",
+        "type": "packaged"
+    },
+    {
+        "name": "Amul Spray",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/amul_spray.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Candle",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/candle.jpg",
+        "price": 5,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Agarbatti",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/agarbatti.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Agarbatti Mosquito",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/agarbatti_mosquito.jpg",
+        "price": 15,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Tiger Oil",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/tiger_oil.jpg",
+        "price": 35,
+        "unit": "bottle",
+        "type": "packaged"
+    },
+    {
+        "name": "Reel",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/reel.jpg",
+        "price": 10,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Exo Soap",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/exo_soap.jpg",
+        "price": 5,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Panch Phoran",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/panch_phoran.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Jeera Powder",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/jeera_powder.jpg",
+        "price": 45,
+        "unit": "packet(50g)",
+        "type": "packaged"
+    },
+    {
+        "name": "Haldi",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/haldi.jpg",
+        "price": 15,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Shampoo",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/shampoo.jpg",
+        "price": 1,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Sindoor",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sindoor.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Bidi",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/bidi.jpg",
+        "price": 25,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Soap",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/soap.jpg",
+        "price": 10,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Toothbrush",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/toothbrush.jpg",
+        "price": 20,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Toothbrush Small",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/toothbrush_small.jpg",
+        "price": 15,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Maaza",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/maaza.jpg",
+        "price": 10,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Pens",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/pens.jpg",
+        "price": 5,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Snacks",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/snacks.jpg",
+        "price": 5,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Sweets",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sweets.jpg",
+        "price": 1,
+        "unit": "piece",
+        "type": "packaged"
+    },
+    {
+        "name": "Black Bindi",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/black_bindi.jpg",
+        "price": 5,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Earrings",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/earrings.jpg",
+        "price": 20,
+        "unit": "packet",
+        "type": "packaged"
+    },
+    {
+        "name": "Powder",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/powder.jpg",
+        "price": 10,
+        "unit": "kg",
+        "type": "packaged"
+    },
+    {
+        "name": "Onion",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/onion.jpg",
+        "price": 40,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Garlic",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/garlic.jpg",
+        "price": 150,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Potato (Alu)",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/potato.jpg",
+        "price": 35,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Nokul",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/nokul.jpg",
+        "price": 300,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Dhuna",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/dhuna.jpg",
+        "price": 100,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Sekor",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sekor.jpg",
+        "price": 50,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Chana",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chana.jpg",
+        "price": 100,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Motor",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/motor.jpg",
+        "price": 100,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Moure",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/moure.jpg",
+        "price": 250,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Chura",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chura.jpg",
+        "price": 40,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Chaipatti",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chaipatti.jpg",
+        "price": 250,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Suger",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/suger.jpg",
+        "price": 50,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Masoor Daal",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/masoor.jpg",
+        "price": 100,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Soyabean",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/soyabean.jpg",
+        "price": 150,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Rice",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/rice.jpg",
+        "price": 70,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Chilli Powder",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/chilli_powder.jpg",
+        "price": 250,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Atta",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/atta.jpg",
+        "price": 40,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Maida",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/maida.jpg",
+        "price": 40,
+        "unit": "kg",
+        "type": "loose"
+    },
+    {
+        "name": "Sada",
+        "image": "https://raw.githubusercontent.com/SKR0411/RDN2025/main/assets/sada.jpg",
+        "price": 250,
+        "unit": "kg",
+        "type": "loose"
+    }
 ]
