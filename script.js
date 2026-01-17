@@ -26,10 +26,21 @@ async function loadProducts() {
     }
     
     console.log(data);
+    let buyList = JSON.parse(localStorage.getItem("buyList")) || [];
     
     for (let i in data) {
         const item = data[i];
-        console.log(item)
+        let isAdded = false;
+        
+        buyList.forEach(p => {
+        	if (p.name === item.name) {
+        		isAdded = true;
+        	} else {
+        		isAdded - false;
+        	}
+        	
+        });
+        
         const pcont = document.createElement("div");
         pcont.className = "product";
         pcont.id = item.id;
@@ -38,12 +49,12 @@ async function loadProducts() {
             <div class="product-details">
                 <h3>${item.name}</h3>
                 <p>Price: ₹${item.price}/${item.unit}</p>
+                <p>${item.stock_quantity} ${item.unit}s are available.</p>
                 <input type="${item.type}" min="1" value="1" class="quantity-input"/>
             </div>
-            <button class="book-button" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">Add</button>
+            <button class="book-button ${isAdded ? 'added' : ''}" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">${isAdded ? 'Remove' : Add}</button>
         `
         document.getElementById("products").appendChild(pcont);
-        
     }
 }
 
@@ -140,6 +151,7 @@ function downloadQR() {
 
 function updateBuyListDisplay() {
     const list = JSON.parse(localStorage.getItem("buyList")) || [];
+    console.log(list)
     const container = document.getElementById("buyListDisplay");
     container.innerHTML = "<h2>🛒 Your Buy List</h2>";
     

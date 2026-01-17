@@ -90,6 +90,15 @@ main {
 .product-details {
     flex-grow: 1;
 }
+.product-details h1 {
+	margin: 6px;
+}
+.product-details input {
+	margin-top: 6px;
+}
+.product-details p {
+	margin: 4px;
+}
 .book-button {
     padding: 8px 12px;
     background-color: #1b4332;
