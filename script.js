@@ -52,7 +52,7 @@ async function loadProducts() {
                 <p>${item.stock_quantity} ${item.unit}s are available.</p>
                 <input type="${item.type}" min="1" value="1" class="quantity-input"/>
             </div>
-            <button class="book-button ${isAdded ? 'added' : ''}" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">${isAdded ? 'Remove' : Add}</button>
+            <button class="book-button ${isAdded ? 'added' : ''}" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">${isAdded ? 'Remove' : 'Add'}</button>
         `
         document.getElementById("products").appendChild(pcont);
     }
