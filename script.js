@@ -9,23 +9,29 @@ async function loadProducts() {
     
     loader.style.display = "flex";
     
-    const { data, error } = await supabaseClient
-        .from("products")
-        .select("*");
+    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-data")
     
     loader.style.display = "none";
-    
-    if (error) {
-        alert(error.message);
-        return;
+
+    if (!res.ok) {
+        console.log(`HTTP error! status: ${res.status}`);
+    }
+
+    const result = await res.json();
+
+    if (!result.success) {
+        console.log(result.error || "Unknown error occurred");
     }
     
+    const data = result.data;
+    
     if (!data) {
-        alert("Data not found")
-        return;
+    	alert("Data not found");
+    	return;
     }
     
     console.log(data);
+    
     let buyList = JSON.parse(localStorage.getItem("buyList")) || [];
     
     for (let i in data) {
