@@ -1,8 +1,3 @@
-const SUPABASE_URL = "https://kcksejyyjfgpcdmgtzrc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtja3Nlanl5amZncGNkbWd0enJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0OTQ3MTgsImV4cCI6MjA3OTA3MDcxOH0.SvZExIYgEJvj63CqLyTxyeLfLoXuhRsf4LHC6N4V_oQ";
-
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 async function loadProducts() {
