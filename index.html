@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<!-- <meta http-equiv="refresh" content="2"/> -->
+    <!-- <meta http-equiv="refresh" content="2"/> -->
     <title>Admin of RDN (Rongpur Daily Needs)</title>
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -25,33 +25,33 @@
                 <span id="close-popup" class="close">&times;</span>
                 <h2 id="dialogueTitle">Enter Product</h2>
                 <div id="p-img">
-	                <img id="pimg" src="https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/demo.jpg">
+                    <img id="pimg" src="https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/demo.jpg">
                 </div>
                 <input id="pname" placeholder="Product name"><br><br>
                 <input id="pprice" type="number" placeholder="Price"><br><br>
                 <input id="punit" placeholder="Unit"><br><br>
                 <input id="ptype" placeholder="Type"><br><br>
                 <input id="pstock" type="number" placeholder="Stock Quantity"><br><br>
-				<input id="pminstock" type="number" placeholder="Min Stock"><br><br>
+                <input id="pminstock" type="number" placeholder="Min Stock"><br><br>
                 <button id="psave">Save Product</button>
             </div>
         </div>
         
         <!-- img input Popup -->
-	    <div id="edit-popup" class="popup-overlay" style="display: none">
-	        <div id="popup">
-	            <div>
-	                <img id="img-preview" src="assets/images/demo_pp.png" />
-	                <input style="display: none" type="file" id="input-image" accept="image/jpeg">
-	            </div>
-	            <div>
-	                <button class="edit-btn" id="cancel">Cancle</button>
-	                <button class="edit-btn" id="edit">Edit</button>
-	                <button class="edit-btn" id="save">Save</button>
-	            </div>
-	        </div>
-	    </div>
-	    
+        <div id="edit-popup" class="popup-overlay" style="display: none">
+            <div id="popup">
+                <div>
+                    <img id="img-preview" src="assets/images/demo_pp.png" />
+                    <input style="display: none" type="file" id="input-image" accept="image/jpeg">
+                </div>
+                <div>
+                    <button class="edit-btn" id="cancel">Cancle</button>
+                    <button class="edit-btn" id="edit">Edit</button>
+                    <button class="edit-btn" id="save">Save</button>
+                </div>
+            </div>
+        </div>
+        
         <div class="product-list-header">
             <h2>Products List</h2>
             <button onclick="openPopup(this)">➕ Add</button>
@@ -59,9 +59,9 @@
         
         <!-- Loader -->
         <div id="loader" class="popup-overlay" style="display: none">
-	        <div class="loader"></div>
-	    </div>
-	    
+            <div class="loader"></div>
+        </div>
+        
         <!-- Loader -->
         <div id="p-loader" class="loader"></div>
         

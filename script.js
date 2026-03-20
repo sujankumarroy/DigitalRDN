@@ -36,7 +36,7 @@ let currentData = null;
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 pimg.addEventListener("click", () => {
-	editPopup.style.display = "flex";
+    editPopup.style.display = "flex";
     imgPreview.src = pimg.src;
 });
 
@@ -61,11 +61,11 @@ cancleBtn.addEventListener("click", () => {
 });
 
 closePopup.addEventListener("click", () => {
-	dialogue.classList.remove("active");
+    dialogue.classList.remove("active");
 });
 
 psave.addEventListener("click", () => {
-	save(psave);
+    save(psave);
 });
 
 // Load products
@@ -119,12 +119,12 @@ async function save(btn) {
     const price = parseInt(pprice.value.trim());
     const unit = punit.value.trim();
     const type = ptype.value.trim();
-	const stock_quantity = pstock.value.trim();
+    const stock_quantity = pstock.value.trim();
     const min_stock = pminstock.value.trim();
-	
-	const pimgurl = pimg.src;
-	const pimgurlparts = pimgurl.split("?")[0].split("/");
-	const pimgname = pimgurlparts[pimgurlparts.length - 1];
+    
+    const pimgurl = pimg.src;
+    const pimgurlparts = pimgurl.split("?")[0].split("/");
+    const pimgname = pimgurlparts[pimgurlparts.length - 1];
     
     if (!name || isNaN(price) || !unit || !type || isNaN(stock_quantity) || isNaN(min_stock) || !pimgname) {
         alert("Please fill all fields correctly.");
@@ -142,7 +142,7 @@ async function save(btn) {
     }
     
     if (btn.innerText === "Add") {
-    	const { error } = await supabaseClient
+        const { error } = await supabaseClient
             .from("products")
             .insert(product);
         
@@ -157,12 +157,12 @@ async function save(btn) {
         loadProducts();
         
     } else if (btn.innerText === "Update" && currentId) {
-		
-		const date = new Date();
-		const isoString = date.toISOString();
-		const updatedProduct = { ...product, updated_at: isoString };
-		// console.log(updatedProduct);
-		
+        
+        const date = new Date();
+        const isoString = date.toISOString();
+        const updatedProduct = { ...product, updated_at: isoString };
+        // console.log(updatedProduct);
+        
         const { error } = await supabaseClient
             .from("products")
             .update(updatedProduct)
@@ -186,9 +186,9 @@ async function deleteData(id) {
     if (confirm("Delete This Product")) {
         
         const { error } = await supabaseClient
-			.from("products")
-			.update({ is_active: false })
-			.eq("id", id);
+            .from("products")
+            .update({ is_active: false })
+            .eq("id", id);
         
         if (error) {
             console.log(eror.message);
@@ -270,30 +270,30 @@ function openPopup(btn, index) {
         psave.innerText = "Add";
         currentId = null;
         
-		pname.value = "";
-		pprice.value = "";
-		punit.value = "";
-		ptype.value = "";
-		pstock.value = "";
-		pminstock.value = "";
-		
+        pname.value = "";
+        pprice.value = "";
+        punit.value = "";
+        ptype.value = "";
+        pstock.value = "";
+        pminstock.value = "";
+        
     } else if (btn.innerText === "Update") {
         const container = btn.closest(".product");
         const item = currentData[index];
-		currentId = item.id;
-		
+        currentId = item.id;
+        
         pname.value = item.name;
         pprice.value = item.price;
         punit.value = item.unit;
         ptype.value = item.type;
         pstock.value = item.stock_quantity;
         pminstock.value = item.min_stock;
-		pimg.src = root_path + item.file_name;
-		
+        pimg.src = root_path + item.file_name;
+        
         dialogueTitle.innerText = "Update Product";
         psave.innerText = "Update";
     }
-	
+    
     dialogue.classList.add("active");
 }
 
@@ -328,8 +328,8 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
 // Encreption
 function checkPassword() {
     const password = "2025";
-	
-	let input = passwordInput.value;
+    
+    let input = passwordInput.value;
     if (input === password) {
         loginBox.style.display = "none";
         adminContent.style.display = "";
