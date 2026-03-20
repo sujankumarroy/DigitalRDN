@@ -70,14 +70,17 @@ psave.addEventListener("click", () => {
 
 // Load products
 async function loadProducts() {
-    const { data, error } = await supabaseClient
-        .from("products")
-        .select("*")
-        .eq("is_active", true);
+
+    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-data");
+
+    if (!res.ok) {
+        console.log(`HTTP error! status: ${res.status}`);
+    }
+
+    const { data, error } = await res.json();
     
     if (error) {
-        console.log(error.message);
-        alert(error.message);
+        console.error(error.message);
         return;
     }
     
