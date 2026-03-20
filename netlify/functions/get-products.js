@@ -10,7 +10,7 @@ export default async (request) => {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS'
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
             }
         });
     }
