@@ -29,7 +29,7 @@
 
     "display": "standalone",
     "display_override": ["standalone", "minimal-ui"],
-    "orientation": "portrait"
+    "orientation": "any"
 
     
     
