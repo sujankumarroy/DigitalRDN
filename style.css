@@ -1,10 +1,10 @@
 * {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 body {
-	padding: 10px;
+    padding: 10px;
 }
 
 /* Background overlay */
@@ -33,7 +33,7 @@ body {
 
 /* Popup box */
 .product-form {
-	box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     background: #fff;
     border-radius: 16px;
@@ -83,23 +83,23 @@ body {
 }
 
 #p-img {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #pimg {
-	height: 100px;
-	width: 100px;
-	border: 2px solid #e6e6e6;
-	border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border: 2px solid #e6e6e6;
+    border-radius: 50%;
     margin-bottom: 15px;
 }
 
 /* Inputs */
 .product-form input {
-	box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -163,7 +163,7 @@ body {
     background-color: #d00000;
 }
 .delete-btn {
-	background-color: red;
+    background-color: red;
 }
 .quantity-input {
     width: 50px;
