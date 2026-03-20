@@ -71,7 +71,7 @@ psave.addEventListener("click", () => {
 // Load products
 async function loadProducts() {
 
-    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-data");
+    const res = await fetch("http://localhost:8888/.netlify/functions/get-products");
 
     if (!res.ok) {
         console.log(`HTTP error! status: ${res.status}`);
@@ -145,9 +145,13 @@ async function save(btn) {
     }
     
     if (btn.innerText === "Add") {
-        const { error } = await supabaseClient
-            .from("products")
-            .insert(product);
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(product)
+        });
+
+        const { error } = await res.json();
         
         if (error) {
             console.log(error.message);
@@ -163,14 +167,15 @@ async function save(btn) {
         
         const date = new Date();
         const isoString = date.toISOString();
-        const updatedProduct = { ...product, updated_at: isoString };
-        // console.log(updatedProduct);
         
-        const { error } = await supabaseClient
-            .from("products")
-            .update(updatedProduct)
-            .eq("id", currentId);
-        
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id, updated_at: isoString, ...products })
+        });
+
+        const { error } = await res.json();
+
         if (error) {
             console.log(error.message);
             alert(error.message);
@@ -187,11 +192,13 @@ async function save(btn) {
 // Delete product
 async function deleteData(id) {
     if (confirm("Delete This Product")) {
-        
-        const { error } = await supabaseClient
-            .from("products")
-            .update({ is_active: false })
-            .eq("id", id);
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id, is_active: false })
+        });
+
+        const { error } = await res.json();
         
         if (error) {
             console.log(eror.message);
