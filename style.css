@@ -69,7 +69,7 @@ main {
     cursor: pointer;
 }
 #products {
-	min-height: 500px;
+    min-height: 500px;
 }
 .product {
     border: 1px solid #ccc;
@@ -91,13 +91,13 @@ main {
     flex-grow: 1;
 }
 .product-details h1 {
-	margin: 6px;
+    margin: 6px;
 }
 .product-details input {
-	margin-top: 6px;
+    margin-top: 6px;
 }
 .product-details p {
-	margin: 4px;
+    margin: 4px;
 }
 .book-button {
     padding: 8px 12px;

@@ -25,8 +25,8 @@ async function loadProducts() {
     const data = result.data;
     
     if (!data) {
-    	alert("Data not found");
-    	return;
+        alert("Data not found");
+        return;
     }
     
     console.log(data);
@@ -38,12 +38,12 @@ async function loadProducts() {
         let isAdded = false;
         
         buyList.forEach(p => {
-        	if (p.name === item.name) {
-        		isAdded = true;
-        	} else {
-        		isAdded - false;
-        	}
-        	
+            if (p.name === item.name) {
+                isAdded = true;
+            } else {
+                isAdded - false;
+            }
+            
         });
         
         const pcont = document.createElement("div");
