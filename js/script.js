@@ -1,8 +1,3 @@
-const SUPABASE_URL = "https://kcksejyyjfgpcdmgtzrc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtja3Nlanl5amZncGNkbWd0enJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0OTQ3MTgsImV4cCI6MjA3OTA3MDcxOH0.SvZExIYgEJvj63CqLyTxyeLfLoXuhRsf4LHC6N4V_oQ";
-
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 const dialogue = document.getElementById("addDialogue");
 const dialogueTitle = document.getElementById("dialogueTitle");
 const psave = document.getElementById("psave");
@@ -242,34 +237,33 @@ async function uploadAvatar() {
     const fileName = `${Date.now()}.${fileExt}`;
     const filePath = `${fileName}`;
     
-    const { error } = await supabaseClient.storage
-        .from("product_images")
-        .upload(filePath, compressedFile, {
-            cacheControl: "3600",
-            upsert: true
-        });
+    const formData = new FormData();
+    formData.append("image", compressedFile);
+    formData.append("filePath", filePath);
 
-    if (error) {
+    const res = await fetch("http://localhost:8888/.netlify/functions/upload-image", {
+        method: "POST",
+        body: formData
+    });
+
+    if (!res.ok) {
+        ploader.style.display = "none";
+        console.error(`Error code ${res.status}`);
+        return;
+    }
+
+    const { success, error, publicUrl } = await res.json();
+
+    if (error || !success) {
         ploader.style.display = "none";
         console.error(error);
         alert(error.message);
         return;
     }
 
-    const { data, error: e } = supabaseClient.storage
-        .from("product_images")
-        .getPublicUrl(filePath);
-
-    if (e) {
-        loader.style.display = "none";
-        console.error(error);
-        alert(error.message);
-        return;
-    }
-    
     loader.style.display = "none";
     editPopup.style.display = "none";
-    pimg.src = data.publicUrl + "?t=" + Date.now();
+    pimg.src = publicUrl + "?t=" + Date.now();
 }
 
 // Open popup
