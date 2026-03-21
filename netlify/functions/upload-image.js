@@ -19,18 +19,18 @@ export default async (request) => {
     }
 
     try {
-        const { key } = await request.json();
+        const formData = await request.formData();
+
+        const image = formData.get("image");
+        const filePath = formData.get("filePath");
+        const key = formData.get("key");
+
         if (key !== process.env.ADMIN_KEY) {
             return new Response(
                 JSON.stringify({ success: false, error: "Wrong Key" }),
                 { status: 401, headers: { 'Content-Type': 'application/json' }  }
             )
         }
-
-        const formData = await request.formData();
-
-        const image = formData.get("image");
-        const filePath = formData.get("filePath");
 
         if (!image) {
             return new Response(
