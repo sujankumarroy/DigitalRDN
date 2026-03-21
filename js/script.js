@@ -143,7 +143,7 @@ async function save(btn) {
         stock_quantity: stock_quantity,
         min_stock: min_stock
     }
-    
+
     if (btn.innerText === "Add") {
         const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
             method: 'POST',
@@ -171,7 +171,7 @@ async function save(btn) {
         const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id, updated_at: isoString, ...products })
+            body: JSON.stringify({ id: currentId, updated_at: isoString, ...product })
         });
 
         const { error } = await res.json();
