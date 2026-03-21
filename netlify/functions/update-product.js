@@ -10,13 +10,19 @@ export default async (request) => {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+                'Access-Control-Allow-Methods': 'POST, OPTIONS'
             }
         });
     }
 
     try {
-        const { id, ...product } = await request.json();
+        const { id, key, ...product} = await request.json();
+        if (key !== process.env.ADMIN_KEY) {
+            return new Response(
+                JSON.stringify({ success: false, error: "Wrong Key" }),
+                { status: 401, headers: { 'Content-Type': 'application/json' }  }
+            )
+        }
 
         let error;
         if (id) {
