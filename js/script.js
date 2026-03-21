@@ -7,6 +7,7 @@ const closePopup = document.getElementById("close-popup");
 
 const passwordInput = document.getElementById('passwordInput');
 const loginBox = document.getElementById('loginBox');
+const btnLogin = document.getElementById('btn-login');
 const adminContent = document.getElementById('adminContent');
 
 const pimg = document.getElementById("pimg");
@@ -28,6 +29,7 @@ const loader = document.getElementById("loader");
 let currentId = null;
 let currentData = null;
 
+const key = prompt("enter admin password: ");
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 pimg.addEventListener("click", () => {
@@ -62,6 +64,7 @@ closePopup.addEventListener("click", () => {
 psave.addEventListener("click", () => {
     save(psave);
 });
+btnLogin.addEventListener("click", () => { checkPassword() });
 
 // Load products
 async function loadProducts() {
@@ -143,8 +146,14 @@ async function save(btn) {
         const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(product)
+            body: JSON.stringify({ key, ...product })
         });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
 
         const { error } = await res.json();
         
@@ -166,8 +175,14 @@ async function save(btn) {
         const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: currentId, updated_at: isoString, ...product })
+            body: JSON.stringify({ id: currentId, key, updated_at: isoString, ...product })
         });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
 
         const { error } = await res.json();
 
@@ -190,8 +205,14 @@ async function deleteData(id) {
         const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: id, is_active: false })
+            body: JSON.stringify({ id, key, is_active: false })
         });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
 
         const { error } = await res.json();
         
@@ -240,6 +261,7 @@ async function uploadAvatar() {
     const formData = new FormData();
     formData.append("image", compressedFile);
     formData.append("filePath", filePath);
+    formData.append("key", key);
 
     const res = await fetch("http://localhost:8888/.netlify/functions/upload-image", {
         method: "POST",
@@ -249,6 +271,7 @@ async function uploadAvatar() {
     if (!res.ok) {
         ploader.style.display = "none";
         console.error(`Error code ${res.status}`);
+        if (res.status === 401) alert("Wrong Password.")
         return;
     }
 
@@ -333,10 +356,10 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
 function checkPassword() {
     const password = "2025";
     
-    let input = passwordInput.value;
-    if (input === password) {
+    let key = passwordInput.value;
+    if (true) {
         loginBox.style.display = "none";
-        adminContent.style.display = "";
+        adminContent.style.display = "block";
     } else {
         alert("Wrong password!");
     }
