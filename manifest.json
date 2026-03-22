@@ -1,7 +1,6 @@
 {
     "name": "Rongpur Daily Needs - Localstore",
     "short_name": "RDN - Localstore",
-    "description": "Knowlet: A platform for students to explore and learn.",
     "icons": [
         {
             "src": "/assets/ic_icon_round.png",
@@ -13,17 +12,7 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ],
-    "shortcuts": [
-      {
-        "name": "Knowlet",
-        "url": "https://knowlet.in"
-      },
-      {
-        "name": "Favorites",
-        "url": "/favourite"
-      }
-    ],
+    ]
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
 
