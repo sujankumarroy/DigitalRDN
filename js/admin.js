@@ -69,7 +69,7 @@ btnLogin.addEventListener("click", () => { checkPassword() });
 // Load products
 async function loadProducts() {
 
-    const res = await fetch("http://localhost:8888/.netlify/functions/get-products");
+    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-products");
 
     if (!res.ok) {
         console.log(`HTTP error! status: ${res.status}`);
@@ -142,7 +142,7 @@ async function save(btn) {
     }
 
     if (btn.innerText === "Add") {
-        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+        const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ key, ...product })
@@ -171,7 +171,7 @@ async function save(btn) {
         const date = new Date();
         const isoString = date.toISOString();
         
-        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+        const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: currentId, key, updated_at: isoString, ...product })
@@ -201,7 +201,7 @@ async function save(btn) {
 // Delete product
 async function deleteData(id) {
     if (confirm("Delete This Product")) {
-        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+        const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, key, is_active: false })
@@ -262,7 +262,7 @@ async function uploadAvatar() {
     formData.append("filePath", filePath);
     formData.append("key", key);
 
-    const res = await fetch("http://localhost:8888/.netlify/functions/upload-image", {
+    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/upload-image", {
         method: "POST",
         body: formData
     });
@@ -355,7 +355,7 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
 async function checkPassword() {
     try {
         key = passwordInput.value;
-        const res = await fetch('http://localhost:8888/.netlify/functions/verify-password', {
+        const res = await fetch('https://digitalrdn.netlify.app/.netlify/functions/verify-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

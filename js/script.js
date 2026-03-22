@@ -8,7 +8,7 @@ async function loadProducts() {
     
     loader.style.display = "flex";
     
-    const res = await fetch("http://localhost:8888/.netlify/functions/get-products")
+    const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-products")
     
     loader.style.display = "none";
 
