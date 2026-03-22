@@ -6,7 +6,7 @@ const productContainer = document.getElementById("products");
 const closePopup = document.getElementById("close-popup");
 
 const passwordInput = document.getElementById('passwordInput');
-const loginBox = document.getElementById('loginBox');
+const loginContainer = document.getElementById('login-container');
 const btnLogin = document.getElementById('btn-login');
 const adminContent = document.getElementById('adminContent');
 
@@ -58,7 +58,7 @@ cancleBtn.addEventListener("click", () => {
 });
 
 closePopup.addEventListener("click", () => {
-    dialogue.classList.remove("active");
+    dialogue.style.display = "none";
 });
 
 psave.addEventListener("click", () => {
@@ -88,7 +88,6 @@ async function loadProducts() {
     }
     
     ploader.style.display = "none";
-    console.log(data);
     currentData = data;
     productContainer.innerHTML = "";
     
@@ -164,7 +163,7 @@ async function save(btn) {
         }
         
         alert("Product added!");
-        dialogue.classList.remove('active');
+        dialogue.style.display = "none";
         loadProducts();
         
     } else if (btn.innerText === "Update" && currentId) {
@@ -193,7 +192,7 @@ async function save(btn) {
         }
         
         alert("Product updated!");
-        dialogue.classList.remove('active');
+        dialogue.style.display = "none";
         loadProducts();
         
     }
@@ -321,7 +320,7 @@ function openPopup(btn, index) {
         psave.innerText = "Update";
     }
     
-    dialogue.classList.add("active");
+    dialogue.style.display = "flex";
 }
 
 // compress image
@@ -369,7 +368,8 @@ async function checkPassword() {
         if (!success || error) throw new Error(error);
 
         if (authorised) {
-            loginBox.style.display = "none";
+            loadProducts();
+            loginContainer.style.display = "none";
             adminContent.style.display = "block";
         } else {
             alert("Wrong password!");
@@ -378,6 +378,3 @@ async function checkPassword() {
         console.error(err);
     }
 }
-
-// Load products on page load
-window.onload = loadProducts;
