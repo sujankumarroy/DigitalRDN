@@ -13,19 +13,12 @@ export default async (request) => {
 
     try {
         const { key } = await request.json();
-
-        if (key !== process.env.ADMIN_KEY) {
-            return new Response(
-                JSON.stringify({ success: false, error: "Unauthorized Admin." }),
-                { status: 401, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}
-            );
-        }
+        const authorised = (key === process.env.ADMIN_KEY) ? true : false;
 
         return new Response(
-            JSON.stringify({ success: true }),
+            JSON.stringify({ success: true, authorised }),
             { status: 200, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}
         );
-
     } catch (err) {
         return new Response(
             JSON.stringify({ success: false, error: err.message }),
