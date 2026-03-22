@@ -1,0 +1,59 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseClient = createClient(process.env.SUPABASE_DATABASE_URL, process.env.SUPABASE_ANON_KEY);
+
+export default async (request) => {
+    
+    if (request.method === 'OPTIONS') {
+        return new Response(null, {
+            status: 204,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS'
+            }
+        });
+    }
+
+    try {
+        const { id, key, ...product} = await request.json();
+        if (key !== process.env.ADMIN_KEY) {
+            return new Response(
+                JSON.stringify({ success: false, error: "Wrong Key" }),
+                { status: 401, headers: { 'Content-Type': 'application/json' }  }
+            )
+        }
+
+        let error;
+        if (id) {
+            ({ error } = await supabaseClient
+                .from("products")
+                .update(product)
+                .eq("id", id)
+            );
+        } else {
+            ({ error } = await supabaseClient
+                .from("products")
+                .insert(product)
+            );
+        }
+
+        if (error) {
+            return new Response(
+                JSON.stringify({ success: false, error: error.message }),
+                { status: 502, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}
+            );
+        }
+        
+        return new Response(
+            JSON.stringify({ success: true, error: null }),
+            { status: 200, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}
+        );
+     
+    } catch (err) {
+        return new Response(
+            JSON.stringify({ success: false, error: err.message }),
+            { status: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}
+        );
+    }
+};

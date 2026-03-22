@@ -9,26 +9,18 @@ body {
 
 /* Background overlay */
 #addDialogue {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4); /* semi-transparent black */
-    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
     backdrop-filter: blur(3px);
-    visibility: hidden;
-    opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s;
-}
-
-/* Show when active */
-#addDialogue.active {
-    visibility: visible;
-    opacity: 1;
 }
 
 /* Popup box */
