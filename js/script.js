@@ -28,8 +28,8 @@ const loader = document.getElementById("loader");
 
 let currentId = null;
 let currentData = null;
+let key;
 
-const key = prompt("enter admin password: ");
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 pimg.addEventListener("click", () => {
@@ -353,15 +353,29 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
 }
 
 // Encreption
-function checkPassword() {
-    const password = "2025";
-    
-    let key = passwordInput.value;
-    if (true) {
-        loginBox.style.display = "none";
-        adminContent.style.display = "block";
-    } else {
-        alert("Wrong password!");
+async function checkPassword() {
+    try {
+        key = passwordInput.value;
+        const res = await fetch('http://localhost:8888/.netlify/functions/verify-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ key })
+        });
+
+        if (!res.ok) throw new Error(`Error code ${res.status}`);
+        const { success, authorised, error } = await res.json();
+        if (!success || error) throw new Error(error);
+
+        if (authorised) {
+            loginBox.style.display = "none";
+            adminContent.style.display = "block";
+        } else {
+            alert("Wrong password!");
+        }
+    } catch(err) {
+        console.error(err);
     }
 }
 
