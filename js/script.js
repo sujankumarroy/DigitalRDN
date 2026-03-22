@@ -1,8 +1,3 @@
-const SUPABASE_URL = "https://kcksejyyjfgpcdmgtzrc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtja3Nlanl5amZncGNkbWd0enJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0OTQ3MTgsImV4cCI6MjA3OTA3MDcxOH0.SvZExIYgEJvj63CqLyTxyeLfLoXuhRsf4LHC6N4V_oQ";
-
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 const dialogue = document.getElementById("addDialogue");
 const dialogueTitle = document.getElementById("dialogueTitle");
 const psave = document.getElementById("psave");
@@ -11,7 +6,8 @@ const productContainer = document.getElementById("products");
 const closePopup = document.getElementById("close-popup");
 
 const passwordInput = document.getElementById('passwordInput');
-const loginBox = document.getElementById('loginBox');
+const loginContainer = document.getElementById('login-container');
+const btnLogin = document.getElementById('btn-login');
 const adminContent = document.getElementById('adminContent');
 
 const pimg = document.getElementById("pimg");
@@ -32,6 +28,7 @@ const loader = document.getElementById("loader");
 
 let currentId = null;
 let currentData = null;
+let key;
 
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
@@ -61,23 +58,27 @@ cancleBtn.addEventListener("click", () => {
 });
 
 closePopup.addEventListener("click", () => {
-    dialogue.classList.remove("active");
+    dialogue.style.display = "none";
 });
 
 psave.addEventListener("click", () => {
     save(psave);
 });
+btnLogin.addEventListener("click", () => { checkPassword() });
 
 // Load products
 async function loadProducts() {
-    const { data, error } = await supabaseClient
-        .from("products")
-        .select("*")
-        .eq("is_active", true);
+
+    const res = await fetch("http://localhost:8888/.netlify/functions/get-products");
+
+    if (!res.ok) {
+        console.log(`HTTP error! status: ${res.status}`);
+    }
+
+    const { data, error } = await res.json();
     
     if (error) {
-        console.log(error.message);
-        alert(error.message);
+        console.error(error.message);
         return;
     }
     
@@ -87,7 +88,6 @@ async function loadProducts() {
     }
     
     ploader.style.display = "none";
-    console.log(data);
     currentData = data;
     productContainer.innerHTML = "";
     
@@ -140,11 +140,21 @@ async function save(btn) {
         stock_quantity: stock_quantity,
         min_stock: min_stock
     }
-    
+
     if (btn.innerText === "Add") {
-        const { error } = await supabaseClient
-            .from("products")
-            .insert(product);
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key, ...product })
+        });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
+
+        const { error } = await res.json();
         
         if (error) {
             console.log(error.message);
@@ -153,21 +163,28 @@ async function save(btn) {
         }
         
         alert("Product added!");
-        dialogue.classList.remove('active');
+        dialogue.style.display = "none";
         loadProducts();
         
     } else if (btn.innerText === "Update" && currentId) {
         
         const date = new Date();
         const isoString = date.toISOString();
-        const updatedProduct = { ...product, updated_at: isoString };
-        // console.log(updatedProduct);
         
-        const { error } = await supabaseClient
-            .from("products")
-            .update(updatedProduct)
-            .eq("id", currentId);
-        
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: currentId, key, updated_at: isoString, ...product })
+        });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
+
+        const { error } = await res.json();
+
         if (error) {
             console.log(error.message);
             alert(error.message);
@@ -175,7 +192,7 @@ async function save(btn) {
         }
         
         alert("Product updated!");
-        dialogue.classList.remove('active');
+        dialogue.style.display = "none";
         loadProducts();
         
     }
@@ -184,11 +201,19 @@ async function save(btn) {
 // Delete product
 async function deleteData(id) {
     if (confirm("Delete This Product")) {
-        
-        const { error } = await supabaseClient
-            .from("products")
-            .update({ is_active: false })
-            .eq("id", id);
+        const res = await fetch("http://localhost:8888/.netlify/functions/update-product", {
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, key, is_active: false })
+        });
+
+        if (!res.ok) {
+            console.error(`Error code ${res.status}`);
+            if (res.status === 401) alert("Wrong Password.")
+            return;
+        }
+
+        const { error } = await res.json();
         
         if (error) {
             console.log(eror.message);
@@ -232,34 +257,35 @@ async function uploadAvatar() {
     const fileName = `${Date.now()}.${fileExt}`;
     const filePath = `${fileName}`;
     
-    const { error } = await supabaseClient.storage
-        .from("product_images")
-        .upload(filePath, compressedFile, {
-            cacheControl: "3600",
-            upsert: true
-        });
+    const formData = new FormData();
+    formData.append("image", compressedFile);
+    formData.append("filePath", filePath);
+    formData.append("key", key);
 
-    if (error) {
+    const res = await fetch("http://localhost:8888/.netlify/functions/upload-image", {
+        method: "POST",
+        body: formData
+    });
+
+    if (!res.ok) {
+        ploader.style.display = "none";
+        console.error(`Error code ${res.status}`);
+        if (res.status === 401) alert("Wrong Password.")
+        return;
+    }
+
+    const { success, error, publicUrl } = await res.json();
+
+    if (error || !success) {
         ploader.style.display = "none";
         console.error(error);
         alert(error.message);
         return;
     }
 
-    const { data, error: e } = supabaseClient.storage
-        .from("product_images")
-        .getPublicUrl(filePath);
-
-    if (e) {
-        loader.style.display = "none";
-        console.error(error);
-        alert(error.message);
-        return;
-    }
-    
     loader.style.display = "none";
     editPopup.style.display = "none";
-    pimg.src = data.publicUrl + "?t=" + Date.now();
+    pimg.src = publicUrl + "?t=" + Date.now();
 }
 
 // Open popup
@@ -294,7 +320,7 @@ function openPopup(btn, index) {
         psave.innerText = "Update";
     }
     
-    dialogue.classList.add("active");
+    dialogue.style.display = "flex";
 }
 
 // compress image
@@ -326,17 +352,29 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
 }
 
 // Encreption
-function checkPassword() {
-    const password = "2025";
-    
-    let input = passwordInput.value;
-    if (input === password) {
-        loginBox.style.display = "none";
-        adminContent.style.display = "";
-    } else {
-        alert("Wrong password!");
+async function checkPassword() {
+    try {
+        key = passwordInput.value;
+        const res = await fetch('http://localhost:8888/.netlify/functions/verify-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ key })
+        });
+
+        if (!res.ok) throw new Error(`Error code ${res.status}`);
+        const { success, authorised, error } = await res.json();
+        if (!success || error) throw new Error(error);
+
+        if (authorised) {
+            loadProducts();
+            loginContainer.style.display = "none";
+            adminContent.style.display = "block";
+        } else {
+            alert("Wrong password!");
+        }
+    } catch(err) {
+        console.error(err);
     }
 }
-
-// Load products on page load
-window.onload = loadProducts;

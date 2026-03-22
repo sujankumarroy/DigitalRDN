@@ -1,0 +1,13 @@
+{
+    "name": "rdn",
+    "version": "1.9.85",
+    "description": "",
+    "type": "module",
+    "author": "Sujan Kumar Roy",
+    "dependencies": {
+        "@supabase/supabase-js": "^2.0.0"
+    },
+    "devDependencies": {
+        "dotenv": "^17.2.3"
+    }
+}

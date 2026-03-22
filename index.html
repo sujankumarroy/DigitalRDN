@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- <meta http-equiv="refresh" content="2"/> -->
     <title>Admin of RDN (Rongpur Daily Needs)</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-    <div style="display: none"  class="loginBox">
+    <div id="login-container" class="loginBox">
         <div id="loginBox">
             <h1>Rongpur Daily Needs</h1>
             <h2>Admin Login</h2>
             <input type="password" id="passwordInput" placeholder="Enter Password">
-            <buttononclick="checkPassword()">Login</button>
+            <button id="btn-login">Login</button>
         </div>
     </div>
     
-    <div id="adminContent">
+    <div id="adminContent" style="display: none">
         
-        <div id="addDialogue">
+        <div id="addDialogue" style="display: none">
             <div class="product-form">
                 <span id="close-popup" class="close">&times;</span>
                 <h2 id="dialogueTitle">Enter Product</h2>
@@ -70,6 +70,6 @@
         
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
