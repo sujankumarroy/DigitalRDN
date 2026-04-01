@@ -24,6 +24,7 @@ const imgInput = document.getElementById("input-image") as HTMLInputElement;
 const editBtn = document.getElementById("edit") as HTMLElement;
 const saveBtn = document.getElementById("save") as HTMLElement;
 const cancleBtn = document.getElementById("cancel") as HTMLElement;
+const addPrdtBtn = document.getElementById("btnAddPrdt") as HTMLButtonElement;
 const imgPreview = document.getElementById("img-preview") as HTMLImageElement;
 const editPopup = document.getElementById("edit-popup") as HTMLElement;
 const loader = document.getElementById("loader") as HTMLElement;
@@ -77,6 +78,8 @@ closePopup.addEventListener("click", () => {
 psave.addEventListener("click", () => {
     save(psave);
 });
+
+addPrdtBtn.addEventListener("click", () => { openPopup(addPrdtBtn) })
 btnLogin.addEventListener("click", () => { checkPassword() });
 
 // Load products
@@ -179,7 +182,7 @@ async function save(btn: HTMLButtonElement) {
         dialogue.style.display = "none";
         loadProducts();
         
-    } else if (btn.innerText === "Update" && currentId) {
+    } else if (btn.innerText === "Update" && currentId >= 0) {
         
         const date = new Date();
         const isoString = date.toISOString();
@@ -302,7 +305,7 @@ async function uploadAvatar() {
 }
 
 // Open popup
-function openPopup(btn: HTMLButtonElement, index: number) {
+function openPopup(btn: HTMLButtonElement, index?: number) {
 
     if (btn.innerText === "➕ Add") {
         dialogueTitle.innerText = "Add Product";
@@ -316,7 +319,8 @@ function openPopup(btn: HTMLButtonElement, index: number) {
         pstock.value = "";
         pminstock.value = "";
         
-    } else if (btn.innerText === "Update") {
+    } else if (btn.innerText === "Update" && index) {
+        if (index < 0) return;
         const container = btn.closest(".product");
         const item = currentData[index];
         currentId = item?.id || -1;

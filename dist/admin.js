@@ -20,6 +20,7 @@ const imgInput = document.getElementById("input-image");
 const editBtn = document.getElementById("edit");
 const saveBtn = document.getElementById("save");
 const cancleBtn = document.getElementById("cancel");
+const addPrdtBtn = document.getElementById("btnAddPrdt");
 const imgPreview = document.getElementById("img-preview");
 const editPopup = document.getElementById("edit-popup");
 const loader = document.getElementById("loader");
@@ -53,6 +54,7 @@ closePopup.addEventListener("click", () => {
 psave.addEventListener("click", () => {
     save(psave);
 });
+addPrdtBtn.addEventListener("click", () => { openPopup(addPrdtBtn); });
 btnLogin.addEventListener("click", () => { checkPassword(); });
 // Load products
 async function loadProducts() {
@@ -138,7 +140,7 @@ async function save(btn) {
         dialogue.style.display = "none";
         loadProducts();
     }
-    else if (btn.innerText === "Update" && currentId) {
+    else if (btn.innerText === "Update" && currentId >= 0) {
         const date = new Date();
         const isoString = date.toISOString();
         const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
@@ -248,7 +250,9 @@ function openPopup(btn, index) {
         pstock.value = "";
         pminstock.value = "";
     }
-    else if (btn.innerText === "Update") {
+    else if (btn.innerText === "Update" && index) {
+        if (index < 0)
+            return;
         const container = btn.closest(".product");
         const item = currentData[index];
         currentId = item?.id || -1;
