@@ -1,34 +1,47 @@
-const dialogue = document.getElementById("addDialogue");
-const dialogueTitle = document.getElementById("dialogueTitle");
-const psave = document.getElementById("psave");
-const ploader = document.getElementById("p-loader");
-const productContainer = document.getElementById("products");
-const closePopup = document.getElementById("close-popup");
+export {}
 
-const passwordInput = document.getElementById('passwordInput');
-const loginContainer = document.getElementById('login-container');
-const btnLogin = document.getElementById('btn-login');
-const adminContent = document.getElementById('adminContent');
+const dialogue = document.getElementById("addDialogue") as HTMLElement;
+const dialogueTitle = document.getElementById("dialogueTitle") as HTMLElement;
+const psave = document.getElementById("psave") as HTMLButtonElement;
+const ploader = document.getElementById("p-loader") as HTMLElement;
+const productContainer = document.getElementById("products") as HTMLElement;
+const closePopup = document.getElementById("close-popup") as HTMLElement;
 
-const pimg = document.getElementById("pimg");
-const pname = document.getElementById("pname");
-const pprice = document.getElementById("pprice");
-const punit = document.getElementById("punit");
-const ptype = document.getElementById("ptype");
-const pstock = document.getElementById("pstock");
-const pminstock = document.getElementById("pminstock");
-const imgInput = document.getElementById("input-image");
+const passwordInput = document.getElementById('passwordInput') as HTMLInputElement;
+const loginContainer = document.getElementById('login-container') as HTMLElement;
+const btnLogin = document.getElementById('btn-login') as HTMLElement;
+const adminContent = document.getElementById('adminContent') as HTMLElement;
 
-const editBtn = document.getElementById("edit");
-const saveBtn = document.getElementById("save");
-const cancleBtn = document.getElementById("cancel");
-const imgPreview = document.getElementById("img-preview");
-const editPopup = document.getElementById("edit-popup");
-const loader = document.getElementById("loader");
+const pimg = document.getElementById("pimg") as HTMLImageElement;
+const pname = document.getElementById("pname") as HTMLInputElement;
+const pprice = document.getElementById("pprice") as HTMLInputElement;
+const punit = document.getElementById("punit") as HTMLInputElement;
+const ptype = document.getElementById("ptype") as HTMLInputElement;
+const pstock = document.getElementById("pstock") as HTMLInputElement;
+const pminstock = document.getElementById("pminstock") as HTMLInputElement;
+const imgInput = document.getElementById("input-image") as HTMLInputElement;
 
-let currentId = null;
-let currentData = null;
-let key;
+const editBtn = document.getElementById("edit") as HTMLElement;
+const saveBtn = document.getElementById("save") as HTMLElement;
+const cancleBtn = document.getElementById("cancel") as HTMLElement;
+const imgPreview = document.getElementById("img-preview") as HTMLImageElement;
+const editPopup = document.getElementById("edit-popup") as HTMLElement;
+const loader = document.getElementById("loader") as HTMLElement;
+
+type product = {
+    id: number,
+    name: string,
+    price: number,
+    unit: string,
+    type: string,
+    file_name: string,
+    stock_quantity: number,
+    min_stock: number
+}
+
+let currentId: number;
+let currentData: product[];
+let key: string;
 
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
@@ -42,7 +55,7 @@ editBtn.addEventListener("click", () => {
 });
 
 imgInput.addEventListener("change", () => {
-    const file = imgInput.files[0];
+    const file = imgInput.files?.[0];
     if (!file) return;
 
     imgPreview.src = URL.createObjectURL(file);
@@ -114,17 +127,17 @@ async function loadProducts() {
 }
 
 // Save or Update product
-async function save(btn) {
+async function save(btn: HTMLButtonElement) {
     const name = pname.value.trim();
     const price = parseInt(pprice.value.trim());
     const unit = punit.value.trim();
     const type = ptype.value.trim();
-    const stock_quantity = pstock.value.trim();
-    const min_stock = pminstock.value.trim();
+    const stock_quantity = parseFloat(pstock.value.trim());
+    const min_stock = parseFloat(pminstock.value.trim());
     
     const pimgurl = pimg.src;
-    const pimgurlparts = pimgurl.split("?")[0].split("/");
-    const pimgname = pimgurlparts[pimgurlparts.length - 1];
+    const pimgurlparts = pimgurl?.split("?")[0]?.split("/");
+    const pimgname = pimgurlparts?.[pimgurlparts.length - 1];
     
     if (!name || isNaN(price) || !unit || !type || isNaN(stock_quantity) || isNaN(min_stock) || !pimgname) {
         alert("Please fill all fields correctly.");
@@ -144,7 +157,7 @@ async function save(btn) {
     if (btn.innerText === "Add") {
         const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
-            header: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ key, ...product })
         });
 
@@ -173,7 +186,7 @@ async function save(btn) {
         
         const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
-            header: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: currentId, key, updated_at: isoString, ...product })
         });
 
@@ -199,11 +212,11 @@ async function save(btn) {
 }
 
 // Delete product
-async function deleteData(id) {
+async function deleteData(id: number) {
     if (confirm("Delete This Product")) {
         const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/update-product", {
             method: 'POST',
-            header: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, key, is_active: false })
         });
 
@@ -216,7 +229,7 @@ async function deleteData(id) {
         const { error } = await res.json();
         
         if (error) {
-            console.log(eror.message);
+            console.log(error.message);
             alert(error.message);
             return;
         }
@@ -228,7 +241,7 @@ async function deleteData(id) {
 
 // upload product image
 async function uploadAvatar() {
-    const originalFile = imgInput.files[0];
+    const originalFile = imgInput?.files?.[0];
 
     if (!originalFile) {
         alert("Select an image first");
@@ -251,7 +264,7 @@ async function uploadAvatar() {
         originalFile,
         0.7,   // quality
         512    // max width/height
-    );
+    ) as Blob;
     
     const fileExt = "jpg" // compressedFile.name.split('.').pop();
     const fileName = `${Date.now()}.${fileExt}`;
@@ -289,12 +302,12 @@ async function uploadAvatar() {
 }
 
 // Open popup
-function openPopup(btn, index) {
+function openPopup(btn: HTMLButtonElement, index: number) {
 
     if (btn.innerText === "➕ Add") {
         dialogueTitle.innerText = "Add Product";
         psave.innerText = "Add";
-        currentId = null;
+        currentId = -1;
         
         pname.value = "";
         pprice.value = "";
@@ -306,14 +319,14 @@ function openPopup(btn, index) {
     } else if (btn.innerText === "Update") {
         const container = btn.closest(".product");
         const item = currentData[index];
-        currentId = item.id;
-        
+        currentId = item?.id || -1;
+        if (!item) return;
         pname.value = item.name;
-        pprice.value = item.price;
+        pprice.value = item.price.toString();
         punit.value = item.unit;
         ptype.value = item.type;
-        pstock.value = item.stock_quantity;
-        pminstock.value = item.min_stock;
+        pstock.value = item.stock_quantity.toString();
+        pminstock.value = item.min_stock.toString();
         pimg.src = root_path + item.file_name;
         
         dialogueTitle.innerText = "Update Product";
@@ -324,13 +337,16 @@ function openPopup(btn, index) {
 }
 
 // compress image
-function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
+function compressWithCanvas(file: File, quality = 0.7, maxSize = 512) {
     return new Promise((resolve) => {
         const img = new Image();
         const reader = new FileReader();
 
         reader.onload = e => {
-            img.src = e.target.result;
+            const result = e.target?.result;
+            if (typeof result === 'string') {
+                img.src = result;
+            }
         };
 
         img.onload = () => {
@@ -340,10 +356,14 @@ function compressWithCanvas(file, quality = 0.7, maxSize = 512) {
             canvas.width = img.width * scale;
             canvas.height = img.height * scale;
 
-            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.getContext("2d")?.drawImage(img, 0, 0, canvas.width, canvas.height);
 
             canvas.toBlob(blob => {
-                resolve(new File([blob], file.name, { type: "image/jpeg" }));
+                if (blob) {
+                    resolve(new File([blob], file.name, { type: "image/jpeg" }));
+                } else {
+                    resolve(file);
+                }
             }, "image/jpeg", quality);
         };
 
