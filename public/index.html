@@ -27,45 +27,45 @@
     <main>
         <section>
             <div class="search-bar">
-                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Search for products...">
+                <input type="text" id="searchInput" placeholder="Search for products...">
             </div>
             
             <div id="buyListDisplay"></div>
             
             <div id="clear_whatsapp">
-                <button id="whatsapp-share" onclick="shareWhatsAppList()">📤 Share Buy List via WhatsApp</button>
+                <button id="whatsapp-share">📤 Share Buy List via WhatsApp</button>
             </div>
             
             <div class="payment-box">
                 <h2>Pay with UPI</h2>
                 <p>Total Amount: ₹<span id="amountDisplay">0</span></p>
-                <button class="pay-btn" onclick="openPopup()">🪙 Pay Now</button>
-                <button id="clear" onclick="clearBuyList()">Clear Buy List</button>
+                <button id="btn-pay" class="pay-btn">🪙 Pay Now</button>
+                <button id="clear">Clear Buy List</button>
             </div>
             
             <div id="upiModal">
                 <div class="modal-content">
-                    <span class="close" onclick="closePopup()">&times;</span>
+                    <span class="close">&times;</span>
                     <h3>Scan & Pay with any UPI App</h3>
-                    <img class="qr" id="qrImage" src="assets/q060474773.jpg" alt="UPI QR Code">
+                    <img class="qr" id="qrImage" src="assets/images/q060474773.jpg" alt="UPI QR Code">
                     <p>or</p>
-                    <button class="pay-btn" onclick="payNow()">Open in UPI App</button>
-                    <button class="download-btn" onclick="downloadQR()">Download QR Code</button>
+                    <button id="btn-upi" class="pay-btn">Open in UPI App</button>
+                    <button id="btn-qr-d" class="download-btn">Download QR Code</button>
                     <div style="margin-top: 15px;">
                         <label for="utrInput">Enter Transaction ID:</label><br>
                         <input type="text" id="utrInput" placeholder="Enter Transaction ID" style="width: 100%; padding: 8px; margin-top: 5px;">
-                        <button class="send-utr-btn" onclick="sendTID()" style="margin-top: 10px;">Send Transaction ID</button>
+                        <button id="btn-send-utr" class="send-utr-btn" style="margin-top: 10px;">Send Transaction ID</button>
                     </div>
                 </div>
             </div>
             
             <div id="purchasemodel">
                 <div class="modal-content">
-                    <span class="close" onclick="closePopup()">&times;</span>
+                    <span class="close">&times;</span>
                     <p>⚠️ "Dear customer,</p>
                     <p>the minimum purchase amount is ₹10.</p>
                     <p>Please add more items to proceed."</p>
-                    <button onclick="scrollToProducts(), closePopup()" class="scroll-btn">Purchase Products</button>
+                    <button id="btn-purchase" class="scroll-btn">Purchase Products</button>
                 </div>
             </div>
             

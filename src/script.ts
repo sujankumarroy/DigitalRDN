@@ -1,10 +1,36 @@
 export {}
 
+const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+const whatsappShare = document.getElementById("whatsapp-share") as HTMLButtonElement;
+const btnPay = document.getElementById("btn-pay") as HTMLButtonElement;
+const clear = document.getElementById("clear") as HTMLButtonElement;
+const btnUIP = document.getElementById("btn-upi") as HTMLButtonElement;
+const btnQRD = document.getElementById("btn-qr-d") as HTMLButtonElement;
+const btnSend = document.getElementById("btn-send-utr") as HTMLButtonElement;
+const btnPurchase = document.getElementById("btn-purchase") as HTMLButtonElement;
+const closeBtns = document.querySelectorAll(".close");
+
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/public/serviceworker.js');
 }
+
+searchInput.addEventListener("keyup", () => filterProducts());
+whatsappShare.addEventListener("click", () => shareWhatsAppList());
+btnPay.addEventListener("click", () => openPopup());
+clear.addEventListener("click", () => clearBuyList());
+btnUIP.addEventListener("click", () => payNow());
+btnQRD.addEventListener("click", () => downloadQR());
+btnSend.addEventListener("click", () => sendTID());
+btnPurchase.addEventListener("click", () => {
+    scrollToProducts();
+    closePopup();
+});
+
+closeBtns.forEach((btn) => {
+  btn.addEventListener("click", () => closePopup());
+});
 
 async function loadProducts() {
     const loader = document.getElementById("loader") as HTMLElement;

@@ -1,8 +1,31 @@
 export {};
+const searchInput = document.getElementById("searchInput");
+const whatsappShare = document.getElementById("whatsapp-share");
+const btnPay = document.getElementById("btn-pay");
+const clear = document.getElementById("clear");
+const btnUIP = document.getElementById("btn-upi");
+const btnQRD = document.getElementById("btn-qr-d");
+const btnSend = document.getElementById("btn-send-utr");
+const btnPurchase = document.getElementById("btn-purchase");
+const closeBtns = document.querySelectorAll(".close");
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/public/serviceworker.js');
 }
+searchInput.addEventListener("keyup", () => filterProducts());
+whatsappShare.addEventListener("click", () => shareWhatsAppList());
+btnPay.addEventListener("click", () => openPopup());
+clear.addEventListener("click", () => clearBuyList());
+btnUIP.addEventListener("click", () => payNow());
+btnQRD.addEventListener("click", () => downloadQR());
+btnSend.addEventListener("click", () => sendTID());
+btnPurchase.addEventListener("click", () => {
+    scrollToProducts();
+    closePopup();
+});
+closeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => closePopup());
+});
 async function loadProducts() {
     const loader = document.getElementById("loader");
     loader.style.display = "flex";
