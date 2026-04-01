@@ -6,8 +6,8 @@ const STATIC_ASSETS = [
     '/admin',
     '/css/style.css',
     '/css/admin.css',
-    '/js/script.js',
-    '/js/admin.js'
+    '/dist/script.js',
+    '/dist/admin.js'
 ];
 
 // Install: Cache all static files
