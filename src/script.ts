@@ -1,10 +1,11 @@
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/serviceworker.js');
+    navigator.serviceWorker.register('/public/serviceworker.js');
 }
 
 async function loadProducts() {
+    const loader = document.getElementById("loader") as HTMLElement;
     
     loader.style.display = "flex";
     
@@ -31,17 +32,17 @@ async function loadProducts() {
     
     console.log(data);
     
-    let buyList = JSON.parse(localStorage.getItem("buyList")) || [];
+    let buyList = JSON.parse(localStorage.getItem("buyList") || "[]");
     
     for (let i in data) {
         const item = data[i];
         let isAdded = false;
         
-        buyList.forEach(p => {
+        buyList.forEach((p: { name: string; }) => {
             if (p.name === item.name) {
                 isAdded = true;
             } else {
-                isAdded - false;
+                isAdded = false;
             }
             
         });
@@ -59,22 +60,22 @@ async function loadProducts() {
             </div>
             <button class="book-button ${isAdded ? 'added' : ''}" onclick="toggleProduct(this, '${item.name}', ${item.price}, '${item.type}')">${isAdded ? 'Remove' : 'Add'}</button>
         `
-        document.getElementById("products").appendChild(pcont);
+        document.getElementById("products")?.appendChild(pcont);
     }
 }
 
 function openPopup() {
-    let total = document.getElementById("amountDisplay").textContent;
+    let total = parseInt(document.getElementById("amountDisplay")?.textContent || "0");
     if (total >= 10) {
-        document.getElementById("upiModal").style.display = "block";
+        (document.getElementById("upiModal") as HTMLElement).style.display = "block";
     } else {
-        document.getElementById("purchasemodel").style.display = "block";
+        (document.getElementById("purchasemodel") as HTMLElement).style.display = "block";
     }
 }
 
 function closePopup() {
-    document.getElementById("upiModal").style.display = "none";
-    document.getElementById("purchasemodel").style.display = "none";
+    (document.getElementById("upiModal") as HTMLElement).style.display = "none";
+    (document.getElementById("purchasemodel") as HTMLElement).style.display = "none";
 }
 
 function scrollToProducts() {
@@ -85,7 +86,7 @@ function scrollToProducts() {
 }
 
 function sendTID() {
-    const utr = document.getElementById('utrInput').value.trim();
+    const utr = (document.getElementById('utrInput') as HTMLInputElement).value.trim();
     if (utr === "") {
         alert("Please enter Your Transaction ID.");
     } else {
@@ -97,26 +98,25 @@ function sendTID() {
 }
 
 function filterProducts() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
+    const query = (document.getElementById("searchInput") as HTMLInputElement).value.toLowerCase();
     const products = document.getElementsByClassName("product");
     for (let i = 0; i < products.length; i++) {
-        const productName = products[i].getElementsByTagName("h3")[0].textContent.toLowerCase();
-        products[i].style.display = productName.includes(query) ? "flex" : "none";
+        const productName = products[i]?.getElementsByTagName("h3")[0]?.textContent.toLowerCase();
+        (products[i] as HTMLElement).style.display = productName?.includes(query) ? "flex" : "none";
     }
 }
         
-function toggleProduct(button, name, price, type) {
-    const quantityInput = button.parentNode.querySelector("input");
-    let quantity = parseFloat(quantityInput.value) || 1;
-    
+function toggleProduct(button: HTMLElement, name: string, price: number, type: string) {
+    const quantityInput = button.parentNode?.querySelector("input") as HTMLInputElement;
+    let quantity: string | number = 0;
     if (type === "packaged") {
-        quantity = parseInt(quantity);
+        quantity = parseInt(quantityInput.value || "0");
     } else if (type === "loose") {
-        quantity = parseFloat(quantity).toFixed(3);
+        quantity = parseFloat(quantityInput.value || "0").toFixed(3);
     }
     
-    let buyList = JSON.parse(localStorage.getItem("buyList")) || [];
-    const index = buyList.findIndex(p => p.name === name);
+    let buyList = JSON.parse(localStorage.getItem("buyList") || "[]");
+    const index = buyList.findIndex((p: { name: string }) => p.name === name);
     
     if (index !== -1) {
         buyList.splice(index, 1);
@@ -133,7 +133,7 @@ function toggleProduct(button, name, price, type) {
 }
 
 function payNow() {
-    const total = document.getElementById("amountDisplay").textContent
+    const total = parseInt(document.getElementById("amountDisplay")?.textContent || "0");
     const upiID = "Q060474773@ybl"; // Replace with your PhonePe UPI ID
     const name = "Rongpur Daily Needs";
     const upiURL = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&am=${total}&cu=INR`;
@@ -145,9 +145,10 @@ function payNow() {
 }
 
 function downloadQR() {
-    const image = document.getElementById("qrImage");
-    const link = document.createElement("a");
-    link.href = image.src;
+    const image = document.getElementById("qrImage") as HTMLImageElement | null;
+    const link = document.createElement("a") as HTMLAnchorElement | null;
+    if (!image || !link) return;
+    link.href = image?.src;
     link.download = "Images/Q060474773.jpg";
     document.body.appendChild(link);
     link.click();
@@ -155,9 +156,9 @@ function downloadQR() {
 }
 
 function updateBuyListDisplay() {
-    const list = JSON.parse(localStorage.getItem("buyList")) || [];
+    const list = JSON.parse(localStorage.getItem("buyList") || "[]");
     console.log(list)
-    const container = document.getElementById("buyListDisplay");
+    const container = document.getElementById("buyListDisplay") as HTMLElement;
     container.innerHTML = "<h2>🛒 Your Buy List</h2>";
     
     if (list.length === 0) {
@@ -166,10 +167,10 @@ function updateBuyListDisplay() {
     }
     
     let total = 0;
-    container.innerHTML += "<ul>" + list.map(item => {
+    container.innerHTML += "<ul>" + list.map((item: { price: number; quantity: number; name: string }): string => {
         const subtotal = item.price * item.quantity;
         total += subtotal;
-        document.getElementById("amountDisplay").textContent = total;
+        document.getElementById("amountDisplay")!.textContent = total.toString();
         
 
         return `<li>${item.name} : ₹${item.price} × ${item.quantity} = ₹${subtotal}</li>`;
@@ -179,7 +180,7 @@ function updateBuyListDisplay() {
 function clearBuyList() {
     localStorage.removeItem("buyList");
     updateBuyListDisplay();
-    document.getElementById("amountDisplay").textContent = 0
+    document.getElementById("amountDisplay")!.textContent = "0";
     const buttons = document.getElementsByClassName("book-button");
     for (let btn of buttons) {
         btn.classList.remove("added");
@@ -188,12 +189,12 @@ function clearBuyList() {
 }
 
 function shareWhatsAppList() {
-    const list = JSON.parse(localStorage.getItem("buyList")) || [];
+    const list = JSON.parse(localStorage.getItem("buyList") || "[]");
     if (list.length === 0) return alert("Your Buy List is empty!");
     
     let total = 0;
     let message = "🛒 *Buy List*:\n";
-    list.forEach(item => {
+    list.forEach((item: { price: number; quantity: number; name: string }) => {
         const subtotal = item.price * item.quantity;
         total += subtotal;
         message += `• ${item.name} : ₹${item.price} × ${item.quantity} = ₹${subtotal}\n`;
