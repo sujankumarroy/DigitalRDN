@@ -129,7 +129,7 @@ function downloadQR() {
     if (!image || !link)
         return;
     link.href = image?.src;
-    link.download = "Images/Q060474773.jpg";
+    link.download = "/public/assets/images/Q060474773.jpg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
