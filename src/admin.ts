@@ -46,6 +46,17 @@ let key: string;
 
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
+productContainer.addEventListener("click", (e) => {
+    const target = e.target as HTMLButtonElement;
+    if (target.textContent === "Update") {
+        const index = target.dataset.prdtIndex;
+        if (index) openPopup(target, parseInt(index));
+    } else if (target.textContent === "Delete") {
+        const id = target.dataset.prdtId;
+        if (id) deleteData(parseInt(id));
+    }
+});
+
 pimg.addEventListener("click", () => {
     editPopup.style.display = "flex";
     imgPreview.src = pimg.src;
@@ -120,9 +131,9 @@ async function loadProducts() {
                 <p>Price: ₹${item.price}/${item.unit}</p>
             </div>
             <div>
-                <button class="book-button" onclick="openPopup(this, ${i})">Update</button>
+                <button id="btn-update-prdt" class="book-button" data-prdt-index="${i}">Update</button>
                 <br>
-                <button class="delete-btn book-button" onclick="deleteData('${item.id}')">Delete</button>
+                <button id="btn-delete-prdt" class="delete-btn book-button" data-prdt-id="${item.id}">Delete</button>
             </div>
         `;
         productContainer.appendChild(pcont);
