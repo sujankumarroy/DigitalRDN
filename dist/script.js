@@ -1,4 +1,4 @@
-"use strict";
+export {};
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/public/serviceworker.js');
