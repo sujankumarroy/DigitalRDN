@@ -1,11 +1,11 @@
-const APP_VERSION = "2.0.5";
+const APP_VERSION = "2.5.5";
 const CACHE_NAME = `drdn-${APP_VERSION}`;
 const STATIC_ASSETS = [
     '/',
-    '/index',
-    '/admin',
-    '/css/style.css',
-    '/css/admin.css',
+    '/public/index.html',
+    '/public/admin.html',
+    '/public/css/style.css',
+    '/public/css/admin.css',
     '/dist/script.js',
     '/dist/admin.js'
 ];
