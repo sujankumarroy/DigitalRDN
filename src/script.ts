@@ -41,6 +41,15 @@ closeBtns.forEach((btn) => {
   btn.addEventListener("click", () => closePopup());
 });
 
+document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    if (target.id !== "purchasemodel" && target.id !== "upiModal") return;
+    if (
+        (document.getElementById("upiModal") as HTMLElement).style.display === "block" ||
+        (document.getElementById("purchasemodel") as HTMLElement).style.display === "block"
+    ) closePopup();
+});
+
 async function loadProducts() {
     const loader = document.getElementById("loader") as HTMLElement;
     

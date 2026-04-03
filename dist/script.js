@@ -36,6 +36,14 @@ document.getElementById("products")?.addEventListener("click", (event) => {
 closeBtns.forEach((btn) => {
     btn.addEventListener("click", () => closePopup());
 });
+document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.id !== "purchasemodel" && target.id !== "upiModal")
+        return;
+    if (document.getElementById("upiModal").style.display === "block" ||
+        document.getElementById("purchasemodel").style.display === "block")
+        closePopup();
+});
 async function loadProducts() {
     const loader = document.getElementById("loader");
     loader.style.display = "flex";
