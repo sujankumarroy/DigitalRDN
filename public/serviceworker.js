@@ -1,4 +1,4 @@
-const APP_VERSION = "2.5.5";
+const APP_VERSION = "2.5.56";
 const CACHE_NAME = `drdn-${APP_VERSION}`;
 const STATIC_ASSETS = [
     '/',
@@ -12,6 +12,7 @@ const STATIC_ASSETS = [
 
 // Install: Cache all static files
 self.addEventListener("install", event => {
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             return cache.addAll(STATIC_ASSETS);
@@ -28,13 +29,22 @@ self.addEventListener("activate", (event) => {
             );
         })
     );
+    self.clients.claim();
 });
 
-// Fetch: Serve from cache first, then network
 self.addEventListener("fetch", (event) => {
+    if (event.request.method !== "GET") return;
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+        caches.match(event.request).then((cachedResponse) => {
+            const fetchPromise = fetch(event.request).then((networkResponse) => {
+                if (!networkResponse || networkResponse.status !== 200) return networkResponse;
+                const clone = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, clone);
+                });
+                return networkResponse;
+            });
+            return cachedResponse || fetchPromise;
         })
     );
 });
