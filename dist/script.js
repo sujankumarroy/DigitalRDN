@@ -42,18 +42,17 @@ async function loadProducts() {
     const res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-products");
     loader.style.display = "none";
     if (!res.ok) {
-        console.log(`HTTP error! status: ${res.status}`);
+        console.error(`HTTP error! status: ${res.status}`);
     }
     const result = await res.json();
     if (!result.success) {
-        console.log(result.error || "Unknown error occurred");
+        console.error(result.error || "Unknown error occurred");
     }
     const data = result.data;
     if (!data) {
         alert("Data not found");
         return;
     }
-    console.log(data);
     let buyList = JSON.parse(localStorage.getItem("buyList") || "[]");
     for (let i in data) {
         const item = data[i];
@@ -171,7 +170,6 @@ function downloadQR() {
 }
 function updateBuyListDisplay() {
     const list = JSON.parse(localStorage.getItem("buyList") || "[]");
-    console.log(list);
     const container = document.getElementById("buyListDisplay");
     container.innerHTML = "<h2>🛒 Your Buy List</h2>";
     if (list.length === 0) {

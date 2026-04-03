@@ -51,13 +51,13 @@ async function loadProducts() {
     loader.style.display = "none";
 
     if (!res.ok) {
-        console.log(`HTTP error! status: ${res.status}`);
+        console.error(`HTTP error! status: ${res.status}`);
     }
 
     const result = await res.json();
 
     if (!result.success) {
-        console.log(result.error || "Unknown error occurred");
+        console.error(result.error || "Unknown error occurred");
     }
     
     const data = result.data;
@@ -66,9 +66,7 @@ async function loadProducts() {
         alert("Data not found");
         return;
     }
-    
-    console.log(data);
-    
+
     let buyList = JSON.parse(localStorage.getItem("buyList") || "[]");
     
     for (let i in data) {
@@ -196,7 +194,6 @@ function downloadQR() {
 
 function updateBuyListDisplay() {
     const list = JSON.parse(localStorage.getItem("buyList") || "[]");
-    console.log(list)
     const container = document.getElementById("buyListDisplay") as HTMLElement;
     container.innerHTML = "<h2>🛒 Your Buy List</h2>";
     
