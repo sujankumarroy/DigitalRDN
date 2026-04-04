@@ -41,6 +41,15 @@ closeBtns.forEach((btn) => {
   btn.addEventListener("click", () => closePopup());
 });
 
+document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    if (target.id !== "purchasemodel" && target.id !== "upiModal") return;
+    if (
+        (document.getElementById("upiModal") as HTMLElement).style.display === "block" ||
+        (document.getElementById("purchasemodel") as HTMLElement).style.display === "block"
+    ) closePopup();
+});
+
 async function loadProducts() {
     const loader = document.getElementById("loader") as HTMLElement;
     
@@ -51,13 +60,13 @@ async function loadProducts() {
     loader.style.display = "none";
 
     if (!res.ok) {
-        console.log(`HTTP error! status: ${res.status}`);
+        console.error(`HTTP error! status: ${res.status}`);
     }
 
     const result = await res.json();
 
     if (!result.success) {
-        console.log(result.error || "Unknown error occurred");
+        console.error(result.error || "Unknown error occurred");
     }
     
     const data = result.data;
@@ -66,9 +75,7 @@ async function loadProducts() {
         alert("Data not found");
         return;
     }
-    
-    console.log(data);
-    
+
     let buyList = JSON.parse(localStorage.getItem("buyList") || "[]");
     
     for (let i in data) {
@@ -93,7 +100,7 @@ async function loadProducts() {
                 <h3>${item.name}</h3>
                 <p>Price: ₹${item.price}/${item.unit}</p>
                 <p>${item.stock_quantity} ${item.unit}s are available.</p>
-                <input type="${item.type}" min="1" value="1" class="quantity-input"/>
+                <input name="quantity" type="${item.type}" min="1" value="1" class="quantity-input"/>
             </div>
             <button class="book-button ${isAdded ? 'added' : ''}" data-name="${item.name}" data-price="${item.price}" data-type="${item.type}">
                 ${isAdded ? 'Remove' : 'Add'}
@@ -196,7 +203,6 @@ function downloadQR() {
 
 function updateBuyListDisplay() {
     const list = JSON.parse(localStorage.getItem("buyList") || "[]");
-    console.log(list)
     const container = document.getElementById("buyListDisplay") as HTMLElement;
     container.innerHTML = "<h2>🛒 Your Buy List</h2>";
     
