@@ -57,6 +57,21 @@ productContainer.addEventListener("click", (e) => {
     }
 });
 
+document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    if (target.id !== "edit-popup" && target.id !== "addDialogue") return;
+    console.log(editPopup.style.display);
+    console.log(dialogue.style.display);
+    if (
+        editPopup.style.display === "flex" ||
+        dialogue.style.display === "flex"
+    ) {
+        editPopup.style.display = "none";
+        dialogue.style.display = "none";
+        console.log("done!")
+    }
+});
+
 pimg.addEventListener("click", () => {
     editPopup.style.display = "flex";
     imgPreview.src = pimg.src;

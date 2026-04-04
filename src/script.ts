@@ -100,7 +100,7 @@ async function loadProducts() {
                 <h3>${item.name}</h3>
                 <p>Price: ₹${item.price}/${item.unit}</p>
                 <p>${item.stock_quantity} ${item.unit}s are available.</p>
-                <input type="${item.type}" min="1" value="1" class="quantity-input"/>
+                <input name="quantity" type="${item.type}" min="1" value="1" class="quantity-input"/>
             </div>
             <button class="book-button ${isAdded ? 'added' : ''}" data-name="${item.name}" data-price="${item.price}" data-type="${item.type}">
                 ${isAdded ? 'Remove' : 'Add'}
