@@ -1,4 +1,4 @@
-export {}
+import { renderNavBar } from "./nav.js";
 
 const searchInput = document.getElementById("searchInput") as HTMLInputElement;
 const whatsappShare = document.getElementById("whatsapp-share") as HTMLButtonElement;
@@ -252,3 +252,4 @@ function shareWhatsAppList() {
 
 window.onload = updateBuyListDisplay;
 loadProducts();
+renderNavBar()
