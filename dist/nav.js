@@ -1,19 +1,18 @@
 function renderNavBar() {
     const navContainer = document.createElement("div");
+    const style = document.createElement("style");
     navContainer.id = "nav-container";
     navContainer.innerHTML = `
-        <div>Home</div>
-        <div>Profile</div>
+        <div id="home-tab">Home</div>
+        <div id="account-tab">Account</div>
     `;
-    document.body.append(navContainer);
-    console.log("added");
-    const style = document.createElement("style");
     style.textContent = `
         #nav-container {
             width: 100%;
             position:fixed;
             bottom:0;
             background-color: red;
+            border-radius: 10px 10px 0 0;
             display: flex;
             justify-content: space-around;
         }
@@ -24,9 +23,24 @@ function renderNavBar() {
             background-color: green;
             border-radius: 20px;
         }
+        #nav-container div:hover {
+            background-color: blue;
+            transform: scale(1.1);
+        }
     `;
+    document.body.append(navContainer);
     document.head.append(style);
-    console.log("style added");
+    initEvents();
+}
+function initEvents() {
+    const home = document.getElementById("home-tab");
+    const account = document.getElementById("account-tab");
+    home.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+    account.addEventListener("click", () => {
+        window.location.href = "profile.html";
+    });
 }
 export { renderNavBar };
 //# sourceMappingURL=nav.js.map
