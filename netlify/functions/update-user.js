@@ -16,8 +16,8 @@ export default async (request) => {
     }
 
     try {
-        const { email, password, name, phone } = await request.json();
-        const user = { email, name, phone };
+        const { email, password, name, picture, role } = await request.json();
+        const user = { name, picture, role };
 
         if (!email || !password) {
             return new Response(
@@ -26,15 +26,35 @@ export default async (request) => {
             );
         }
 
-        const { data, error } = await supabaseClient
+        const { data, error: fetchError } = await supabaseClient
             .from("users")
             .select("*")
             .eq("email", email)
             .eq("password", password)
 
-        if (error) {
+        if (fetchError) {
             return new Response(
-                JSON.stringify({ success: false, error: error.message }),
+                JSON.stringify({ success: false, error: fetchError.message }),
+                { status: 500, headers: defaultHeader() }
+            );
+        }
+
+        if (data.length === 0) {
+            return new Response(
+                JSON.stringify({ success: false, error: "user doesn't exist."}),
+                { status: 500, headers: defaultHeader() }
+            );
+        }
+
+        const { error: updateError } = await supabaseClient
+            .from("users")
+            .update(user)
+            .eq("email", email)
+            .eq("password", password);
+
+        if (updateError) {
+            return new Response(
+                JSON.stringify({ success: false, error: updateError.message }),
                 { status: 500, headers: defaultHeader() }
             );
         }
