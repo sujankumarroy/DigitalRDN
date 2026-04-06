@@ -27,7 +27,9 @@ export default async (request) => {
 
         const { data, error } = await supabaseClient
             .from("users")
-            .select("*");
+            .select("*")
+            .eq("email", email)
+            .eq("password", password);
 
         if (error) {
             return new Response(

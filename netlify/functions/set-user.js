@@ -29,7 +29,7 @@ export default async (request) => {
         const { data, error: fetchError } = await supabaseClient
             .from("users")
             .select("*")
-            .eq("email", email)
+            .eq("email", email);
 
         if (fetchError) {
             return new Response(
@@ -40,7 +40,7 @@ export default async (request) => {
 
         if (data.length > 1) {
             return new Response(
-                JSON.stringify({success: false, error: "already an account with this email address."}),
+                JSON.stringify({success: false, error: "An account already exist with this email address."}),
                 { status: 500, headers: defaultHeader() }
             );
         }
