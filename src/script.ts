@@ -251,5 +251,5 @@ function shareWhatsAppList() {
 }
 
 window.onload = updateBuyListDisplay;
+renderNavBar();
 loadProducts();
-renderNavBar()

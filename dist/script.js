@@ -218,6 +218,6 @@ function shareWhatsAppList() {
     window.open(whatsappUrl, "_blank");
 }
 window.onload = updateBuyListDisplay;
-loadProducts();
 renderNavBar();
+loadProducts();
 //# sourceMappingURL=script.js.map
