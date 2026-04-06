@@ -26,6 +26,25 @@ export default async (request) => {
             );
         }
 
+        const { data, error: fetchError } = await supabaseClient
+            .from("users")
+            .select("*")
+            .eq("email", email)
+
+        if (fetchError) {
+            return new Response(
+                JSON.stringify({success: false, error: fetchError.message}),
+                { status: 500, headers: defaultHeader() }
+            );
+        }
+
+        if (data.length > 1) {
+            return new Response(
+                JSON.stringify({success: false, error: "already an account with this email address."}),
+                { status: 500, headers: defaultHeader() }
+            );
+        }
+
         const { error } = await supabaseClient
             .from("users")
             .insert(user);

@@ -17,7 +17,7 @@ export default async (request) => {
 
     try {
         const { email, password, name, picture, role } = await request.json();
-        const user = { name, picture, role };
+        const user = { name, picture };
 
         if (!email || !password) {
             return new Response(
