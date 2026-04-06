@@ -3,8 +3,8 @@ function renderNavBar() {
     const style = document.createElement("style");
     navContainer.id = "nav-container";
     navContainer.innerHTML = `
-        <div id="home-tab">Home</div>
-        <div id="account-tab">Account</div>
+        <a id="home-tab" class="nav-item" href="/public/">Home</a>
+        <a id="profile-tab" class="nav-item" href="/public/profile.html">Profile</a>
     `;
     style.textContent = `
         #nav-container {
@@ -16,30 +16,41 @@ function renderNavBar() {
             display: flex;
             justify-content: space-around;
         }
-        #nav-container div {
+        .nav-item {
+            text-decoration: none;
+            color: inherit;
             padding: 10px;
             margin: 10px;
             font-size: 1.5rem;
             background-color: green;
             border-radius: 20px;
         }
-        #nav-container div:hover {
+        #nav-container a:hover {
             background-color: blue;
             transform: scale(1.1);
+        }
+        .active-nav-item {
+            background-color: yellow;
         }
     `;
     document.body.append(navContainer);
     document.head.append(style);
-    initEvents();
+    setActiveNav();
 }
-function initEvents() {
-    const home = document.getElementById("home-tab");
-    const account = document.getElementById("account-tab");
-    home.addEventListener("click", () => {
-        window.location.href = "index.html";
-    });
-    account.addEventListener("click", () => {
-        window.location.href = "profile.html";
+function setActiveNav() {
+    const navItems = document.querySelectorAll(".nav-item");
+    let currentPagePath = window.location.pathname; //.replace('.html', '');
+    console.log(currentPagePath);
+    currentPagePath = currentPagePath === '/public/index.html' ? '/public/' : currentPagePath;
+    console.log(currentPagePath);
+    navItems.forEach(item => {
+        const linkPath = item.getAttribute('href');
+        if (currentPagePath === linkPath) {
+            item.classList.add('active-nav-item');
+        }
+        else {
+            item.classList.remove('active-nav-item');
+        }
     });
 }
 export { renderNavBar };

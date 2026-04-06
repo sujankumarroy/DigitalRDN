@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+}
+
 header {
     background-color: rgb(24, 74, 48);
     color: white;

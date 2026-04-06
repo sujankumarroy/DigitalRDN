@@ -1,4 +1,4 @@
-export {};
+import { renderNavBar } from "./nav.js";
 const dialogue = document.getElementById("addDialogue");
 const dialogueTitle = document.getElementById("dialogueTitle");
 const psave = document.getElementById("psave");
@@ -354,4 +354,5 @@ async function checkPassword() {
         console.error(err);
     }
 }
+renderNavBar();
 //# sourceMappingURL=admin.js.map
