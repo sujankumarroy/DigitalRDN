@@ -13,7 +13,7 @@ function renderNavBar() {
             width: 100%;
             position:fixed;
             bottom:0;
-            background-color: red;
+            background-color: #2d6a4f;
             border-radius: 10px 10px 0 0;
             display: flex;
             justify-content: space-around;
