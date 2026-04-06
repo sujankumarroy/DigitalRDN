@@ -17,10 +17,16 @@ header {
     border-radius: 0 0 10px 10px;
 }
 
+header div {
+    display: flex;
+    flex-direction: row;
+}
+
 button {
     font-size: 1.025rem;
     width: auto;
     padding: 5px;
+    margin-right: 5px;
     border-radius: 7px;
     border: none;
 }

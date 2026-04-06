@@ -1,8 +1,8 @@
 import { renderNavBar } from "./nav.js";
 
-const btnSignUp = document.getElementById("btn-signup") as HTMLParagraphElement;
-const btnSignIn = document.getElementById("btn-signin") as HTMLParagraphElement;
-const btnSignOut = document.getElementById("btn-signout") as HTMLParagraphElement;
+const btnSignUp = document.getElementById("btn-signup") as HTMLButtonElement;
+const btnSignIn = document.getElementById("btn-signin") as HTMLButtonElement;
+const btnSignOut = document.getElementById("btn-signout") as HTMLButtonElement;
 
 const userName = document.getElementById("user-name") as HTMLParagraphElement;
 const userEmail = document.getElementById("user-email") as HTMLParagraphElement;
@@ -20,26 +20,36 @@ function initEvents() {
     btnSignOut.addEventListener("click", () => singOut());
 }
 
-function renderUserData() {
-    const user: user = getUser();
+function renderUserState() {
+    let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
+    if (Object.keys(user).length !== 0) {
+        btnSignUp.style.display = "none";
+        btnSignIn.style.display = "none";
+        btnSignOut.style.display = "block";
 
-    userName.textContent = user.name;
-    userEmail.textContent = user.email;
-    userPhoneN.textContent = user.phoneN
+        const user: user = getUser();
+        userName.textContent = user.name;
+        userEmail.textContent = user.email;
+        userPhoneN.textContent = user.phoneN;
+    } else {
+        btnSignUp.style.display = "block";
+        btnSignIn.style.display = "block";
+        btnSignOut.style.display = "none";
+
+        userName.textContent = "Unknown";
+        userEmail.textContent = "name@example.com";
+        userPhoneN.textContent = "+91 0000000000";
+    }
 }
 
 function signUp() {
     setUser();
-    btnSignUp.style.display = "block";
-    btnSignIn.style.display = "block";
-    btnSignOut.style.display = "none";
+    renderUserState();
 }
 
 function singOut() {
     localStorage.clear();
-    btnSignUp.style.display = "none";
-    btnSignIn.style.display = "none";
-    btnSignOut.style.display = "block";
+    renderUserState()
 }
 
 function setUser(): user {
@@ -54,10 +64,9 @@ function setUser(): user {
 
 function getUser(): user {
     let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
-    if (Object.keys(user).length === 0) user = setUser();
     return user;
 }
 
 renderNavBar();
 initEvents();
-renderUserData();
+renderUserState();

@@ -10,23 +10,33 @@ function initEvents() {
     btnSignIn.addEventListener("click", () => signUp());
     btnSignOut.addEventListener("click", () => singOut());
 }
-function renderUserData() {
-    const user = getUser();
-    userName.textContent = user.name;
-    userEmail.textContent = user.email;
-    userPhoneN.textContent = user.phoneN;
+function renderUserState() {
+    let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
+    if (Object.keys(user).length !== 0) {
+        btnSignUp.style.display = "none";
+        btnSignIn.style.display = "none";
+        btnSignOut.style.display = "block";
+        const user = getUser();
+        userName.textContent = user.name;
+        userEmail.textContent = user.email;
+        userPhoneN.textContent = user.phoneN;
+    }
+    else {
+        btnSignUp.style.display = "block";
+        btnSignIn.style.display = "block";
+        btnSignOut.style.display = "none";
+        userName.textContent = "Unknown";
+        userEmail.textContent = "name@example.com";
+        userPhoneN.textContent = "+91 0000000000";
+    }
 }
 function signUp() {
     setUser();
-    btnSignUp.style.display = "block";
-    btnSignIn.style.display = "block";
-    btnSignOut.style.display = "none";
+    renderUserState();
 }
 function singOut() {
     localStorage.clear();
-    btnSignUp.style.display = "none";
-    btnSignIn.style.display = "none";
-    btnSignOut.style.display = "block";
+    renderUserState();
 }
 function setUser() {
     const user = {
@@ -39,11 +49,9 @@ function setUser() {
 }
 function getUser() {
     let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
-    if (Object.keys(user).length === 0)
-        user = setUser();
     return user;
 }
 renderNavBar();
 initEvents();
-renderUserData();
+renderUserState();
 //# sourceMappingURL=profile.js.map
