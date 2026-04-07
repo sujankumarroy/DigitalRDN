@@ -16,7 +16,7 @@ type user = {
 
 function initEvents() {
     btnSignUp.addEventListener("click", () => signUp());
-    btnSignIn.addEventListener("click", () => signUp());
+    btnSignIn.addEventListener("click", async () => singIn());
     btnSignOut.addEventListener("click", () => singOut());
 }
 
@@ -47,9 +47,39 @@ function signUp() {
     renderUserState();
 }
 
+async function singIn() {
+    try {
+        const user = askCredential();
+        if (!user.email || !user.password) alert("Failed to login!\nEnter Email and Password properly.")
+
+        let res: Response = await fetch("http://localhost:8888/.netlify/functions/get-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+
+        if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
+        const { data, error } = await res.json();
+        if (error) console.error("error");
+        if (!data) console.log("No credential found with your email and password");
+        localStorage.setItem("rdnUser", JSON.stringify(data[0]));
+        renderUserState();
+    } catch(err) {
+        console.error(err);
+    }
+}
+
 function singOut() {
     localStorage.clear();
     renderUserState()
+}
+
+function askCredential() {
+    const credential = {
+        email: prompt("Enter your email address"),
+        password: prompt("Enter your Password")
+    }
+    return credential;
 }
 
 function setUser(): user {
