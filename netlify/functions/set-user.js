@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { getId } from '../../dist/utils.js';
 
 const supabaseClient = createClient(process.env.SUPABASE_DATABASE_URL, process.env.SUPABASE_ANON_KEY);
 
@@ -16,10 +17,11 @@ export default async (request) => {
     }
 
     try {
-        const { id, name, email, password } = await request.json();
+        const { name, email, password } = await request.json();
+        const id = getId(name);
         const user = { id, name, email, password };
 
-        if (!name || !email) {
+        if (!name || !email || !id) {
             return new Response(
                 JSON.stringify({success: false, error: "Invalid name and email"}),
                 { status: 500, headers: defaultHeader() }
@@ -28,7 +30,7 @@ export default async (request) => {
 
         const { data, error: fetchError } = await supabaseClient
             .from("users")
-            .select("*")
+            .select("id")
             .eq("email", email);
 
         if (fetchError) {
@@ -38,9 +40,9 @@ export default async (request) => {
             );
         }
 
-        if (data.length > 1) {
+        if (data.length >= 1) {
             return new Response(
-                JSON.stringify({success: false, error: "An account already exist with this email address."}),
+                JSON.stringify({ success: false, error: "An account already exist with this email address." }),
                 { status: 500, headers: defaultHeader() }
             );
         }

@@ -1,4 +1,4 @@
-export default function getId(name) {
+function getId(name) {
     const firstName = name.split(' ')[0] || "";
     if (!firstName)
         return "";
@@ -7,4 +7,5 @@ export default function getId(name) {
     const id = firstName + specialChar + randomNumber;
     return id;
 }
+export { getId };
 //# sourceMappingURL=utils.js.map

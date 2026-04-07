@@ -1,4 +1,4 @@
-export default function getId(name: string): string {
+function getId(name: string): string {
     const firstName: string = name.split(' ')[0] || "";
     if (!firstName) return "";
     const specialChar: string = "@";
@@ -6,3 +6,5 @@ export default function getId(name: string): string {
     const id: string = firstName + specialChar + randomNumber;
     return id;
 }
+
+export { getId };
