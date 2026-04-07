@@ -3,7 +3,7 @@ function getId(name) {
     if (!firstName)
         return "";
     const specialChar = "@";
-    const randomNumber = (Math.random() * 9000 + 1000);
+    const randomNumber = (Math.floor(Math.random()) * 9000 + 1000);
     const id = firstName + specialChar + randomNumber;
     return id;
 }

@@ -8,12 +8,6 @@ const userName = document.getElementById("user-name") as HTMLParagraphElement;
 const userEmail = document.getElementById("user-email") as HTMLParagraphElement;
 const userPhoneN = document.getElementById("user-phone") as HTMLParagraphElement;
 
-type user = {
-    name: string,
-    email: string,
-    phoneN: string
-}
-
 function initEvents() {
     btnSignUp.addEventListener("click", () => signUp());
     btnSignIn.addEventListener("click", async () => singIn());
@@ -27,10 +21,9 @@ function renderUserState() {
         btnSignIn.style.display = "none";
         btnSignOut.style.display = "block";
 
-        const user: user = getUser();
+        const user = getUser();
         userName.textContent = user.name;
         userEmail.textContent = user.email;
-        userPhoneN.textContent = user.phoneN;
     } else {
         btnSignUp.style.display = "block";
         btnSignIn.style.display = "block";
@@ -42,15 +35,40 @@ function renderUserState() {
     }
 }
 
-function signUp() {
-    setUser();
-    renderUserState();
+async function signUp() {
+    try {
+        const user = setUser();
+        if (!user.name || !user.email) {
+            alert("Must enter Name and Email");
+            return;
+        }
+
+        let res: Response = await fetch("http://localhost:8888/.netlify/functions/set-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+
+        if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
+        const { success, error } = await res.json();
+        if (error) {
+            console.error(error);
+            return;
+        }
+        localStorage.setItem("rdnUser", JSON.stringify(user));
+        renderUserState();
+    } catch(err) {
+        console.error(err);
+    }
 }
 
 async function singIn() {
     try {
         const user = askCredential();
-        if (!user.email || !user.password) alert("Failed to login!\nEnter Email and Password properly.")
+        if (!user.email || !user.password) {
+            alert("Failed to login!\nEnter Email and Password properly.");
+            return;
+        }
 
         let res: Response = await fetch("http://localhost:8888/.netlify/functions/get-user", {
             method: "POST",
@@ -60,8 +78,14 @@ async function singIn() {
 
         if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
         const { data, error } = await res.json();
-        if (error) console.error("error");
-        if (!data) console.log("No credential found with your email and password");
+        if (error) {
+            console.error(error);
+            return;
+        }
+        if (!data[0]) {
+            console.log("No credential found with your email and password");
+            return;
+        }
         localStorage.setItem("rdnUser", JSON.stringify(data[0]));
         renderUserState();
     } catch(err) {
@@ -82,17 +106,17 @@ function askCredential() {
     return credential;
 }
 
-function setUser(): user {
-    const user: user = {
-        name: prompt("what is your name?") || "Unknown",
-        email: prompt("what is your email address") || "name@example.com",
-        phoneN: prompt("what is your Phone Number?") || "+91 0000000000"
+function setUser() {
+    const user = {
+        name: prompt("what is your name?"),
+        email: prompt("what is your email address"),
+        password: prompt("Create your Password")
     }
     localStorage.setItem("rdnUser", JSON.stringify(user));
     return user;
 }
 
-function getUser(): user {
+function getUser() {
     let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
     return user;
 }

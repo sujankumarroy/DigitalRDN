@@ -19,7 +19,6 @@ function renderUserState() {
         const user = getUser();
         userName.textContent = user.name;
         userEmail.textContent = user.email;
-        userPhoneN.textContent = user.phoneN;
     }
     else {
         btnSignUp.style.display = "block";
@@ -30,15 +29,39 @@ function renderUserState() {
         userPhoneN.textContent = "+91 0000000000";
     }
 }
-function signUp() {
-    setUser();
-    renderUserState();
+async function signUp() {
+    try {
+        const user = setUser();
+        if (!user.name || !user.email) {
+            alert("Must enter Name and Email");
+            return;
+        }
+        let res = await fetch("http://localhost:8888/.netlify/functions/set-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+        if (!res.ok)
+            console.error(`Failed to Fetch. error: ${res.status}`);
+        const { success, error } = await res.json();
+        if (error) {
+            console.error(error);
+            return;
+        }
+        localStorage.setItem("rdnUser", JSON.stringify(user));
+        renderUserState();
+    }
+    catch (err) {
+        console.error(err);
+    }
 }
 async function singIn() {
     try {
         const user = askCredential();
-        if (!user.email || !user.password)
+        if (!user.email || !user.password) {
             alert("Failed to login!\nEnter Email and Password properly.");
+            return;
+        }
         let res = await fetch("http://localhost:8888/.netlify/functions/get-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -47,10 +70,14 @@ async function singIn() {
         if (!res.ok)
             console.error(`Failed to Fetch. error: ${res.status}`);
         const { data, error } = await res.json();
-        if (error)
-            console.error("error");
-        if (!data)
+        if (error) {
+            console.error(error);
+            return;
+        }
+        if (!data[0]) {
             console.log("No credential found with your email and password");
+            return;
+        }
         localStorage.setItem("rdnUser", JSON.stringify(data[0]));
         renderUserState();
     }
@@ -71,9 +98,9 @@ function askCredential() {
 }
 function setUser() {
     const user = {
-        name: prompt("what is your name?") || "Unknown",
-        email: prompt("what is your email address") || "name@example.com",
-        phoneN: prompt("what is your Phone Number?") || "+91 0000000000"
+        name: prompt("what is your name?"),
+        email: prompt("what is your email address"),
+        password: prompt("Create your Password")
     };
     localStorage.setItem("rdnUser", JSON.stringify(user));
     return user;
