@@ -1,5 +1,5 @@
 function renderNavBar() {
-    const { role } = JSON.parse(localStorage.getItem("rdnUser") || "");
+    const { role } = JSON.parse(localStorage.getItem("rdnUser") || "{}");
     const homeUrl = role === "admin" ? "/public/admin.html" : "/public/";
     const navContainer = document.createElement("div");
     const style = document.createElement("style");
