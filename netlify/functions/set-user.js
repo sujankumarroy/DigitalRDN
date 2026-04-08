@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { getId } from '../../dist/utils.js';
+import { getId } from '../../public/dist/utils.js';
 
 const supabaseClient = createClient(process.env.SUPABASE_DATABASE_URL, process.env.SUPABASE_ANON_KEY);
 
