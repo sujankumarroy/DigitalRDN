@@ -39,7 +39,7 @@ async function signUp() {
             alert("Must enter Name and Email");
             return;
         }
-        let res = await fetch("http://localhost:8888/.netlify/functions/set-user", {
+        let res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/set-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
@@ -68,7 +68,7 @@ async function singIn() {
             alert("Failed to login!\nEnter Email and Password properly.");
             return;
         }
-        let res = await fetch("http://localhost:8888/.netlify/functions/get-user", {
+        let res = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(credential)

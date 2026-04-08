@@ -4,10 +4,13 @@ const STATIC_ASSETS = [
     '/',
     '/public/index.html',
     '/public/admin.html',
+    '/public/profile.html',
     '/public/css/style.css',
     '/public/css/admin.css',
+    '/public/css/profile.css',
     '/dist/script.js',
-    '/dist/admin.js'
+    '/dist/admin.js',
+    '/dist/profile.js'
 ];
 
 // Install: Cache all static files

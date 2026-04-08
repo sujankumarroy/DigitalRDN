@@ -47,7 +47,7 @@ async function signUp() {
             return;
         }
 
-        let res: Response = await fetch("http://localhost:8888/.netlify/functions/set-user", {
+        let res: Response = await fetch("https://digitalrdn.netlify.app/.netlify/functions/set-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
@@ -78,7 +78,7 @@ async function singIn() {
             return;
         }
 
-        let res: Response = await fetch("http://localhost:8888/.netlify/functions/get-user", {
+        let res: Response = await fetch("https://digitalrdn.netlify.app/.netlify/functions/get-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(credential)
