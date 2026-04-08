@@ -7,6 +7,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+main {
+    max-width: 800px;
+    margin: auto;
+}
+
 header {
     background-color: #2d6a4f;
     color: white;
