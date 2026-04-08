@@ -13,7 +13,7 @@ const closeBtns = document.querySelectorAll(".close");
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/public/serviceworker.js');
+    navigator.serviceWorker.register('/serviceworker.js');
 }
 
 searchInput.addEventListener("keyup", () => filterProducts());
@@ -195,7 +195,7 @@ function downloadQR() {
     const link = document.createElement("a") as HTMLAnchorElement | null;
     if (!image || !link) return;
     link.href = image?.src;
-    link.download = "/public/assets/images/Q060474773.jpg";
+    link.download = "/assets/images/Q060474773.jpg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
