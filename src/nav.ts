@@ -1,12 +1,15 @@
 function renderNavBar() {
     const { role } = JSON.parse(localStorage.getItem("rdnUser") || "{}");
     const homeUrl = role === "admin" ? "/admin.html" : "/";
+    const viewAsTab = role === "admin" ? `<a id="view-as-tab" class="nav-item" href="/">View As</a>` : "";
+
     const navContainer = document.createElement("div");
     const style = document.createElement("style");
 
     navContainer.id = "nav-container";
     navContainer.innerHTML = `
         <a id="home-tab" class="nav-item" href="${homeUrl}">Home</a>
+        ${viewAsTab}
         <a id="profile-tab" class="nav-item" href="/profile.html">Profile</a>
     `;
 
@@ -45,8 +48,8 @@ function renderNavBar() {
 
 function setActiveNav() {
     const navItems = document.querySelectorAll(".nav-item");
-    let currentPagePath = window.location.pathname.replace('.html', '') + '.html';
-    currentPagePath = currentPagePath === '/index.html' ? '/' : currentPagePath;
+    let currentPagePath = window.location.pathname; //.replace('.html', '') + '.html';
+    currentPagePath = (currentPagePath === '/index.html' || currentPagePath === "") ? '/' : currentPagePath;
 
     navItems.forEach(item => {
         const linkPath = item.getAttribute('href');
