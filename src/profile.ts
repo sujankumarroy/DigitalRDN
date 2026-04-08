@@ -21,7 +21,7 @@ function renderUserState() {
         btnSignIn.style.display = "none";
         btnSignOut.style.display = "block";
 
-        const user = getUser();
+        const user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
         userName.textContent = user.name;
         userEmail.textContent = user.email;
     } else {
@@ -31,13 +31,17 @@ function renderUserState() {
 
         userName.textContent = "Unknown";
         userEmail.textContent = "name@example.com";
-        userPhoneN.textContent = "+91 0000000000";
     }
 }
 
 async function signUp() {
     try {
-        const user = setUser();
+        const user = {
+            name: prompt("what is your name?"),
+            email: prompt("what is your email address"),
+            password: prompt("Create your Password")
+        }
+
         if (!user.name || !user.email) {
             alert("Must enter Name and Email");
             return;
@@ -64,8 +68,12 @@ async function signUp() {
 
 async function singIn() {
     try {
-        const user = askCredential();
-        if (!user.email || !user.password) {
+        const credential = {
+            email: prompt("Enter your email address"),
+            password: prompt("Enter your Password")
+        }
+
+        if (!credential.email || !credential.password) {
             alert("Failed to login!\nEnter Email and Password properly.");
             return;
         }
@@ -73,7 +81,7 @@ async function singIn() {
         let res: Response = await fetch("http://localhost:8888/.netlify/functions/get-user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user)
+            body: JSON.stringify(credential)
         });
 
         if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
@@ -96,29 +104,6 @@ async function singIn() {
 function singOut() {
     localStorage.clear();
     renderUserState()
-}
-
-function askCredential() {
-    const credential = {
-        email: prompt("Enter your email address"),
-        password: prompt("Enter your Password")
-    }
-    return credential;
-}
-
-function setUser() {
-    const user = {
-        name: prompt("what is your name?"),
-        email: prompt("what is your email address"),
-        password: prompt("Create your Password")
-    }
-    localStorage.setItem("rdnUser", JSON.stringify(user));
-    return user;
-}
-
-function getUser() {
-    let user = JSON.parse(localStorage.getItem("rdnUser") || "{}");
-    return user;
 }
 
 renderNavBar();
