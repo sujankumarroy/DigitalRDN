@@ -1,7 +1,10 @@
 node_modules
 .env
 
-// tsc compiled
+# tsc compiled
 *.d.ts
 *.d.ts.map
 *.js.map
+
+# Local Netlify folder
+.netlify
