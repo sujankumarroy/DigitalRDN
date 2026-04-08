@@ -1,4 +1,4 @@
-export {};
+import { renderNavBar } from "./nav.js";
 const searchInput = document.getElementById("searchInput");
 const whatsappShare = document.getElementById("whatsapp-share");
 const btnPay = document.getElementById("btn-pay");
@@ -218,5 +218,6 @@ function shareWhatsAppList() {
     window.open(whatsappUrl, "_blank");
 }
 window.onload = updateBuyListDisplay;
+renderNavBar();
 loadProducts();
 //# sourceMappingURL=script.js.map

@@ -4,7 +4,7 @@
 }
 
 body {
-    padding: 10px;
+    font-family: Arial, sans-serif;
 }
 
 /* Background overlay */
@@ -194,11 +194,8 @@ body {
 }
 
 .loginBox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vmin;
+    max-width: 500px;
+    margin: auto;
     align-content: center;
     justify-content: center;
 }
@@ -368,4 +365,9 @@ body {
 
 #popup {
     min-height: 225px
+}
+
+#adminContent {
+    max-width: 800px;
+    margin: auto;
 }

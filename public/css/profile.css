@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+}
+
+header {
+    background-color: #2d6a4f;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+}
+
+button {
+    font-size: 1.025rem;
+    width: auto;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 7px;
+    border: none;
+}
+
+#btn-signout {
+    display: none;
+}
+
+section {
+    background-color: rgb(122, 237, 237);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+section:hover {
+    background-color: rgb(022, 137, 137);
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#user-name, #user-email, #user-phone {
+    padding: 5px;
+    font-size: 1.3rem;
+}
+
+#user-name {
+    font-size: 2rem;
+}
+
+#user-avater {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+#user-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#user-actions button {
+    margin: 10px 0;
+    width: auto;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+#user-actions button:hover {
+    background-color: rgb(24, 74, 48);
+    color: white;
+    cursor: pointer;
+}
+
+#history {
+    display: flex;
+
+}
+
+.product {
+    background-color: darkcyan;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+    align-items: center;
+}
+
+.product:hover {
+    background-color: rgb(122, 237, 237);
+}
+
+.prdt-info {
+    margin-top: 20px;
+    font-size: 1.3rem;
+}
+
+.prdt-price {
+    color: darkgreen;
+    font-size: 1.4rem;
+}
+
+.prdt-price span{
+    color: darkblue;
+    margin-left: 20px;
+}
+
+.prdt-mrp {
+    color: darkred;
+}
+
+#history img {
+    height: 200px;
+    width: 200px;
+    border-radius: 20px;
+}

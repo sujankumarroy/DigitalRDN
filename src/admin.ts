@@ -1,4 +1,4 @@
-export {}
+import { renderNavBar } from "./nav.js";
 
 const dialogue = document.getElementById("addDialogue") as HTMLElement;
 const dialogueTitle = document.getElementById("dialogueTitle") as HTMLElement;
@@ -428,3 +428,5 @@ async function checkPassword() {
         console.error(err);
     }
 }
+
+renderNavBar()
