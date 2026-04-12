@@ -12,32 +12,6 @@ const closeBtns = document.querySelectorAll(".close");
 
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
 
-// if ('serviceWorker' in navigator) {
-//     const registration = await navigator.serviceWorker.register('/serviceworker.js');
-
-//     const permission = await Notification.requestPermission();
-
-//     if (permission === 'granted') {
-//         console.log("Permission granted");
-
-//         const subscription = await registration.pushManager.subscribe({
-//             userVisibleOnly: true,
-//             applicationServerKey: urlBase64ToUint8Array("YOUR_PUBLIC_VAPID_KEY")
-//         });
-
-//         console.log("Subscription:", subscription);
-
-//         // 🔥 send to your backend (Netlify function)
-//         await fetch("https://digitalrdn.netlify.app/.netlify/functions/save-subscription", {
-//             method: "POST",
-//             body: JSON.stringify(subscription),
-//             headers: {
-//                 "Content-Type": "application/json"
-//             }
-//         });
-//     }
-// }
-
 searchInput.addEventListener("keyup", () => filterProducts());
 whatsappShare.addEventListener("click", () => shareWhatsAppList());
 btnPay.addEventListener("click", () => openPopup());
@@ -79,6 +53,13 @@ async function initPush() {
         const permission = await Notification.requestPermission();
 
         if (permission === 'granted') {
+            const existing = await registration.pushManager.getSubscription();
+
+            if (existing) {
+                console.log("Already subscribed");
+                return;
+            }
+
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array("BMU0gAB4vbMYuRBRSxQ_V7efI0sSuhjL5VkJE9jvCw7HQvc6-jjKeOQaIF07DvWV9luSJfiogHrTmOSscao4rA4")
@@ -137,18 +118,9 @@ async function loadProducts() {
     
     for (let i in data) {
         const item = data[i];
-        let isAdded = false;
-        
-        buyList.forEach((p: { name: string; }) => {
-            if (p.name === item.name) {
-                isAdded = true;
-            } else {
-                isAdded = false;
-            }
-            
-        });
-        
+        const isAdded = buyList.some((p: { name: string }) => p.name === item.name);
         const pcont = document.createElement("div");
+
         pcont.className = "product";
         pcont.id = item.id;
         pcont.innerHTML = `

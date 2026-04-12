@@ -57,6 +57,14 @@ self.addEventListener('push', event => {
 
     self.registration.showNotification(data.title, {
         body: data.body,
-        icon: '/icon.png'
+        icon: '/assets/icons/android-chrome-192x192.png'
     });
+});
+
+self.addEventListener('notificationclick', event => {
+    event.notification.close();
+
+    event.waitUntil(
+        clients.openWindow('/')
+    );
 });
