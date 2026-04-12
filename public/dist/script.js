@@ -55,7 +55,7 @@ async function initPush() {
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array("BMU0gAB4vbMYuRBRSxQ_V7efI0sSuhjL5VkJE9jvCw7HQvc6-jjKeOQaIF07DvWV9luSJfiogHrTmOSscao4rA4")
             });
-            await fetch("http://localhost:8888/.netlify/functions/save-subscription", {
+            await fetch("https://digitalrdn.netlify.app/.netlify/functions/save-subscription", {
                 method: "POST",
                 body: JSON.stringify(subscription),
                 headers: {
