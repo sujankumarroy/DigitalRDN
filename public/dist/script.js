@@ -9,9 +9,26 @@ const btnSend = document.getElementById("btn-send-utr");
 const btnPurchase = document.getElementById("btn-purchase");
 const closeBtns = document.querySelectorAll(".close");
 const root_path = "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/serviceworker.js');
-}
+// if ('serviceWorker' in navigator) {
+//     const registration = await navigator.serviceWorker.register('/serviceworker.js');
+//     const permission = await Notification.requestPermission();
+//     if (permission === 'granted') {
+//         console.log("Permission granted");
+//         const subscription = await registration.pushManager.subscribe({
+//             userVisibleOnly: true,
+//             applicationServerKey: urlBase64ToUint8Array("YOUR_PUBLIC_VAPID_KEY")
+//         });
+//         console.log("Subscription:", subscription);
+//         // 🔥 send to your backend (Netlify function)
+//         await fetch("https://digitalrdn.netlify.app/.netlify/functions/save-subscription", {
+//             method: "POST",
+//             body: JSON.stringify(subscription),
+//             headers: {
+//                 "Content-Type": "application/json"
+//             }
+//         });
+//     }
+// }
 searchInput.addEventListener("keyup", () => filterProducts());
 whatsappShare.addEventListener("click", () => shareWhatsAppList());
 btnPay.addEventListener("click", () => openPopup());
@@ -44,6 +61,34 @@ document.addEventListener("click", (event) => {
         document.getElementById("purchasemodel").style.display === "block")
         closePopup();
 });
+async function initPush() {
+    if ('serviceWorker' in navigator) {
+        const registration = await navigator.serviceWorker.register('/serviceworker.js');
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array("BMU0gAB4vbMYuRBRSxQ_V7efI0sSuhjL5VkJE9jvCw7HQvc6-jjKeOQaIF07DvWV9luSJfiogHrTmOSscao4rA4")
+            });
+            await fetch("http://localhost:8888/.netlify/functions/save-subscription", {
+                method: "POST",
+                body: JSON.stringify(subscription),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        }
+    }
+}
+initPush();
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
+    const rawData = atob(base64);
+    return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+}
 async function loadProducts() {
     const loader = document.getElementById("loader");
     loader.style.display = "flex";
