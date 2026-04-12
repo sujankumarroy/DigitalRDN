@@ -50,17 +50,8 @@
 
 ## 📩 Developer Information
 
-**👨‍💻 Developer:** [Sujan Roy](https://www.facebook.com/sujanroy0411)    
-**📧 Email:** [sujanroy63836@gmail.com](mailto:sujanroy63836@gmail.com)
-
----
-
-## 📍 Store Contact Information
-
-**Rongpur Daily Needs**    
-📍 Rongpur Part VI, Hailakandi 788163, Assam    
-📧 [ranjan78412@gmail.com](mailto:ranjan78412@gmail.com) 
-🕒 Mon–Sat: 6 AM – 9 PM    
+**👨‍💻 Developer:** [Sujan Roy](https://sujanroy.in)    
+**📧 Email:** [mr.sujan.kumar.roy@gmail.com](mailto:mr.sujan.kumar.roy@gmail.com)
 
 ---
 
