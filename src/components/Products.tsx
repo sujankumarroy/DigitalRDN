@@ -1,15 +1,24 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Product from "./Product";
 
 function Products() {
-  const product = {
-    name: "Amul",
-    price: 43,
-    unit: "kg",
-    stock_quantity: 5,
-    isAdded: true,
-    file_name: "surf-excel.jpg",
-  };
+  const [products, setProducts] = useState<product[]>([]);
+
+  useEffect(() => {
+    async function loadData() {
+      const res = await fetch(
+        "https://digitalrdn.netlify.app/.netlify/functions/get-products",
+      );
+      const { data } = await res.json();
+      console.log(data);
+      setProducts(data);
+    }
+
+    loadData();
+  }, []);
+
   return (
     <div className="my-5">
       <div>
@@ -20,7 +29,9 @@ function Products() {
         <div id="loader">
           <div className="loader"></div>
         </div>
-        <Product params={product} />
+        {products.map((product) => (
+          <Product params={product} />
+        ))}
       </div>
     </div>
   );

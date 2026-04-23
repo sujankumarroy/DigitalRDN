@@ -2,16 +2,6 @@
 
 import React, { useState } from "react";
 
-interface product {
-  name: string;
-  price: number;
-  unit: string;
-  stock_quantity?: number;
-  type?: string;
-  isAdded?: boolean;
-  file_name?: string;
-}
-
 function Product({ params }: { params: product }) {
   const [qty, setQty] = useState(1);
   const root_path =
