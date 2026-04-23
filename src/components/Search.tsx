@@ -4,7 +4,7 @@ function Search() {
   return (
     <div className="text-center mt-4">
       <input
-        className="w-[60%] max-w-100 px-2.5 py-3 border-s-gray-800 rounded-4xl "
+        className="w-[60%] max-w-100 px-2.5 py-3 border border-s-gray-800 rounded-4xl "
         type="text"
         id="searchInput"
         placeholder="Search for products..."

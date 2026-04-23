@@ -6,12 +6,15 @@ function Products() {
     name: "Amul",
     price: 43,
     unit: "kg",
+    stock_quantity: 5,
+    isAdded: true,
+    file_name: "surf-excel.jpg",
   };
   return (
-    <div>
+    <div className="my-5">
       <div>
-        <h2>Products Details</h2>
-        <h3>Issued Date: 11/06/2025</h3>
+        <p className="text-3xl">Products</p>
+        <p className="text-2xl">Issued Date: 11/06/2025</p>
       </div>
       <div id="products">
         <div id="loader">

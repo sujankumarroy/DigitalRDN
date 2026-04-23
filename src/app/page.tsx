@@ -9,7 +9,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <div className="min-h-100 pt-20 max-w-200 m-auto">
+      <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <Search />
         <BuyList />
         <Products />
