@@ -5,7 +5,7 @@ import Image from "next/image";
 function Header() {
   return (
     <header>
-      <div className="bg-green-700 flex items-center justify-center gap-5 p-2">
+      <div className="bg-green-900 flex items-center justify-center gap-5 p-2">
         <Image src={logo} alt="rdn logo" width={50} height={50} />
         <p className="text-3xl text-white">Rongpur Daily Needs</p>
       </div>

@@ -1,24 +1,25 @@
 import React from "react";
 
 function Footer() {
+  const footerBox = `mb-5 grow shrink basis-62.5 flex flex-col items-center justify-center`;
   return (
-    <footer className="bg-mist-900 text-white ">
-      <div className="footer-container">
+    <footer className="bg-mist-900 text-white px-40 py-10">
+      <div className=" max-w-300 m-auto flex flex-wrap justify-between">
         {/* <!-- About Section --> */}
-        <div className="footer-box">
-          <h3>Rongpur Daily Needs</h3>
-          <p>
+        <div className="mb-5 grow shrink basis-62.5 flex flex-col items-center justify-center">
+          <p className="text-2xl mb-4 ">Rongpur Daily Needs</p>
+          <p className="text-center mx-1.5">
             We provide affordable and trusted services to our Customers. Your
             satisfaction is our mission.
           </p>
-          <p className="copyright">
+          <p className="">
             &copy; 2025 Rongpur Daily Needs. All rights reserved.
           </p>
         </div>
 
         {/* <!-- Developer Info --> */}
-        <div className="footer-box" id="developer-box">
-          <h4>Developer</h4>
+        <div className={footerBox} id="developer-box">
+          <p className="text-2xl mb-4">Developer</p>
           <p>👨‍💻 Sujan Roy</p>
           <p>
             📧{" "}
@@ -45,8 +46,8 @@ function Footer() {
         </div>
 
         {/* <!-- Contact Info --> */}
-        <div className="footer-box">
-          <h4>Contact Us</h4>
+        <div className={footerBox}>
+          <p className="text-2xl mb-4">Contact Us</p>
           <p>📍 Rongpur Part VI, Hailakandi 788163, Assam</p>
           <p>
             📧{" "}
