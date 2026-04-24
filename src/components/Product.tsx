@@ -2,6 +2,7 @@
 
 import { addToCart, removeFromCart, updateCart } from "@/utils/Cart";
 import React, { useState } from "react";
+import { isatty } from "tty";
 
 interface props {
   setCart: SetCartType;
@@ -15,12 +16,14 @@ function Product({ setCart, params, isAdded }: props) {
   const { id, name, price, unit, stock_quantity, type, file_name } = params;
 
   const [qty, setQty] = useState(1);
-  const [btnContent, setBtncontent] = useState("Add");
-  const [btnColor, setBtnColor] = useState("bg-green-600");
+  const [btnContent, setBtncontent] = useState(isAdded ? "Remove" : "Add");
+  const [btnColor, setBtnColor] = useState(
+    isAdded ? "bg-red-600" : "bg-green-600",
+  );
 
-  function updateQuantity(qy: number) {
-    setQty(qy);
-    const cart = updateCart({ id, name, price, quantity: qy });
+  function updateQuantity(quantity: number) {
+    setQty(quantity);
+    const cart = updateCart({ id, name, price, quantity });
     setCart(cart);
   }
 
