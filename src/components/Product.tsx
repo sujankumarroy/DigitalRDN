@@ -1,13 +1,37 @@
 "use client";
 
+import { addToCart } from "@/utils/Cart";
 import React, { useState } from "react";
 
-function Product({ params }: { params: product }) {
+interface props {
+  params: ProductType;
+  isAdded: boolean;
+}
+
+function Product({ params, isAdded }: props) {
   const [qty, setQty] = useState(1);
+  const [btnContent, setBtncontent] = useState("Add");
+  const [btnColor, setBtnColor] = useState("bg-green-600");
+
+  function toggleCart(e: React.MouseEvent<HTMLButtonElement>) {
+    if (e.currentTarget.innerText === "Add") {
+      const { name, price, quantity } = e.currentTarget?.dataset;
+      addToCart({
+        name: name || "",
+        price: Number(price) || 0,
+        quantity: Number(quantity) || 1,
+      });
+      setBtncontent("Remove");
+      setBtnColor("bg-red-600");
+    } else {
+      setBtncontent("Add");
+      setBtnColor("bg-green-600");
+    }
+  }
+
   const root_path =
     "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
-  const { name, price, unit, stock_quantity, type, isAdded, file_name } =
-    params;
+  const { name, price, unit, stock_quantity, type, file_name } = params;
   return (
     <div className="border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5">
       <img
@@ -33,12 +57,14 @@ function Product({ params }: { params: product }) {
         />
       </div>
       <button
-        className={`px-3 py-2 bg-[#1b4332] text-white border-0 rounded-[5px] cursor-pointer ${isAdded ? "bg-red-600" : "bg-green-600"}`}
+        className={`px-3 py-2 bg-[#1b4332] text-white border-0 rounded-[5px] cursor-pointer ${btnColor}`}
         data-name={name}
         data-price={price}
         data-type={type}
+        data-quantity={qty}
+        onClick={(e) => toggleCart(e)}
       >
-        {isAdded ? "Remove" : "Add"}
+        {btnContent}
       </button>
     </div>
   );

@@ -1,4 +1,5 @@
-interface product {
+interface ProductType {
+  id?: number;
   name: string;
   price: number;
   unit: string;
@@ -6,7 +7,6 @@ interface product {
   min_stock?: number;
   stock_quantity?: number;
   type?: string;
-  isAdded?: boolean;
   file_name?: string;
   created_at?: string;
   updated_at?: string;

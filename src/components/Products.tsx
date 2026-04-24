@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product";
 
 function Products() {
-  const [products, setProducts] = useState<product[]>([]);
+  const [products, setProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
     async function loadData() {
@@ -30,7 +30,7 @@ function Products() {
           <div className="loader"></div>
         </div>
         {products.map((product) => (
-          <Product params={product} />
+          <Product key={product.id} params={product} isAdded={false} />
         ))}
       </div>
     </div>
