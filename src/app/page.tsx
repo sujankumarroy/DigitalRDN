@@ -2,7 +2,6 @@
 
 import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Products from "@/components/Products";
 import Search from "@/components/Search";
 import React, { useEffect, useState } from "react";
@@ -23,7 +22,6 @@ function Home() {
 
   return (
     <div>
-      <Header />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <Search />
         <Cart cart={cart} />
