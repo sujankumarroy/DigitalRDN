@@ -19,4 +19,15 @@ function removeFromCart(id: number) {
   return cart;
 }
 
-export { addToCart, removeFromCart };
+function updateCart(item: cartItemType) {
+  const cart: cartItemType[] = JSON.parse(
+    localStorage.getItem("rdn-cart") || "[]",
+  );
+  const index = cart.findIndex((i) => i.id === item.id);
+  cart[index] = item;
+  localStorage.setItem("rdn-cart", JSON.stringify(cart));
+  console.log("updated");
+  return cart;
+}
+
+export { addToCart, removeFromCart, updateCart };
