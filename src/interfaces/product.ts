@@ -1,5 +1,5 @@
 interface ProductType {
-  id?: number;
+  id: number;
   name: string;
   price: number;
   unit: string;
@@ -11,3 +11,12 @@ interface ProductType {
   created_at?: string;
   updated_at?: string;
 }
+
+interface cartItemType {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+type SetCartType = (cart: cartItemType[]) => void;

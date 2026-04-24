@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 
-function Products() {
+function Products({ setCart }: { setCart: SetCartType }) {
   const [products, setProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
@@ -12,7 +12,6 @@ function Products() {
         "https://digitalrdn.netlify.app/.netlify/functions/get-products",
       );
       const { data } = await res.json();
-      console.log(data);
       setProducts(data);
     }
 
@@ -29,9 +28,20 @@ function Products() {
         <div id="loader">
           <div className="loader"></div>
         </div>
-        {products.map((product) => (
-          <Product key={product.id} params={product} isAdded={false} />
-        ))}
+        {products.map((product) => {
+          const cart: cartItemType[] = JSON.parse(
+            localStorage.getItem("rdn-cart") || "[]",
+          );
+          const isAdded = cart.some((item) => item.id === product.id);
+          return (
+            <Product
+              setCart={setCart}
+              key={product.id}
+              params={product}
+              isAdded={isAdded}
+            />
+          );
+        })}
       </div>
     </div>
   );
