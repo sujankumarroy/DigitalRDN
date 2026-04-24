@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-export default function BuyList({ cart }: { cart: cartItemType[] }) {
+export default function Cart({ cart }: { cart: cartItemType[] }) {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (

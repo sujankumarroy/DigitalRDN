@@ -1,6 +1,6 @@
 "use client";
 
-import BuyList from "@/components/BuyList";
+import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Products from "@/components/Products";
@@ -26,7 +26,7 @@ function Home() {
       <Header />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <Search />
-        <BuyList cart={cart} />
+        <Cart cart={cart} />
         <Products setCart={setCart} />
       </div>
       <Footer />
