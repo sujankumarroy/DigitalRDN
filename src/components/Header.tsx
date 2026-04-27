@@ -25,14 +25,25 @@ function Header() {
           <Image src={logo} alt="rdn logo" width={50} height={50} />
           <p className="text-3xl text-white">Rongpur Daily Needs</p>
         </div>
-        <Image
-          width={60}
-          height={60}
-          alt="profile"
-          src={demoAvatar}
-          className="rounded-[50%]"
-          onClick={() => router.push("/profile")}
-        />
+        {false ? (
+          <Image
+            width={60}
+            height={60}
+            alt="profile"
+            src={demoAvatar}
+            className="rounded-[50%]"
+            onClick={() => {
+              if (pathname !== "/profile") router.push("/profile");
+            }}
+          />
+        ) : (
+          <button
+            className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
+            onClick={() => router.push("/signin")}
+          >
+            Sign In
+          </button>
+        )}
       </div>
     </header>
   );
