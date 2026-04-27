@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../public/icons/android-chrome-512x512.png";
 import demoAvatar from "../../public/images/demo-avater.jpg";
 import Image from "next/image";
@@ -9,6 +9,11 @@ import { usePathname, useRouter } from "next/navigation";
 function Header() {
   const router = useRouter();
   const pathname = usePathname();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("rdn-user") || "{}"));
+  }, []);
 
   return (
     <header>
@@ -25,17 +30,26 @@ function Header() {
           <Image src={logo} alt="rdn logo" width={50} height={50} />
           <p className="text-3xl text-white">Rongpur Daily Needs</p>
         </div>
-        {false ? (
-          <Image
-            width={60}
-            height={60}
-            alt="profile"
-            src={demoAvatar}
-            className="rounded-[50%]"
-            onClick={() => {
-              if (pathname !== "/profile") router.push("/profile");
-            }}
-          />
+        {Object.keys(user).length !== 0 ? (
+          pathname !== "/profile" ? (
+            <Image
+              width={60}
+              height={60}
+              alt="profile"
+              src={demoAvatar}
+              className="rounded-[50%]"
+              onClick={() => {
+                if (pathname !== "/profile") router.push("/profile");
+              }}
+            />
+          ) : (
+            <button
+              className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
+              onClick={() => localStorage.clear()}
+            >
+              Sign Out
+            </button>
+          )
         ) : (
           <button
             className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}

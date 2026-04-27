@@ -6,7 +6,14 @@ import Image from "next/image";
 function UserInfo() {
   const [name, setName] = useState("Unknown");
   const [email, setEmail] = useState("name@example.com");
-  const [avater, setAvatar] = useState("/images/demo-avater.jpg");
+  const [avater, setAvater] = useState("/images/demo-avater.jpg");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("rdn-user") || "{}");
+    if (user.name) setName(user.name);
+    if (user.email) setEmail(user.email);
+    if (user.avater) setAvater(user.avater);
+  }, []);
 
   return (
     <section className="bg-green-200 p-5 m-2.5 rounded-2xl hover:bg-green-300 flex items-center justify-around">
