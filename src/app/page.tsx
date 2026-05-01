@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 function Home() {
   const [signedIn, setSignedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [picture, setPicture] = useState("/images/demo-avater.jpg");
   const [cart, setCart] = useState<cartItemType[]>([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Home() {
     const savedUser = localStorage.getItem("rdn-user");
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        setPicture(JSON.parse(savedUser).picture);
         setSignedIn(true);
       } catch (error) {
         console.error("Invalid localUser data");
@@ -34,7 +34,7 @@ function Home() {
 
   return (
     <div>
-      <Header signedIn={signedIn} setSignedIn={setSignedIn} />
+      <Header signedIn={signedIn} setSignedIn={setSignedIn} picture={picture} />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <Search />
         <Cart cart={cart} />

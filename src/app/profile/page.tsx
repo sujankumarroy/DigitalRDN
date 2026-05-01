@@ -11,7 +11,7 @@ function Profile() {
   };
 
   const [signedIn, setSignedIn] = useState(false);
-  const [user, setUser] = useState(demoUser);
+  const [user, setUser] = useState<userType>(demoUser);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("rdn-user");
@@ -27,7 +27,11 @@ function Profile() {
 
   return (
     <>
-      <Header signedIn={signedIn} setSignedIn={setSignedIn} />
+      <Header
+        signedIn={signedIn}
+        setSignedIn={setSignedIn}
+        picture={user.picture || "/images/demo-avater.jpg"}
+      />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <div>
           <UserInfo user={signedIn ? user : demoUser} />

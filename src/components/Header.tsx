@@ -9,9 +9,11 @@ import { usePathname, useRouter } from "next/navigation";
 function Header({
   signedIn,
   setSignedIn,
+  picture,
 }: {
   signedIn: boolean;
   setSignedIn: (signedIn: boolean) => void;
+  picture: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -31,35 +33,30 @@ function Header({
           <Image src={logo} alt="rdn logo" width={50} height={50} />
           <p className="text-3xl text-white">Rongpur Daily Needs</p>
         </div>
-        {signedIn ? (
-          pathname !== "/profile" ? (
-            <Image
-              width={60}
-              height={60}
-              alt="profile"
-              src={demoAvatar}
-              className="rounded-[50%]"
-              onClick={() => {
-                if (pathname !== "/profile") router.push("/profile");
-              }}
-            />
-          ) : (
-            <button
-              className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
-              onClick={() => {
-                localStorage.removeItem("rdn-user");
-                setSignedIn(false);
-              }}
-            >
-              Sign Out
-            </button>
-          )
+        {signedIn && pathname !== "/profile" ? (
+          <Image
+            width={60}
+            height={60}
+            alt="profile"
+            src={demoAvatar}
+            className="rounded-[50%]"
+            onClick={() => {
+              if (pathname !== "/profile") router.push("/profile");
+            }}
+          />
         ) : (
           <button
-            className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
-            onClick={() => router.push("/signin")}
+            className={`border rounded-sm ${signedIn ? "bg-red-400" : "bg-blue-400"} p-2`}
+            onClick={() => {
+              if (signedIn) {
+                localStorage.removeItem("rdn-user");
+                setSignedIn(false);
+              } else {
+                router.push("/signin");
+              }
+            }}
           >
-            Sign In
+            {signedIn ? "Sign Out" : "Sign In"}
           </button>
         )}
       </div>
