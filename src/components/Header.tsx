@@ -45,7 +45,10 @@ function Header() {
           ) : (
             <button
               className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
-              onClick={() => localStorage.clear()}
+              onClick={() => {
+                localStorage.clear();
+                setUser({});
+              }}
             >
               Sign Out
             </button>
