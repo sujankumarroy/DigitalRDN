@@ -19,4 +19,16 @@ interface cartItemType {
   quantity: number;
 }
 
+type userType = {
+  created_at?: string;
+  email: string;
+  id?: string;
+  is_verified?: false;
+  name: string;
+  password?: string;
+  phone_number?: string;
+  picture?: string;
+  role?: string;
+};
+
 type SetCartType = (cart: cartItemType[]) => void;

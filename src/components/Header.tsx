@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../public/icons/android-chrome-512x512.png";
 import demoAvatar from "../../public/images/demo-avater.jpg";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
-function Header() {
+function Header({
+  signedIn,
+  setSignedIn,
+}: {
+  signedIn: boolean;
+  setSignedIn: (signedIn: boolean) => void;
+}) {
   const router = useRouter();
   const pathname = usePathname();
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("rdn-user") || "{}"));
-  }, []);
 
   return (
     <header>
@@ -30,7 +31,7 @@ function Header() {
           <Image src={logo} alt="rdn logo" width={50} height={50} />
           <p className="text-3xl text-white">Rongpur Daily Needs</p>
         </div>
-        {Object.keys(user).length !== 0 ? (
+        {signedIn ? (
           pathname !== "/profile" ? (
             <Image
               width={60}
@@ -46,8 +47,8 @@ function Header() {
             <button
               className={`border rounded-sm bg-blue-400 p-2 ${["/signin", "/signup"].includes(pathname) ? "invisible" : ""}`}
               onClick={() => {
-                localStorage.clear();
-                setUser({});
+                localStorage.removeItem("rdn-user");
+                setSignedIn(false);
               }}
             >
               Sign Out
