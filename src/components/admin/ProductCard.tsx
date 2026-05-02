@@ -1,11 +1,14 @@
 "use client";
 
-interface props {
+function ProductCard({
+  product,
+  setProductFormVisibility,
+  setProductFormData,
+}: {
   product: ProductType;
   setProductFormVisibility: (visibility: "hidden" | "") => void;
-}
-
-function ProductCard({ product, setProductFormVisibility }: props) {
+  setProductFormData: (data: ProductType) => void;
+}) {
   const root_path =
     "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
   const { id, name, price, unit, stock_quantity, type, file_name } = product;
@@ -33,9 +36,11 @@ function ProductCard({ product, setProductFormVisibility }: props) {
         <button
           className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-amber-400`}
           onClick={(e) => {
-            const product =
+            const product = JSON.parse(
               e.currentTarget.parentElement?.parentElement?.dataset.product ||
-              "{}";
+                "{}",
+            ) as ProductType;
+            setProductFormData(product);
             setProductFormVisibility("");
           }}
         >
