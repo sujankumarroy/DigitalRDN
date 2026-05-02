@@ -14,6 +14,13 @@ export async function POST(request: NextRequest) {
         { status: 401 },
       );
 
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: "password must be at least 6 characters!" },
+        { status: 400 },
+      );
+    }
+
     const db = await connectDb();
 
     const { data: existUser } = await db
@@ -25,13 +32,6 @@ export async function POST(request: NextRequest) {
     if (existUser) {
       return NextResponse.json(
         { error: "user already exists" },
-        { status: 400 },
-      );
-    }
-
-    if (password.length < 6) {
-      return NextResponse.json(
-        { error: "password must be at least 6 characters!" },
         { status: 400 },
       );
     }

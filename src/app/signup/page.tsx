@@ -2,8 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { Bars } from "react-loader-spinner";
 
 function SignUp() {
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +19,7 @@ function SignUp() {
         alert("Failed to signup!\nEnter Name, Email and Password properly.");
         return;
       }
+      setProcessing(true);
       let res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -23,11 +27,14 @@ function SignUp() {
       });
       if (!res.ok) console.log(`Failed to Fetch. error: ${res.status}`);
       const { user, error } = await res.json();
+      setProcessing(false);
       if (error) {
         console.log(error);
+        setError(error);
         return;
       }
       if (!user) {
+        setError("server error");
         return;
       }
       localStorage.setItem("rdn-user", JSON.stringify(user));
@@ -73,7 +80,12 @@ function SignUp() {
             type="password"
             placeholder="Confirm Password"
             className="border rounded-sm p-0.5 m-0.5"
-            onChange={(e) => setPasswordR(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setPasswordR(value);
+              if (password !== value) setError("Password not matched");
+              else setError("");
+            }}
           />
         </div>
         <p onClick={() => router.push("/signin")}>
@@ -84,13 +96,26 @@ function SignUp() {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            signUp();
-            console.log({ name, email, password, passwordR });
+            if (password.length >= 6) signUp();
+            else setError("password must be least 6 char");
           }}
           className="bg-green-400 hover:bg-green-600 rounded-lg w-full mt-5 p-2 "
+          disabled={processing ? true : false}
         >
-          Sign Up
+          {processing ? (
+            <div className="flex justify-center items-center">
+              <Bars
+                height={25}
+                color="blue"
+                ariaLabel="bars-loading"
+                visible={true}
+              />
+            </div>
+          ) : (
+            "Sign Up"
+          )}
         </button>
+        <p className={`text-red-500 `}>{error}</p>
       </form>
     </div>
   );
