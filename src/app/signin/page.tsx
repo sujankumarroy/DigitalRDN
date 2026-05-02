@@ -49,6 +49,7 @@ function SignIn() {
           <label className="text-lg text-left">Email</label>
           <input
             type="email"
+            autoComplete="email"
             placeholder="Email"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +59,7 @@ function SignIn() {
           <label className="text-lg text-left">Password</label>
           <input
             type="password"
+            autoComplete="current-password"
             placeholder="Password"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => setPassword(e.target.value)}

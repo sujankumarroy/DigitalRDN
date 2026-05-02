@@ -10,7 +10,6 @@ function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordR, setPasswordR] = useState("");
   const router = useRouter();
 
   async function signUp() {
@@ -51,6 +50,7 @@ function SignUp() {
           <label className="text-lg text-left">Name</label>
           <input
             type="text"
+            autoComplete="name"
             placeholder="Name"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => setName(e.target.value)}
@@ -60,6 +60,7 @@ function SignUp() {
           <label className="text-lg text-left">Email</label>
           <input
             type="email"
+            autoComplete="email"
             placeholder="Email"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => setEmail(e.target.value)}
@@ -69,6 +70,7 @@ function SignUp() {
           <label className="text-lg text-left">Password</label>
           <input
             type="password"
+            autoComplete="new-password"
             placeholder="Password"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => setPassword(e.target.value)}
@@ -78,11 +80,11 @@ function SignUp() {
           <label className="text-lg text-left">Confirm Password</label>
           <input
             type="password"
+            autoComplete="new-password"
             placeholder="Confirm Password"
             className="border rounded-sm p-0.5 m-0.5"
             onChange={(e) => {
               const value = e.target.value;
-              setPasswordR(value);
               if (password !== value) setError("Password not matched");
               else setError("");
             }}
