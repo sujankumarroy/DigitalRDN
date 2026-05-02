@@ -1,11 +1,22 @@
-import React from "react";
+interface ProductFormProps {
+  product?: ProductType;
+  onSubmit?: (data: ProductType) => void;
+  setProductFormVisibility: (visibility: "hidden" | "") => void;
+}
 
-function ProductForm() {
+function ProductForm({
+  product,
+  onSubmit,
+  setProductFormVisibility,
+}: ProductFormProps) {
   const inputStyle =
     "box-border w-full px-2 py-1.5 my-2 border border-[#ccc] rounded-lg text-[15px] transition-colors duration-200 focus:border-[#007bff] focus:outline-none";
   return (
     <div className="relative bg-white p-6 rounded-xl shadow-xl w-[90%] max-w-md">
-      <span className="absolute top-4 right-4 text-2xl font-bold text-gray-400 hover:text-black cursor-pointer transition-colors duration-200">
+      <span
+        onClick={() => setProductFormVisibility("hidden")}
+        className="absolute top-4 right-4 text-2xl font-bold text-gray-400 hover:text-black cursor-pointer transition-colors duration-200"
+      >
         &times;
       </span>
       <h2 className="text-center mb-5 text-2xl font-bold text-[#333]">

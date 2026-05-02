@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { RotatingLines } from "react-loader-spinner";
 
-function Products() {
+interface ProductsProps {
+  setProductFormVisibility: (visibility: "hidden" | "") => void;
+}
+
+function Products({ setProductFormVisibility }: ProductsProps) {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +48,13 @@ function Products() {
               localStorage.getItem("rdn-cart") || "[]",
             );
             const isAdded = cart.some((item) => item.id === product.id);
-            return <ProductCard key={product.id} product={product} />;
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                setProductFormVisibility={setProductFormVisibility}
+              />
+            );
           })
         )}
       </div>

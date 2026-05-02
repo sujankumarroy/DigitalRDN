@@ -2,9 +2,10 @@
 
 interface props {
   product: ProductType;
+  setProductFormVisibility: (visibility: "hidden" | "") => void;
 }
 
-function ProductCard({ product }: props) {
+function ProductCard({ product, setProductFormVisibility }: props) {
   const root_path =
     "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
   const { id, name, price, unit, stock_quantity, type, file_name } = product;
@@ -35,6 +36,7 @@ function ProductCard({ product }: props) {
             const product =
               e.currentTarget.parentElement?.parentElement?.dataset.product ||
               "{}";
+            setProductFormVisibility("");
           }}
         >
           Update
