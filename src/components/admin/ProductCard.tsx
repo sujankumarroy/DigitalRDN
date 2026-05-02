@@ -1,20 +1,17 @@
 "use client";
 
 interface props {
-  params: ProductType;
+  product: ProductType;
 }
 
-function ProductCard({ params }: props) {
+function ProductCard({ product }: props) {
   const root_path =
     "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
-  const { id, name, price, unit, stock_quantity, type, file_name } = params;
+  const { id, name, price, unit, stock_quantity, type, file_name } = product;
 
   return (
     <div
-      data-id={id}
-      data-name={name}
-      data-price={price}
-      data-type={type}
+      data-product={JSON.stringify(product)}
       className="border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5"
     >
       <img
@@ -31,16 +28,23 @@ function ProductCard({ params }: props) {
           {stock_quantity} {unit}s are available.
         </p>
       </div>
-      <button
-        className={`px-3 py-2 text-white border-0 rounded-[5px] cursor-pointer bg-amber-400`}
-      >
-        Update
-      </button>
-      <button
-        className={`px-3 py-2 text-white border-0 rounded-[5px] cursor-pointer bg-red-400`}
-      >
-        Delete
-      </button>
+      <div className="flex flex-col justify-center items-center">
+        <button
+          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-amber-400`}
+          onClick={(e) => {
+            const product =
+              e.currentTarget.parentElement?.parentElement?.dataset.product ||
+              "{}";
+          }}
+        >
+          Update
+        </button>
+        <button
+          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-red-400`}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

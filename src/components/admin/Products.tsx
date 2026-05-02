@@ -44,7 +44,7 @@ function Products() {
               localStorage.getItem("rdn-cart") || "[]",
             );
             const isAdded = cart.some((item) => item.id === product.id);
-            return <ProductCard key={product.id} params={product} />;
+            return <ProductCard key={product.id} product={product} />;
           })
         )}
       </div>
