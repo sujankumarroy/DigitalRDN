@@ -24,14 +24,14 @@ export async function POST(request: NextRequest) {
 
     if (existUser) {
       return NextResponse.json(
-        { message: "user already exists" },
+        { error: "user already exists" },
         { status: 400 },
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
-        { message: "password must be at least 6 characters!" },
+        { error: "password must be at least 6 characters!" },
         { status: 400 },
       );
     }
@@ -50,13 +50,13 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ message: error.message }, { status: 501 });
+      return NextResponse.json({ error: error.message }, { status: 501 });
     }
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json({ user }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: `register error ${error}` },
+      { error: `register error ${error}` },
       { status: 500 },
     );
   }
