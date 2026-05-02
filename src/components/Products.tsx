@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
+import Spinner from "./Spinner";
 
 function Products({ setCart }: { setCart: SetCartType }) {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
@@ -13,6 +15,7 @@ function Products({ setCart }: { setCart: SetCartType }) {
       );
       const { data } = await res.json();
       setProducts(data);
+      setLoading(false);
     }
 
     loadData();
@@ -28,20 +31,24 @@ function Products({ setCart }: { setCart: SetCartType }) {
         <div id="loader">
           <div className="loader"></div>
         </div>
-        {products.map((product) => {
-          const cart: cartItemType[] = JSON.parse(
-            localStorage.getItem("rdn-cart") || "[]",
-          );
-          const isAdded = cart.some((item) => item.id === product.id);
-          return (
-            <Product
-              setCart={setCart}
-              key={product.id}
-              params={product}
-              isAdded={isAdded}
-            />
-          );
-        })}
+        {loading ? (
+          <Spinner />
+        ) : (
+          products.map((product) => {
+            const cart: cartItemType[] = JSON.parse(
+              localStorage.getItem("rdn-cart") || "[]",
+            );
+            const isAdded = cart.some((item) => item.id === product.id);
+            return (
+              <Product
+                setCart={setCart}
+                key={product.id}
+                params={product}
+                isAdded={isAdded}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
