@@ -1,9 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
+import { Bars } from "react-loader-spinner";
 
 function SignIn() {
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -14,6 +17,7 @@ function SignIn() {
         alert("Failed to login!\nEnter Email and Password properly.");
         return;
       }
+      setProcessing(true);
       let res = await fetch(
         "https://digitalrdn.netlify.app/.netlify/functions/get-user",
         {
@@ -24,16 +28,17 @@ function SignIn() {
       );
       if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
       const { data, error } = await res.json();
+      setProcessing(false);
       if (error) {
         console.error(error);
+        setError(error.message);
         return;
       }
       if (!data[0]) {
-        console.log("No credential found with your email and password");
+        setError("No credential found with your email and password");
         return;
       }
       localStorage.setItem("rdn-user", JSON.stringify(data[0]));
-      alert("succesfully signed in");
       router.push("/");
     } catch (err) {
       console.error(err);
@@ -71,10 +76,23 @@ function SignIn() {
             e.preventDefault();
             singIn();
           }}
-          className="bg-green-400 hover:bg-green-600 rounded-lg w-full mt-5 p-2 "
+          className="bg-green-400 hover:bg-green-600 rounded-lg w-full h-10 mt-5 p-2 "
+          disabled={processing ? true : false}
         >
-          Sign In
+          {processing ? (
+            <div className="flex justify-center items-center">
+              <Bars
+                height={25}
+                color="blue"
+                ariaLabel="bars-loading"
+                visible={true}
+              />
+            </div>
+          ) : (
+            "Sign In"
+          )}
         </button>
+        <p className={`text-red-500 ${error ? "" : "invisibled"}`}>{error}</p>
       </form>
     </div>
   );
