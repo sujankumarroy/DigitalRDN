@@ -18,27 +18,24 @@ function SignIn() {
         return;
       }
       setProcessing(true);
-      let res = await fetch(
-        "https://digitalrdn.netlify.app/.netlify/functions/get-user",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        },
-      );
-      if (!res.ok) console.error(`Failed to Fetch. error: ${res.status}`);
-      const { data, error } = await res.json();
+      let res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) console.log(`Failed to Fetch. error: ${res.status}`);
+      const { user, error } = await res.json();
       setProcessing(false);
       if (error) {
-        console.error(error);
+        console.log(error);
         setError(error.message);
         return;
       }
-      if (!data[0]) {
+      if (!user) {
         setError("No credential found with your email and password");
         return;
       }
-      localStorage.setItem("rdn-user", JSON.stringify(data[0]));
+      localStorage.setItem("rdn-user", JSON.stringify(user));
       router.push("/");
     } catch (err) {
       console.error(err);
