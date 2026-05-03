@@ -1,10 +1,12 @@
 "use client";
 
 function ProductCard({
+  setProductFormAction,
   product,
   setProductFormVisibility,
   setProductFormData,
 }: {
+  setProductFormAction: (action: "Add" | "Update") => void;
   product: ProductType;
   setProductFormVisibility: (visibility: "hidden" | "") => void;
   setProductFormData: (data: ProductType) => void;
@@ -40,6 +42,7 @@ function ProductCard({
               e.currentTarget.parentElement?.parentElement?.dataset.product ||
                 "{}",
             ) as ProductType;
+            setProductFormAction("Update");
             setProductFormData(product);
             setProductFormVisibility("");
           }}

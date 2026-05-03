@@ -5,9 +5,11 @@ import ProductCard from "./ProductCard";
 import { RotatingLines } from "react-loader-spinner";
 
 function Products({
+  setProductFormAction,
   setProductFormVisibility,
   setProductFormData,
 }: {
+  setProductFormAction: (action: "Add" | "Update") => void;
   setProductFormVisibility: (visibility: "hidden" | "") => void;
   setProductFormData: (data: ProductType) => void;
 }) {
@@ -50,6 +52,7 @@ function Products({
               <ProductCard
                 key={product.id}
                 product={product}
+                setProductFormAction={setProductFormAction}
                 setProductFormVisibility={setProductFormVisibility}
                 setProductFormData={setProductFormData}
               />

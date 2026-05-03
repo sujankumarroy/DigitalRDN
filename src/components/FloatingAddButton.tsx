@@ -1,13 +1,16 @@
-interface FloatingAddButtonProps {
-  setProductFormVisibility: (visibility: "hidden" | "") => void;
-}
-
 function FloatingAddButton({
+  setProductFormAction,
   setProductFormVisibility,
-}: FloatingAddButtonProps) {
+}: {
+  setProductFormAction: (action: "Add" | "Update") => void;
+  setProductFormVisibility: (visibility: "hidden" | "") => void;
+}) {
   return (
     <button
-      onClick={() => setProductFormVisibility("")}
+      onClick={() => {
+        setProductFormVisibility("");
+        setProductFormAction("Add");
+      }}
       className="fixed bottom-6 right-6 w-16 h-16 rounded-full 
       bg-gradient-to-r from-green-500 to-emerald-600 
       text-white shadow-xl 
