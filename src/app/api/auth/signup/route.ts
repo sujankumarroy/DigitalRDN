@@ -1,6 +1,7 @@
 import connectDb from "@/lib/db";
 import getId from "@/utils/getId";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -10,13 +11,13 @@ export async function POST(request: NextRequest) {
 
     if (!name || !email || !password || !id)
       return NextResponse.json(
-        { error: "name, email and password are required" },
+        { error: { message: "name, email and password are required" } },
         { status: 401 },
       );
 
     if (password.length < 6) {
       return NextResponse.json(
-        { error: "password must be at least 6 characters!" },
+        { error: { message: "password must be at least 6 characters!" } },
         { status: 400 },
       );
     }
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     if (existUser) {
       return NextResponse.json(
-        { error: "user already exists" },
+        { error: { message: "user already exists" } },
         { status: 400 },
       );
     }
@@ -50,14 +51,24 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 501 });
+      return NextResponse.json({ error }, { status: 501 });
     }
 
-    return NextResponse.json({ user }, { status: 201 });
+    const jwtSecret = process.env.JWT_SECRET as string;
+    const jwtToken = jwt.sign({ user_id: user.id }, jwtSecret, {
+      expiresIn: "30d",
+    });
+
+    const response = NextResponse.json({ user }, { status: 201 });
+    response.cookies.set("token", jwtToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 15,
+    });
+
+    return response;
   } catch (error) {
-    return NextResponse.json(
-      { error: `register error ${error}` },
-      { status: 500 },
-    );
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

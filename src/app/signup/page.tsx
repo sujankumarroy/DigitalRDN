@@ -29,7 +29,7 @@ function SignUp() {
       setProcessing(false);
       if (error) {
         console.log(error);
-        setError(error);
+        setError(error.message);
         return;
       }
       if (!user) {
