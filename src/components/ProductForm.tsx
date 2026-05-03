@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Bars } from "react-loader-spinner";
 
 type ProductFormState = {
   name: string;
@@ -12,10 +13,12 @@ type ProductFormState = {
 function ProductForm({
   productFormAction,
   productFormData,
+  productFormVisibility,
   setProductFormVisibility,
 }: {
   productFormAction: "Add" | "Update";
   productFormData?: ProductType;
+  productFormVisibility: string;
   setProductFormVisibility: (visibility: "hidden" | "") => void;
 }) {
   const emptyForm: ProductFormState = {
@@ -27,6 +30,8 @@ function ProductForm({
     min_stock: "",
   };
 
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const [form, setForm] = useState<ProductFormState>(emptyForm);
 
   const inputStyle =
@@ -44,10 +49,11 @@ function ProductForm({
       });
     }
 
-    if (productFormAction === "Add") {
+    if (productFormAction === "Add" || productFormVisibility === "hidden") {
       setForm(emptyForm);
+      setError("");
     }
-  }, [productFormAction, productFormData]);
+  }, [productFormAction, productFormData, productFormVisibility]);
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -61,7 +67,7 @@ function ProductForm({
       min_stock: Number(form.min_stock),
     };
 
-    console.log("Final Payload:", payload);
+    setProcessing(true);
 
     const res = await fetch("/api/product/update-product", {
       method: "POST",
@@ -72,11 +78,17 @@ function ProductForm({
         ...payload,
       }),
     });
+    setProcessing(false);
 
-    if (!res.ok) console.log(res.status);
-    const { product, error } = await res.json();
-    if (error) console.log(error);
-    console.log(product);
+    const { product, error: fetchError } = await res.json();
+
+    if (fetchError) {
+      console.log(fetchError);
+      setError(fetchError.message);
+      return;
+    }
+    console.log("responsed data", product);
+    setProductFormVisibility("hidden");
   };
 
   return (
@@ -155,8 +167,22 @@ function ProductForm({
         type="submit"
         className="w-full p-2 bg-[#007bff] text-white text-[16px] font-semibold rounded-lg hover:bg-[#0056b3]"
       >
-        {productFormAction}
+        {processing ? (
+          <div className="flex justify-center items-center">
+            <Bars
+              height={25}
+              color="white"
+              ariaLabel="bars-loading"
+              visible={true}
+            />
+          </div>
+        ) : (
+          productFormAction
+        )}
       </button>
+      <p className={`text-center text-red-500 ${error ? "" : "invisibled"}`}>
+        {error}
+      </p>
     </form>
   );
 }

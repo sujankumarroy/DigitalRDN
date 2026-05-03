@@ -30,6 +30,7 @@ function Admin() {
         className={`fixed inset-0 bg-black/40 flex items-center justify-center z-50 ${productFormVisibility}`}
       >
         <ProductForm
+          productFormVisibility={productFormVisibility}
           productFormAction={productFormAction}
           setProductFormVisibility={setProductFormVisibility}
           productFormData={productFormData}
