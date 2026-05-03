@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 function ProductCard({
   setProductFormAction,
   product,
@@ -15,10 +17,35 @@ function ProductCard({
     "https://kcksejyyjfgpcdmgtzrc.supabase.co/storage/v1/object/public/product_images/";
   const { id, name, price, unit, stock_quantity, type, file_name } = product;
 
+  const [deleteStatus, setDeleteStatus] = useState<
+    "delete" | "deleting.." | "deleted"
+  >("delete");
+
+  async function deleteProduct(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    const { id, is_active } = JSON.parse(
+      e.currentTarget.parentElement?.parentElement?.dataset.product || "{}",
+    ) as ProductType;
+    setDeleteStatus("deleting..");
+    const res = await fetch("/api/product/update-product", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, is_active: false, key: "04111434232007" }),
+    });
+    const { error } = await res.json();
+    setDeleteStatus("deleted");
+    if (error) {
+      console.error(error);
+      alert(error.message);
+    }
+    console.log("deleted");
+  }
+
   return (
     <div
       data-product={JSON.stringify(product)}
-      className="border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5"
+      className={`${deleteStatus === "deleted" ? "hidden" : ""} border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5`}
     >
       <img
         className="w-22 aspect-3/4 object-contain rounded-[5px]"
@@ -50,9 +77,10 @@ function ProductCard({
           Update
         </button>
         <button
+          onClick={deleteProduct}
           className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-red-400`}
         >
-          Delete
+          {deleteStatus}
         </button>
       </div>
     </div>
