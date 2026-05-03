@@ -49,7 +49,7 @@ function ProductForm({
     }
   }, [productFormAction, productFormData]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
     const payload: ProductType = {
@@ -62,6 +62,21 @@ function ProductForm({
     };
 
     console.log("Final Payload:", payload);
+
+    const res = await fetch("/api/product/update-product", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        key: "04111434232007",
+        id: productFormData?.id || null,
+        ...payload,
+      }),
+    });
+
+    if (!res.ok) console.log(res.status);
+    const { product, error } = await res.json();
+    if (error) console.log(error);
+    console.log(product);
   };
 
   return (
