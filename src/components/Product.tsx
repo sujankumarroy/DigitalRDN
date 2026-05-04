@@ -1,8 +1,8 @@
 "use client";
 
 import { addToCart, removeFromCart, updateCart } from "@/utils/Cart";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { isatty } from "tty";
 
 interface props {
   setCart: SetCartType;
@@ -21,8 +21,14 @@ function Product({ setCart, params, isAdded }: props) {
     isAdded ? "bg-red-600" : "bg-green-600",
   );
 
+  const router = useRouter();
+
   function updateQuantity(quantity: number) {
     setQty(quantity);
+    if (!id) {
+      console.error("invalid id");
+      return;
+    }
     const cart = updateCart({ id, name, price, quantity });
     setCart(cart);
   }
@@ -57,6 +63,7 @@ function Product({ setCart, params, isAdded }: props) {
       className="border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5"
     >
       <img
+        onClick={() => router.push(`/products/${id}`)}
         className="w-22 aspect-3/4 object-contain rounded-[5px]"
         src={root_path + file_name}
         alt={name}
