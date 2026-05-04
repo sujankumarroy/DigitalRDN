@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ product }, { status: 200 });
-  } catch (err) {
-    return NextResponse.json({ error: err }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

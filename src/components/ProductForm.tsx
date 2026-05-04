@@ -69,7 +69,7 @@ function ProductForm({
 
     setProcessing(true);
 
-    const res = await fetch("/api/product/update-product", {
+    const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

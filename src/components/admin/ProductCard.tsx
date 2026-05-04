@@ -28,7 +28,7 @@ function ProductCard({
       e.currentTarget.parentElement?.parentElement?.dataset.product || "{}",
     ) as ProductType;
     setDeleteStatus("deleting..");
-    const res = await fetch("/api/product/update-product", {
+    const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, is_active: false, key: "04111434232007" }),
