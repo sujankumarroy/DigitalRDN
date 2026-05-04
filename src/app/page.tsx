@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <div>
-      <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
+      <div>
         <Search />
         <Cart cart={cart} />
         <Products setCart={setCart} />

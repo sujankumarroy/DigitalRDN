@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Bars } from "react-loader-spinner";
@@ -9,6 +10,8 @@ function SignIn() {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setSignedIn } = useAuth();
+
   const router = useRouter();
 
   async function singIn() {
@@ -35,6 +38,7 @@ function SignIn() {
         setError("No credential found with your email and password");
         return;
       }
+      setSignedIn(true);
       localStorage.setItem("rdn-user", JSON.stringify(user));
       router.push("/");
     } catch (err) {
@@ -43,7 +47,7 @@ function SignIn() {
   }
 
   return (
-    <div className="min-h-100 pt-20 p-5 max-w-200 m-auto h-screen flex justify-center items-center text-center">
+    <div className="h-screen flex justify-center items-center text-center">
       <form className="w-100 border rounded-3xl p-3 px-10 bg-green-200">
         <div className="flex flex-col p-1">
           <label className="text-lg text-left">Email</label>

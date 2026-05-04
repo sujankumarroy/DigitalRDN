@@ -18,7 +18,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Header />
-          {children}
+          <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">{children}</div>
         </Providers>
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import UserInfo from "@/components/UserInfo";
+import { useAuth } from "@/context/AuthContext";
 
 function Profile() {
   const demoUser = {
@@ -9,7 +10,7 @@ function Profile() {
     email: "name@gmail.com",
   };
 
-  const [signedIn, setSignedIn] = useState(false);
+  const { signedIn, setSignedIn } = useAuth();
   const [user, setUser] = useState<userType>(demoUser);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function Profile() {
 
   return (
     <>
-      <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
+      <div>
         <div>
           <UserInfo user={signedIn ? user : demoUser} />
         </div>

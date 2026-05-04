@@ -18,8 +18,7 @@ function Admin() {
 
   return (
     <div>
-      <Header signedIn={signedIn} setSignedIn={setSignedIn} picture="" />
-      <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
+      <div>
         <Products
           setProductFormAction={setProductFormAction}
           setProductFormVisibility={setProductFormVisibility}
