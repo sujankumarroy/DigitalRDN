@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ProductCard({
   setProductFormAction,
@@ -42,10 +42,14 @@ function ProductCard({
     console.log("deleted");
   }
 
+  useEffect(() => {
+    if (!product.is_active) setDeleteStatus("deleted");
+  }, []);
+
   return (
     <div
       data-product={JSON.stringify(product)}
-      className={`${deleteStatus === "deleted" ? "hidden" : ""} border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5`}
+      className={`${deleteStatus === "deleted" || deleteStatus === "deleting.." ? "opacity-50" : ""} border border-[#ccc] p-4 my-4 bg-white rounded-lg flex items-center gap-5`}
     >
       <img
         className="w-22 aspect-3/4 object-contain rounded-[5px]"

@@ -2,6 +2,38 @@ import connectDb from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
+export async function GET(req: NextRequest) {
+  try {
+    const db = await connectDb();
+    let query = db.from("products").select("*");
+
+    const token = req.cookies.get("token")?.value;
+    try {
+      if (token) {
+        const jwtSecret = process.env.JWT_SECRET as string;
+        const payload = jwt.verify(token, jwtSecret);
+      } else {
+        throw new Error("Token not found");
+      }
+    } catch (error) {
+      query = query.eq("is_active", true);
+    }
+
+    const { data: products, error: err } = await query;
+
+    if (err) return NextResponse.json({ error: err }, { status: 500 });
+    if (products.length === 0) {
+      return NextResponse.json({
+        error: { message: "products are not available" },
+      });
+    }
+
+    return NextResponse.json({ data: products }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const token = req.cookies.get("token")?.value;

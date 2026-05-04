@@ -18,9 +18,7 @@ function Products({
 
   useEffect(() => {
     async function loadData() {
-      const res = await fetch(
-        "https://digitalrdn.netlify.app/.netlify/functions/get-products",
-      );
+      const res = await fetch("/api/products");
       const { data } = await res.json();
       setProducts(data);
       setLoading(false);

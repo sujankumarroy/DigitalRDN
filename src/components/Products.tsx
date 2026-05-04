@@ -10,9 +10,7 @@ function Products({ setCart }: { setCart: SetCartType }) {
 
   useEffect(() => {
     async function loadData() {
-      const res = await fetch(
-        "https://digitalrdn.netlify.app/.netlify/functions/get-products",
-      );
+      const res = await fetch("api/products");
       const { data } = await res.json();
       setProducts(data);
       setLoading(false);
@@ -47,6 +45,7 @@ function Products({ setCart }: { setCart: SetCartType }) {
           </div>
         ) : (
           products.map((product) => {
+            if (!product.is_active) return;
             const cart: cartItemType[] = JSON.parse(
               localStorage.getItem("rdn-cart") || "[]",
             );
