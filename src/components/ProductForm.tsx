@@ -68,17 +68,23 @@ function ProductForm({
     };
 
     setProcessing(true);
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: productFormData?.id || null,
-        ...payload,
-      }),
-    });
+    let res;
+    if (productFormAction === "Add") {
+      res = await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } else {
+      res = await fetch(`/api/products/${productFormData?.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    }
     setProcessing(false);
 
-    const { product, error: fetchError } = await res.json();
+    const { data: product, error: fetchError } = await res.json();
 
     if (fetchError) {
       console.log(fetchError);

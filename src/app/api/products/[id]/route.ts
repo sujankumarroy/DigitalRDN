@@ -60,7 +60,7 @@ export async function PUT(
     if (!token)
       return NextResponse.json(
         { error: { message: "jwt not found" } },
-        { status: 500 },
+        { status: 401 },
       );
 
     const jwtSecret = process.env.JWT_SECRET as string;
@@ -79,7 +79,7 @@ export async function PUT(
     if (!user) {
       return NextResponse.json(
         { error: { message: "unauthorized user" } },
-        { status: 400 },
+        { status: 401 },
       );
     }
 
