@@ -2,6 +2,54 @@ import connectDb from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
+) {
+  try {
+    const { id } = await context.params;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: { message: "missing path param (id)" } },
+        { status: 400 },
+      );
+    }
+
+    const token = req.cookies.get("token")?.value;
+    if (!token) {
+      return NextResponse.json(
+        { error: { message: "jwt not found" } },
+        { status: 401 },
+      );
+    }
+    const jwtSecret = process.env.JWT_SECRET as string;
+    const payload = jwt.verify(token, jwtSecret);
+
+    const db = await connectDb();
+    const { error, data: product } = await db
+      .from("products")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (error) {
+      return NextResponse.json({ error }, { status: 500 });
+    }
+
+    if (!product) {
+      return NextResponse.json(
+        { error: { message: "product not found" } },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ data: product }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
 export async function PATCH(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
@@ -12,15 +60,15 @@ export async function PATCH(
 
     if (!id) {
       return NextResponse.json(
-        { error: { message: "missing query param (id)" } },
-        { status: 402 },
+        { error: { message: "missing path param (id)" } },
+        { status: 400 },
       );
     }
 
     if (typeof is_active !== "boolean") {
       return Response.json(
         { error: { message: "is_active must be boolean" } },
-        { status: 400 },
+        { status: 401 },
       );
     }
 
