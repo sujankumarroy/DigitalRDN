@@ -1,11 +1,10 @@
 "use client";
 
-import Header from "@/components/Header";
 import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
 import Products from "@/components/Products";
 import Search from "@/components/Search";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Home() {
   const [signedIn, setSignedIn] = useState(false);
@@ -34,7 +33,6 @@ function Home() {
 
   return (
     <div>
-      <Header signedIn={signedIn} setSignedIn={setSignedIn} picture={picture} />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <Search />
         <Cart cart={cart} />

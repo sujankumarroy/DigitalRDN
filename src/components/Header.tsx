@@ -1,20 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
 import logo from "../../public/icons/android-chrome-512x512.png";
 import demoAvatar from "../../public/images/demo-avater.jpg";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
 
-function Header({
-  signedIn,
-  setSignedIn,
-  picture,
-}: {
-  signedIn: boolean;
-  setSignedIn: (signedIn: boolean) => void;
-  picture: string;
-}) {
+function Header() {
+  const { signedIn, setSignedIn, picture } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -63,5 +56,4 @@ function Header({
     </header>
   );
 }
-
 export default Header;

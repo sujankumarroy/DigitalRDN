@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import UserInfo from "../../components/UserInfo";
-import Header from "@/components/Header";
+import { useEffect, useState } from "react";
+import UserInfo from "@/components/UserInfo";
 
 function Profile() {
   const demoUser = {
@@ -27,11 +26,6 @@ function Profile() {
 
   return (
     <>
-      <Header
-        signedIn={signedIn}
-        setSignedIn={setSignedIn}
-        picture={user.picture || "/images/demo-avater.jpg"}
-      />
       <div className="min-h-100 pt-20 p-5 max-w-200 m-auto">
         <div>
           <UserInfo user={signedIn ? user : demoUser} />
