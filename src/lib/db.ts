@@ -15,13 +15,11 @@ if (!cached) {
 
 const connectDb = async () => {
   if (cached.client) {
-    console.log("cached supabase connected");
     return cached.client;
   }
 
   try {
     cached.client = createClient(supabaseUrl, supabaseKey);
-    console.log("supabase connected");
   } catch (error) {
     throw error;
   }

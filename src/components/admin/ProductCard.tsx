@@ -41,6 +41,7 @@ function ProductCard({
     if (error) {
       console.error(error);
       alert(error.message);
+      setActiveStatus(is_active ? "Delete" : "Restore");
     }
     dataset.product = JSON.stringify({ ...product, is_active: !is_active });
     setActiveStatus(is_active ? "Deleted" : "Restored");
@@ -50,6 +51,13 @@ function ProductCard({
   useEffect(() => {
     setActiveStatus(product.is_active ? "Delete" : "Restore");
   }, []);
+
+  useEffect(() => {
+    if (activeStatus === "Deleted")
+      setTimeout(() => setActiveStatus("Restore"), 5000);
+    if (activeStatus === "Restored")
+      setTimeout(() => setActiveStatus("Delete"), 5000);
+  }, [activeStatus]);
 
   return (
     <div
@@ -72,7 +80,7 @@ function ProductCard({
       </div>
       <div className="flex flex-col justify-center items-center">
         <button
-          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-amber-400`}
+          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-amber-400 hover:bg-amber-600`}
           onClick={(e) => {
             const product = JSON.parse(
               e.currentTarget.parentElement?.parentElement?.dataset.product ||
@@ -87,7 +95,7 @@ function ProductCard({
         </button>
         <button
           onClick={updateActiveState}
-          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-red-400`}
+          className={`px-3 py-2 my-2 w-20 text-white border-0 rounded-[5px] cursor-pointer bg-red-400 hover:bg-red-500`}
         >
           {activeStatus}
         </button>
