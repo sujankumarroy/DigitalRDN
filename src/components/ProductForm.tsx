@@ -68,12 +68,10 @@ function ProductForm({
     };
 
     setProcessing(true);
-
     const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        key: "04111434232007",
         id: productFormData?.id || null,
         ...payload,
       }),
