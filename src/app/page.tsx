@@ -1,0 +1,46 @@
+"use client";
+
+import Cart from "@/components/Cart";
+import Footer from "@/components/Footer";
+import Products from "@/components/Products";
+import Search from "@/components/Search";
+import { useEffect, useState } from "react";
+
+function Home() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [picture, setPicture] = useState("/images/demo-avater.jpg");
+  const [cart, setCart] = useState<cartItemType[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("rdn-cart");
+    if (saved) {
+      try {
+        setCart(JSON.parse(saved));
+      } catch (error) {
+        console.error("Invalid localCart data");
+      }
+    }
+    const savedUser = localStorage.getItem("rdn-user");
+    if (savedUser) {
+      try {
+        setPicture(JSON.parse(savedUser).picture);
+        setSignedIn(true);
+      } catch (error) {
+        console.error("Invalid localUser data");
+      }
+    }
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <Search />
+        <Cart cart={cart} />
+        <Products setCart={setCart} />
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default Home;
