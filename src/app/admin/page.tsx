@@ -2,12 +2,10 @@
 
 import Products from "@/components/admin/Products";
 import FloatingAddButton from "@/components/FloatingAddButton";
-import Header from "@/components/Header";
 import ProductForm from "@/components/ProductForm";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function Admin() {
-  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [productFormAction, setProductFormAction] = useState<"Add" | "Update">(
     "Add",
   );

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     let query = db.from("products").select("*");
 
     const token = req.cookies.get("token")?.value;
-    const payload = verifyJwt(token);
+    const payload = await verifyJwt(token);
     if (!payload) {
       query = query.eq("is_active", true);
     }

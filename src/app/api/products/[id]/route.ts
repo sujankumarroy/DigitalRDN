@@ -1,6 +1,5 @@
 import connectDb from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { verifyAdmin } from "@/lib/auth";
 
 export async function GET(
