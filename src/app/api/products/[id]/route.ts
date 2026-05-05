@@ -1,6 +1,7 @@
 import connectDb from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { verifyAdmin } from "@/lib/auth";
 
 export async function GET(
   req: NextRequest,
@@ -15,16 +16,6 @@ export async function GET(
         { status: 400 },
       );
     }
-
-    const token = req.cookies.get("token")?.value;
-    if (!token) {
-      return NextResponse.json(
-        { error: { message: "jwt not found" } },
-        { status: 401 },
-      );
-    }
-    const jwtSecret = process.env.JWT_SECRET as string;
-    const payload = jwt.verify(token, jwtSecret);
 
     const db = await connectDb();
     const { error, data: product } = await db
@@ -56,39 +47,16 @@ export async function PUT(
 ) {
   try {
     const token = req.cookies.get("token")?.value;
+    const admin = await verifyAdmin(token);
 
-    if (!token)
+    if (!admin) {
       return NextResponse.json(
-        { error: { message: "jwt not found" } },
-        { status: 401 },
-      );
-
-    const jwtSecret = process.env.JWT_SECRET as string;
-    const payload = jwt.verify(token, jwtSecret) as JwtPayload & {
-      user_id: string;
-    };
-
-    const db = await connectDb();
-    const { data: user, error: err } = await db
-      .from("users")
-      .select("*")
-      .eq("id", payload.user_id)
-      .maybeSingle();
-
-    if (err) return NextResponse.json({ error: err }, { status: 500 });
-    if (!user) {
-      return NextResponse.json(
-        { error: { message: "unauthorized user" } },
-        { status: 401 },
-      );
-    }
-
-    if (user.role !== "admin") {
-      return NextResponse.json(
-        { error: { message: "not allowed to update product" } },
+        { error: { message: "not authorized" } },
         { status: 403 },
       );
     }
+
+    const db = await connectDb();
 
     const { id } = await context.params;
     const { name, price, type, unit, stock_quantity, min_stock } =
@@ -150,14 +118,14 @@ export async function PATCH(
     }
 
     const token = req.cookies.get("token")?.value;
-    if (!token) {
+    const admin = await verifyAdmin(token);
+
+    if (!admin) {
       return NextResponse.json(
-        { error: { message: "jwt not found" } },
-        { status: 500 },
+        { error: { message: "not authorized" } },
+        { status: 403 },
       );
     }
-    const jwtSecret = process.env.JWT_SECRET as string;
-    const payload = jwt.verify(token, jwtSecret);
 
     const db = await connectDb();
     const { error, data } = await db
