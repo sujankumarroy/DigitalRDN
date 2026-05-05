@@ -1,48 +1,47 @@
-import { NextRequest } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import connectDb from "./db";
 
-function verifyJwt(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+function verifyJwt(token: string | undefined | null) {
   if (!token) return null;
-
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) throw new Error("jwt not found");
   try {
-    return jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload & {
+    return jwt.verify(token, jwtSecret) as JwtPayload & {
       user_id: string;
-      role?: string;
     };
   } catch {
     return null;
   }
 }
 
-async function verifyUser(req: NextRequest) {
-  const user = verifyJwt(req);
-  if (!user) return null;
+async function verifyUser(token: string | undefined | null) {
+  const payload = verifyJwt(token);
+  if (!payload) return null;
   const db = await connectDb();
   const { data, error } = await db
     .from("users")
-    .select("id")
-    .eq("id", user.user_id)
+    .select("is_active")
+    .eq("id", payload.user_id)
     .maybeSingle();
   if (error) return null;
   if (!data) return null;
-  return user;
+  if (!data.is_active) return null;
+  return payload;
 }
 
-async function verifyAdmin(req: NextRequest) {
-  const user = verifyJwt(req);
-  if (!user) return null;
+async function verifyAdmin(token: string | undefined | null) {
+  const payload = verifyJwt(token);
+  if (!payload) return null;
   const db = await connectDb();
   const { data, error } = await db
     .from("users")
     .select("role")
-    .eq("id", user.user_id)
+    .eq("id", payload.user_id)
     .maybeSingle();
   if (error) return null;
   if (!data) return null;
   if (data.role !== "admin") return null;
-  return user;
+  return payload;
 }
 
 export { verifyJwt, verifyUser, verifyAdmin };
