@@ -6,6 +6,9 @@ import Header from "../components/Header";
 export const metadata: Metadata = {
   title: "Rongpur Daily Needs",
   description: "Local Grocery Store",
+  verification: {
+    google: "k_IOBLpKndT-PkHgmwvsptd-QgnXQ3y14p3NDubybR8",
+  },
 };
 
 export default function RootLayout({
@@ -14,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html lang="en">
       <body>
         <Providers>
           <Header />
